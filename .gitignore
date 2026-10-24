@@ -1,0 +1,51 @@
+# Dependencies and build output
+node_modules/
+.next/
+.venv/
+venv/
+dist/
+build/
+coverage/
+
+# Private project data, credentials, uploads and local runtime
+.cache/
+.local/
+.env*
+!.env.example
+secrets/
+private/
+uploads/
+company-materials/
+*.pem
+*.key
+*.p12
+*.pfx
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+*.backup
+
+# Caches, logs and generated reports
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.tsbuildinfo
+*.log
+test-results/
+playwright-report/
+
+# Generated editor assets (recreated by project launchers)
+apps/web/public/vendor/
+apps/web/lib/editor-runtime.json
+apps/web/.next-ui-tests/
+
+# Machine-specific editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.tmp
+*.bak

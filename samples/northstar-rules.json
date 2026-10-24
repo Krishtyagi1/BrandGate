@@ -1,0 +1,20 @@
+{
+  "sample": true,
+  "brand": "Northstar Botanics",
+  "notice": "Fictional prototype material. Review and approve before activating. Not real company facts.",
+  "rules": [
+    {"type":"approved_fact","rule_key":"sample_brand_identity","value":"FICTIONAL SAMPLE: Northstar Botanics is a demonstration skincare brand. All products, prices and claims in this guideline are invented for prototype testing, not real company facts.","approved":false},
+    {"type":"product_name","rule_key":"sample_product_name","value":"Cloudberry Daily Cleanser","approved":false},
+    {"type":"approved_fact","rule_key":"sample_cleanser_price","value":"Cloudberry Daily Cleanser 150ml costs INR 799, effective 1 January 2026.","fact":{"kind":"price","entity":"Cloudberry Daily Cleanser","amount":"799","currency":"INR","unit":"150ml","effective_from":"2026-01-01"},"approved":false},
+    {"type":"approved_fact","rule_key":"sample_cleanser_benefit","value":"A gentle rinse-off cleanser that removes surface oil.","approved":false},
+    {"type":"approved_fact","rule_key":"sample_claim_limits","value":"No clinical trial results, medical treatment claims, guaranteed outcomes or competitor rankings are approved in this fictional sample.","approved":false},
+    {"type":"tone","rule_key":"sample_brand_voice","value":"Write in a calm, clear and helpful voice. Use short sentences and specific wording. Avoid fear, exaggerated promises, shouting and unnecessary urgency.","approved":false},
+    {"type":"prohibited_term","rule_key":"sample_avoid_miracle","value":"miracle","approved":false},
+    {"type":"prohibited_term","rule_key":"sample_avoid_guaranteed","value":"guaranteed","approved":false},
+    {"type":"prohibited_term","rule_key":"sample_avoid_treatment_claim","value":"cure acne","approved":false},
+    {"type":"required_disclaimer","rule_key":"sample_product_disclaimer","value":"Results vary. Read the product label before use.","approved":false},
+    {"type":"channel_instruction","rule_key":"sample_instagram_caption","scope_channel":"instagram","value":"Use a concise caption, one clear call to action and at most three relevant hashtags.","approved":false},
+    {"type":"channel_instruction","rule_key":"sample_accessibility","value":"Use descriptive link labels and plain language. Do not communicate essential meaning through emoji or colour alone. Supply meaningful alt text for informative images; image appearance requires human inspection.","approved":false},
+    {"type":"channel_instruction","rule_key":"sample_visual_reference","value":"Manual visual reference: teal #167569, ink #162841 on a light background, legible sans-serif type. Keep the wordmark proportional and readable; do not stretch it or use a busy background. Appearance requires human inspection.","approved":false}
+  ]
+}

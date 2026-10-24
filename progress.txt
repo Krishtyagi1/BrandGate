@@ -1,0 +1,123 @@
+BrandGate / Brand Content Review — project handoff
+Recorded: 24 October 2026
+Target source repository: https://github.com/Krishtyagi1/BrandGate
+
+PRODUCT
+A pre-publication review platform that compares company content with confirmed
+brand sources, explains findings and retains human control over corrections
+and approval. The white interface has three primary tabs: Rules, New review
+and Tracking. Settings holds team and external-processing controls.
+
+IMPLEMENTED
+- Email/password prototype accounts, organisations, roles and invitations.
+- Company PDF/DOCX sources and separate/embedded image references.
+- One-page Rules setup with selected checks, company expectations, literal
+  highlighted evidence, editable proposals and manual company guidance.
+- Explicit human confirmation before rules become authoritative. Overlapping
+  changes need replacement confirmation. An evolving visible version retains
+  immutable internal snapshots; an explicit new version starts empty.
+- Integrated coverage across sources. Missing, partial, unsupported and
+  unperformed checks are distinct; missing guidance is never a pass.
+- Email, social platforms, ads/visuals, website, document and other categories,
+  accessible information controls, selected checks and saved review tasks.
+- Text/DOCX/PDF/image review; local browser Word-style DOCX editing/export.
+- Exact terms, required wording and typed price checks with applicable dates;
+  bounded contextual AI and source/quote validation; persisted AG-UI progress.
+- Preview/redaction, owner processing consent, free-only OpenRouter routing
+  with ZDR/no-collection/schema requirements and no paid fallback.
+- Two suggested text corrections when safe output is available, explicit
+  application, saved revision history, comments and required rechecking.
+- Separate assigned reviewer workflow. Backend validates current revision,
+  knowledge snapshot, review scope and role. No automatic publishing.
+- Static-image dominant-palette evaluation and optional capability-checked
+  advisory vision. Images are evaluated only; pixels are never corrected.
+- Replayable per-account tutorial and isolated fictional Northstar example,
+  with unconfirmed sources, incorrect sample text/ad and no fake AI results.
+
+RECORDED VERIFICATION (LATEST IMPLEMENTATION CHECKPOINT)
+- Backend: 129 passed in 197.30 seconds.
+- Simplified workflow browser: 17 checks passed; four selected WCAG axe scans
+  with zero reported violations and zero browser runtime errors.
+- Collaboration/concurrency browser: 17 checks passed; four selected axe scans
+  with zero reported violations and zero browser runtime errors.
+- Actual Word-style editor: four checks passed (edit/save/download/reopen).
+- Representative DOCX round trip: nine fidelity assertions passed.
+- TypeScript, production build and API Ruff checks passed.
+- Offline labelled set: earlier run passed 23 cases; 27 contextual cases unrun.
+These are historical recorded local results. Documentation/publication work
+does not constitute a new application test run, independent human feedback,
+a universal Word-fidelity claim, a security audit or model-accuracy benchmark.
+Exact commands and limitations: docs/TEST_REPORT.md.
+
+LIVE AI STATUS AND LIMITS
+Earlier genuine synthetic text inference succeeded with reported zero cost.
+The latest source-intake probe was blocked by a free-model 429. The latest
+vision probe found no endpoint meeting free pricing, ZDR and schema requirements.
+A reliable complete live AI correction/recheck/approval sequence is unproven.
+No provider-policy downgrade, paid fallback or fabricated success was used.
+Exact price/term/required-wording checks and local palette observations can run
+without inference; contextual interpretation and generated corrections need an
+eligible available provider. The current API still requires key configuration
+and owner processing consent before starting a review.
+
+OTHER KNOWN LIMITS
+- PDF layout editing, image corrections and video review are unsupported.
+- Exact font identification and exhaustive accessibility certification are
+  unsupported; visual comparisons are advisory and require human interpretation.
+- Up to ten source uploads/version, 5 MB/file, 100 PDF pages and 200,000 extracted
+  source characters/file. Review text limit: 30,000 characters.
+- Source intake processes four text chunks/run and can resume partial work.
+- Up to twenty embedded images/source; optional vision is bounded to four
+  confirmed image references. Excess/invalid references are disclosed.
+- Contextual review sends up to 24 selected sources. Omitted contextual guidance
+  leaves the affected category incomplete. Code checks use applicable full rules.
+- Image text requires a verified transcript; pure visual checks do not.
+- Scoped assistant and recurring-error analytics are not implemented.
+- Prototype lacks production email ownership verification, password recovery,
+  encrypted hosted storage, deletion/retention workflows, malware scanning,
+  distributed job workers and public deployment configuration.
+- Local OCR depends on installed Windows OCR languages.
+- Four transitive AG-UI/Zod advisory entries were recorded at the prior audit;
+  there is no vulnerability-free claim. See EXTERNAL_COMPONENTS.md.
+
+CONFIDENTIALITY AND REPOSITORY CONTENTS
+The public source contains authored code, documentation, dependency lockfiles,
+licence notices and fictional samples only. Do not publish .env files, API keys,
+.local/runtime.json, accounts, database files, company uploads, private reports,
+dependencies or generated editor assets. These are excluded through .gitignore
+and the staged source inventory is checked before publication.
+Redaction can miss business secrets. Optional vision sends previewed original
+candidate/reference pixels unredacted. Free/ZDR routing settings are not a
+contractual confidentiality guarantee. Real materials need company permission.
+
+START AND DEMONSTRATE
+See README.md for setup and commands. Windows setup uses Node.js 22+ and Python
+3.12; run scripts/setup.ps1, copy .env.example to .env locally, set the key,
+then npm.cmd run dev. Ports: web3000, API8000, PostgreSQL54329. Avoid duplicate
+launchers. Dependencies, caches and runtime data stay inside the project.
+Help -> Try the fictional example -> inspect/confirm Rules -> open sample from
+Tracking -> select checks -> inspect outbound preview -> run -> correct/save/
+recheck -> submit to a distinct reviewer. During provider outages select exact
+text checks or local palette evaluation and disclose that no AI was involved.
+Detailed walkthrough: docs/DEMO_RUNBOOK.md.
+
+REMAINING SUBMISSION WORK
+1. Record a genuine user-feedback session and resulting changes.
+2. Demonstrate live contextual review and a safe rewrite when a permitted
+   free route is available, preserving provider failures and quota constraints.
+3. Provide a judge-accessible deployment or an accepted installation/live demo.
+4. Record a demonstration video/presentation if the event requires it.
+5. Supply truthful participant/contribution details in the event's format.
+6. Review production identity, storage, retention and dependency risks before
+   any deployment involving confidential materials.
+
+REFERENCE FILES AND LICENSING
+docs/ARCHITECTURE.md: technical architecture and durable authorization.
+docs/IMPLEMENTATION_STATUS.md: current and historical checkpoints.
+docs/DECISIONS.md: user-requested changes and technical departures.
+docs/TEST_REPORT.md and docs/AI_WORKFLOW_TEST_PLAN.md: results/specifications.
+docs/superpowers/: approved designs and implementation plans.
+EXTERNAL_COMPONENTS.md: reuse, APIs, licences and substantial Codex assistance.
+Application-authored source is AGPLv3. SuperDoc is AGPLv3, while its DOCX Engine
+dependency has separate proprietary terms; retain docs/licenses notices and
+review those terms for deployment. No contribution/research record is invented.

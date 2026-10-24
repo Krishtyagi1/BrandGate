@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+psycopg[binary]
+pwdlib[argon2]
+pydantic[email]
+python-multipart
+pypdf
+python-docx
+Pillow
+langgraph
+ag-ui-protocol
+httpx
+pytest
+ruff

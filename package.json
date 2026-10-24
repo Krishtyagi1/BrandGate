@@ -1,0 +1,32 @@
+{
+  "name": "inkloom-ai",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "db": "node scripts/database.mjs",
+    "api": "node scripts/api.mjs",
+    "build": "npm run build --workspace apps/web",
+    "typecheck": "npm run typecheck --workspace apps/web",
+    "test:api": "node scripts/test-api.mjs",
+    "test:e2e": "node scripts/test-simple-ui.mjs",
+    "eval:ai": "node scripts/eval-ai.mjs",
+    "test:editor": "node scripts/editor-probe.mjs",
+    "test:e2e:ai": "node scripts/test-ai-ui.mjs",
+    "test:e2e:simple": "node scripts/test-simple-ui.mjs"
+  },
+  "overrides": {
+    "pdfjs-dist": "5.4.296"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.56.1",
+    "embedded-postgres": "18.4.0-beta.17",
+    "pdfjs-dist": "5.4.296",
+    "pg": "8.16.3",
+    "prettier": "3.6.2"
+  }
+}
