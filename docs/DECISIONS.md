@@ -1,3 +1,63 @@
+## 25 October 2026 — user-selected North Mini Code
+
+The user selected `cohere/north-mini-code:free` and explicitly approved running
+it without a zero-data-retention guarantee, retaining the no-training filter,
+disclosing possible provider retention and requiring fresh owner consent.
+Only this exact model with `OPENROUTER_ALLOW_PROVIDER_RETENTION=true` drops ZDR.
+Other routes retain the existing ZDR requirement; zero prices and no fallback
+remain enforced. No paid-model adapter or credit purchase was needed for the
+successful synthetic probes. Earlier paid-model design remains unimplemented.
+
+North Mini advertises tools/tool_choice but no response_format. It receives one
+`emit_result` function schema. The app never executes tools: exactly one matching
+call with JSON arguments must pass the existing Pydantic validation, otherwise
+the run fails after at most one schema repair. Reasoning is excluded and never
+returned as review output. Text only; no North Mini vision capability is claimed.
+
+## 25 October 2026 — real model budget and credentials
+
+The user authorised installing the OpenRouter key server-side, then approved up
+to USD 1 for a working model and elected to add the minimum USD 5 prepaid balance
+personally in Safari. The prepaid purchase is separate from the inference cap.
+Keep privacy routing and owner processing consent. Current free-only model code
+is unchanged while payment/access is pending. An optional capped paid text-model
+design is documented; it is not yet implemented or deployed.
+
+## 25 October 2026 — deployment preparation and hosting budget
+
+Latest user instruction replaces the GCP target with AWS EC2 and Cloudflare at
+`buildgate.velox0.com`. Use a dedicated Mumbai `t4g.small`; leave existing
+`main` untouched. The user approved deployment within a USD 20/month hosting
+budget on 25 October, replacing the earlier credits-only restriction for this
+AWS deployment. AWS credits remain unverified. Host data stays on encrypted EBS;
+no inbound SSH or public DB.
+Use IMDSv2 with hop limit 1: only host SSM/artifact retrieval needs AWS metadata;
+the application containers require no AWS identity. Standard CPU credits avoid
+surplus credit billing. No reserved instances, savings commitment or paid tier
+upgrade. Source-only current code can be served for the AGPL source offer.
+
+The user requests a public deployment and restricts hosting to free/trial credits,
+with no paid upgrade. They asked for Railway, then reported their trial exhausted,
+then asked to use GCP credits and are switching to a credited Google account.
+Do not provision against an unverified billing account or claim a live link before
+public checks pass. No Railway/Render/GCP resources have been provisioned.
+
+The tested Docker package retains one Next.js public listener and a loopback API,
+with a separate restricted database runtime role, private persistent uploads where
+the host supports them, secure cookies and exact HTTPS origin checks. No production
+authentication or full security-audit claim is added. Existing source remains in
+this checkout; no fork, commit or push was made while platform access was changing.
+
+## 25 October 2026 — portable, credential-independent verification
+
+Continue the existing approved P0 plan in this checkout. Use platform-specific
+virtual-environment paths in browser launchers, consistent with the app launchers.
+Automated tests supply explicitly synthetic provider settings and block the default
+provider HTTP client; provider contract tests opt into mock transports. The local
+app retains its real key/consent gates. No test key is written into `.env`, no live
+AI result is fabricated and no P1 expansion is claimed. The previously recorded
+build-window authorization remains the basis for this maintenance work.
+
 ## 24 October 2026 — simplified source workflow (latest)
 
 - User explicitly authorised committing/pushing source to Krishtyagi1/BrandGate.

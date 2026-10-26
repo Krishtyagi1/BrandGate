@@ -1,3 +1,166 @@
+## Verified North Mini deployment — 25 October 2026
+
+Live at **https://buildgate.velox0.com** with explicit model
+`cohere/north-mini-code:free`, provider Cohere. The corrected public real-provider
+review **passed all five grouped checks**, completed with reported cost **0**,
+and returned the seeded deterministic price/unsupported-claim findings plus an
+AI tone advisory backed by an approved source. Current-policy consent was
+required; the old ZDR consent was rejected. Existing session and draft survived
+redeployment. No approval or publication was performed.
+
+Full backend suite **148 passed in 18.05s**; typecheck, production web build,
+Ruff, diff check and corrected ARM image build passed. The server's provider-file
+SHA-256 matches the tested local file. Runtime env remains root-only 0600. Private
+evidence: `north-public-review.json`, `north-rollout.json` and
+`north-real-repair-probe.json` in `.local/test-results/`.
+
+Artifact downloads initially received IAM propagation 403s; the bounded retry
+succeeded, then verified the full image SHA-256 before loading it. Launch-template
+default version **5** now fetches the corrected image and current source archive.
+No secrets are embedded in the template or image. Existing private key and data
+were preserved on the current host; a replacement host still needs key setup.
+
+Owners must enable the new policy in AI processing settings. No-training routing
+remains required; provider retention may apply, and ZDR is not claimed for North
+Mini. This is one synthetic live review, not a model-accuracy benchmark. North
+Mini is text-only; no real vision success is claimed. No paid model was enabled.
+
+## North Mini schema repair follow-up — 25 October 2026
+
+The first public real review safely remained incomplete: the model returned
+invalid category enum values, then prose during schema repair. Preserved the
+failed report as `north-public-review-initial.json`. Added explicit schema and
+function-call instructions to North Mini requests and kept repair in function
+transport. A new regression failed before the correction; full suite then
+**148 passed in 18.05s**. A real probe using that synthetic draft's outbound
+payload returned schema-valid claim/messaging findings through Cohere at cost 0.
+The correction is packaged for deployment; final public review is pending.
+
+## North Mini Code verification — 25 October 2026
+
+Real synthetic function-result adapter smoke: passed, actual model
+`cohere/north-mini-code:free`, provider Cohere, reported cost 0. Strict ZDR probe
+returned 404; the user explicitly approved provider retention with disclosure.
+
+Seven new regression tests failed before implementation and then passed. They
+cover function-result schema/transport, wrong/multiple/invalid calls, retention
+opt-in scope and rejection of old ZDR consent. Full API suite **147 passed in
+20.02s**. Typecheck, production build, Ruff, diff check and ARM Docker build passed.
+The scoped independent review found no important issues. Reports are private in
+`.local/test-results/north-*`; provider reasoning and credentials are excluded
+from app results. Public deployment verification is pending below.
+
+## AI environment verification — 25 October 2026
+
+- EC2 SSM command verified `runtime.env` mode 0600/root and presence of API key,
+  model, database migration URL, restricted-role password, HTTPS origin and port.
+- App restart succeeded; public health HTTP 200 with `ai_mode: configured`;
+  existing authenticated session and draft still returned HTTP 200.
+- Local key authentication HTTP 200; free quota 50 remaining. Real structured
+  free model probes returned 429 (Xing4) or no eligible endpoint 404 (three other
+  models). AWS Nova probes were blocked by zero daily inference quotas. These
+  failures are not successful model evaluations.
+- Paid-mode boundary test draft demonstrated current paid-model rejection:
+  147 passed/2 expected failures while exploring the optional change. Draft moved
+  to ignored local work pending funding/implementation; it is not shipped as a
+  failing regression suite. No paid provider code was implemented.
+- Fresh unchanged application suite: `npm run test:api` **140 passed in 21.40s**.
+  `git diff --check` passed; credential scan found no key in tracked/nonignored files.
+- Private evidence: `.local/test-results/deployed-ai-environment.json` and
+  `.local/test-results/paid-provider-red.log`. No credentials are in either report.
+
+# Fresh macOS verification — 25 October 2026
+
+## Public AWS deployment verification
+
+- `https://buildgate.velox0.com/api/health`: 200, `server: cloudflare`,
+  `cf-cache-status: DYNAMIC`, `Cache-Control: no-store, no-transform`.
+  Cloudflare is proxied with Full (strict) TLS; origin certificate validated
+  before origin firewall restriction. No TLS verification bypass used.
+- Public synthetic smoke: **10 checks passed**, including registration/login,
+  secure HttpOnly session, confirmed rule activation, DOCX upload/exact download,
+  draft save/read, non-disclosing cross-org 404, anonymous 401, hostile Origin 403,
+  exact source-only ZIP and session/draft/file retained after app restart.
+- First smoke expected cross-org 403 but the implementation deliberately returns
+  404. Inspected the backend contract and corrected the test's expected status;
+  the initial report is preserved. No permission check was loosened.
+- PostgreSQL mounted volume initially failed because its 0700 root belonged to
+  root. Assigning it to the image's database UID retained 0700 and restored startup.
+  A nonempty-volume reproduction passed three assertions. An initial empty named
+  volume probe did not reproduce because Docker populates its permissions; it is
+  not counted as a passing regression. An in-place script edit interrupted the
+  original bootstrap shell; the corrected script was rerun after it exited.
+- Live DB role privilege flags are all false (superuser, bypass RLS, create DB,
+  create role). Encrypted storage and restricted origin firewall are configured.
+- Full backend suite previously passed **140 tests**; application behavior did not
+  change during deployment. Caddy validation, Bash syntax, Ruff and diff checks pass.
+- The Mac retained an earlier missing-host DNS result. Public DNS resolves to
+  Cloudflare; smoke selected that published address explicitly and retained full
+  HTTPS hostname verification. `curl --doh-url` also reached the public service.
+- Reports remain ignored under `.local/test-results`. No live AI request was made;
+  cloud health accurately reports `ai_mode: unavailable` until a key is configured.
+
+## Hosted package verification
+
+- AWS EC2 dry-run: expected `DryRunOperation`, no instance created.
+  `deploy/ec2/start.sh` passes `bash -n`; Caddy configuration validates.
+  Actual EC2/Cloudflare public verification remains pending budget resolution.
+
+- Full backend suite including hosted startup: **140 passed in 22.59s**.
+- `docker build -t brandgate-hosted .`: passed (Python 3.12 and Node 22).
+- Actual container smoke on an isolated PostgreSQL database: secure HttpOnly
+  cookie; organisation/draft creation; exact DOCX upload and authorised download;
+  unauthenticated private download rejected; uploaded bytes unchanged after app
+  restart with mounted private storage. Five smoke assertions passed.
+- Internal API termination stopped the hosted container with exit status 1.
+  Missing hosted credentials failed before serving a public port.
+- Independent Docker-context probe found and then verified the fix for nested
+  `.env` exclusion. Root/nested synthetic credentials are absent from context.
+- API/startup Ruff and `git diff --check` passed. Docker logs/reports stay under
+  ignored `.local/test-results`. These checks are local; cloud deployment and
+  real-provider AI checks remain unverified.
+
+## Requested rerun — 25 October 2026
+
+- `npm run test:api`: **129 passed in 21.08s**.
+- `npm run typecheck`, API Ruff and `npm run build`: passed.
+- `npm run test:e2e:simple`: **17 passed**, synthetic provider.
+- `npm run test:e2e:ai`: **17 passed**, including concurrent-save safeguards;
+  both browser suites reported four clean selected axe scans and no runtime errors.
+- DOCX probe initially saved the paragraph but missed the table edit; no browser
+  runtime errors were reported. This first attempt overlapped the production
+  build; the cause is not established. Unchanged rerun after the build:
+  **4 editor checks and 9 fidelity assertions passed**. Keep this as an
+  intermittent test failure, not proof that it was fixed.
+- Offline evaluation: **23 passed, 0 failed, 27 not run** out of 50.
+- Local provider key remains empty; API reports `ai_mode: unavailable`.
+  The Safari-created key has not been saved locally. No live inference attempted.
+
+## Earlier setup verification
+
+- `npm ci` and Python 3.12 locked dependency installation succeeded.
+- `npm run test:api`: initially 112 passed/17 failed (missing live key in synthetic
+  fixtures); after test isolation fix, **129 passed in 19.82s**. Default provider
+  transport is blocked; contract tests use explicit synthetic HTTP transports.
+- `npm run typecheck`, `npm run build`, `.venv/bin/python -m ruff check services/api`
+  and `git diff --check`: passed.
+- `npm run test:e2e:simple`: initial Windows Python path failure, then missing
+  fixture credential; corrected both. Final **17 checks passed**, four clean
+  selected axe scans, zero runtime errors, synthetic provider only.
+- `npm run test:editor`: **4 passed**, no external requests/runtime errors;
+  `.venv/bin/python scripts/check-docx-roundtrip.py`: **9 passed**.
+- `npm run test:e2e:ai`: **17 passed**, including comments/history, exact revision
+  approval, dirty-buffer conflict protection, clean reviewer refresh and four
+  clean selected axe scans; zero browser runtime errors, synthetic provider only.
+- `npm run eval:ai -- --mode offline`: **23 passed, 0 failed, 27 not run**, 50 total.
+  Executed subset only; no overall model-accuracy claim.
+- Fresh local API `/api/health`: `ok`, `ai_mode: unavailable`; web `/login`: 200.
+  No key is configured and no live provider inference was attempted.
+- `npm audit --json`: four high entries (AG-UI client/encoder/proto and Zod),
+  `fixAvailable: false`. Report saved under ignored `.local/test-results`.
+- Playwright browser download completed but Node 26 extraction stalled; extracted
+  the matching official headless archive using Python before the passing tests.
+
 # Simplified workflow verification — 24 October 2026
 
 ## Latest results

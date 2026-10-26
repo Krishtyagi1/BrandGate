@@ -1,0 +1,14 @@
+.gcloudignore
+.git
+#!include:.gitignore
+**/.env
+**/.env.*
+**/.local
+**/.cache
+**/.venv
+**/node_modules
+**/__pycache__
+**/.next
+**/.next-ui-tests
+apps/web/public/vendor
+apps/web/lib/editor-runtime.json

@@ -5,7 +5,7 @@ from uuid import UUID
 from fastapi import APIRouter, HTTPException
 
 from privacy.redaction import redact
-from providers.openrouter import POLICY, POLICY_VERSION, settings
+from providers.openrouter import policy_version, routing_policy, settings
 from retrieval.approved_sources import evidence, retrieve
 
 from .config import LOCAL
@@ -42,7 +42,7 @@ def prepare_payload(version, rules, channel, context=None):
         "content": chunks[0],
         "channel": channel,
         "approved_sources": sources,
-        "policy_version": POLICY_VERSION,
+        "policy_version": policy_version(),
         "version_id": str(version["id"]),
         "model_selection": settings()["OPENROUTER_MODEL"],
     }
@@ -68,7 +68,7 @@ def prepare_payload(version, rules, channel, context=None):
 
 def require_consent(conn, org_id):
     row = conn.execute("SELECT * FROM ai_processing_consents WHERE org_id=%s", (org_id,)).fetchone()
-    if not row or not row["enabled"] or row["policy_version"] != POLICY_VERSION:
+    if not row or not row["enabled"] or row["policy_version"] != policy_version():
         raise HTTPException(
             409, "The owner must enable this external AI processing policy in Team & settings."
         )
@@ -99,8 +99,8 @@ def status(org_id: UUID, user=User):
     return {
         "configured": bool(settings()["OPENROUTER_API_KEY"]),
         "model": settings()["OPENROUTER_MODEL"],
-        "policy_version": POLICY_VERSION,
-        "routing_policy": POLICY,
+        "policy_version": policy_version(),
+        "routing_policy": routing_policy(),
         "consent": consent,
         "usage": usage,
         "synthetic_connection_test": smoke,
@@ -110,12 +110,12 @@ def status(org_id: UUID, user=User):
 
 @router.post("/consent")
 def consent(org_id: UUID, body: ConsentBody, user=User):
-    if body.policy_version != POLICY_VERSION:
+    if body.policy_version != policy_version():
         raise HTTPException(409, "Processing policy changed. Refresh before confirming.")
     with org_transaction(user, org_id, owner=True) as (conn, _):
         conn.execute(
             "INSERT INTO ai_processing_consents(org_id,approved_by,policy_version,enabled) VALUES (%s,%s,%s,%s) ON CONFLICT(org_id) DO UPDATE SET approved_by=excluded.approved_by,policy_version=excluded.policy_version,enabled=excluded.enabled,created_at=now()",
-            (org_id, user["id"], POLICY_VERSION, body.enabled),
+            (org_id, user["id"], policy_version(), body.enabled),
         )
         audit(
             conn,
@@ -124,6 +124,6 @@ def consent(org_id: UUID, body: ConsentBody, user=User):
             "ai.processing_policy_changed",
             "organisation",
             org_id,
-            {"enabled": body.enabled, "policy_version": POLICY_VERSION},
+            {"enabled": body.enabled, "policy_version": policy_version()},
         )
     return {"enabled": body.enabled}

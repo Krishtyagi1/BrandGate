@@ -10,6 +10,10 @@ export default function AiSettings({ org }: { org: Organisation }) {
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
     [confirmed, setConfirmed] = useState(false);
+  const retention = data?.policy_version.includes("-retention-");
+  const consentCurrent =
+    data?.consent?.enabled &&
+    data.consent.policy_version === data.policy_version;
   const base = `/organisations/${org.id}/ai`;
   useEffect(() => {
     api<AiStatus>(`${base}/status`)
@@ -41,16 +45,18 @@ export default function AiSettings({ org }: { org: Organisation }) {
       </div>
       {error && <Notice kind="error">{error}</Notice>}
       <p>
-        Documents are stored locally. AI reviews may send a redacted text
-        extract, selected approved rules, and explicitly previewed original
-        images to OpenRouter and its model provider.
+        Documents are stored on this app’s server. AI reviews may send a
+        redacted text extract, selected approved rules, and explicitly previewed
+        original images to OpenRouter and its model provider.
       </p>
       <p className="muted">
-        Free routes must meet zero pricing, no data collection and zero data
-        retention settings. These controls do not guarantee confidentiality.
-        Redaction can miss business secrets; inspect the outbound preview before
-        every review. Image pixels cannot be redacted: inspect candidate and
-        reference images before sending them.
+        {retention
+          ? "North Mini Code uses free routing with no-training requirements. Provider retention may apply; zero data retention is not guaranteed."
+          : "Free routes require zero pricing, no data collection and zero data retention settings."}{" "}
+        These controls do not guarantee confidentiality. Redaction can miss
+        business secrets; inspect the outbound preview before every review.
+        Image pixels cannot be redacted: inspect candidate and reference images
+        before sending them.
       </p>
       {data && (
         <>
@@ -63,11 +69,11 @@ export default function AiSettings({ org }: { org: Organisation }) {
           </p>
           <p>
             <strong>Processing:</strong>{" "}
-            {data.consent?.enabled ? "Enabled by the owner" : "Disabled"}. Model
+            {consentCurrent ? "Enabled by the owner" : "Disabled"}. Model
             selection: <code>{data.model}</code>
           </p>
           {org.role === "owner" &&
-            (data.consent?.enabled ? (
+            (consentCurrent ? (
               <button
                 className="button secondary"
                 disabled={busy}
@@ -91,7 +97,7 @@ export default function AiSettings({ org }: { org: Organisation }) {
                   disabled={busy || !confirmed}
                   onClick={() => change(true)}
                 >
-                  Enable protected free AI
+                  Enable external AI
                 </button>
               </>
             ))}

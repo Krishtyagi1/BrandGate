@@ -1,3 +1,195 @@
+## Verified North Mini deployment — 25 October 2026
+
+Live at **https://buildgate.velox0.com** with explicit model
+`cohere/north-mini-code:free`, provider Cohere. The corrected public real-provider
+review **passed all five grouped checks**, completed with reported cost **0**,
+and returned the seeded deterministic price/unsupported-claim findings plus an
+AI tone advisory backed by an approved source. Current-policy consent was
+required; the old ZDR consent was rejected. Existing session and draft survived
+redeployment. No approval or publication was performed.
+
+Full backend suite **148 passed in 18.05s**; typecheck, production web build,
+Ruff, diff check and corrected ARM image build passed. The server's provider-file
+SHA-256 matches the tested local file. Runtime env remains root-only 0600. Private
+evidence: `north-public-review.json`, `north-rollout.json` and
+`north-real-repair-probe.json` in `.local/test-results/`.
+
+Artifact downloads initially received IAM propagation 403s; the bounded retry
+succeeded, then verified the full image SHA-256 before loading it. Launch-template
+default version **5** now fetches the corrected image and current source archive.
+No secrets are embedded in the template or image. Existing private key and data
+were preserved on the current host; a replacement host still needs key setup.
+
+Owners must enable the new policy in AI processing settings. No-training routing
+remains required; provider retention may apply, and ZDR is not claimed for North
+Mini. This is one synthetic live review, not a model-accuracy benchmark. North
+Mini is text-only; no real vision success is claimed. No paid model was enabled.
+
+## North Mini schema repair follow-up — 25 October 2026
+
+The first public real review safely remained incomplete: the model returned
+invalid category enum values, then prose during schema repair. Preserved the
+failed report as `north-public-review-initial.json`. Added explicit schema and
+function-call instructions to North Mini requests and kept repair in function
+transport. A new regression failed before the correction; full suite then
+**148 passed in 18.05s**. A real probe using that synthetic draft's outbound
+payload returned schema-valid claim/messaging findings through Cohere at cost 0.
+The correction is packaged for deployment; final public review is pending.
+
+## North Mini Code redeployment — 25 October 2026
+
+User-selected `cohere/north-mini-code:free` passed a real adapter smoke through
+Cohere with reported cost 0. The user approved possible provider retention with
+no-training routing retained. Added narrowly scoped server opt-in, a new
+processing-policy version, fresh owner consent, settings/preview disclosure and
+schema-validated function-result transport. Arbitrary/wrong/multiple function
+calls and invalid arguments cannot become a pass; no model tools are executed.
+
+Fresh verification: **147 API tests passed in 20.02s**; seven new transport/privacy
+tests were first observed failing, then passed. Typecheck, production web build,
+Ruff, diff check and ARM Docker build passed. Focused independent read-only review
+reported no important findings. AWS image rollout and public live review follow.
+No model accuracy percentage or complete real-AI approval workflow is claimed.
+
+## AI environment follow-up — 25 October 2026
+
+Installed the user-authorised OpenRouter key into the ignored local `.env` (0600)
+and root-only EC2 `private/runtime.env` (0600). Transfer used a temporary SSM
+SecureString with exact-parameter role permission; both parameter and permission
+were removed after installation. No secret appeared in SSM command bodies,
+reports, source archives or Docker builds. Recreated the app to load environment.
+Verified all six required runtime fields present, public HTTPS health configured,
+and existing session/draft still accessible after restart.
+
+The key authenticates, has a USD 0 cap and expires 31 October 2026 UTC (1 November
+in India). Free quota metadata reported 50 remaining. Real structured synthetic
+requests: Xing4 returns HTTP 429 with upstream shared-pool throttling; Dots,
+Nemotron VL and Liquid reject free/ZDR/schema routing with HTTP 404. Safari
+credits shows an existing negative USD 0.20 account balance. No privacy filter
+was weakened. AWS Nova Micro/Lite probes also rejected daily quota; Mumbai quota
+inspection confirms zero inference quotas. No Bedrock integration was added.
+
+User approved up to USD 1 for model use and chose to add the USD 5 minimum
+OpenRouter credit balance in Safari. Payment and changing the key to a nonresetting
+USD 1 total cap remain user actions. Retest free routing after the account is
+funded before implementing the optional paid adapter design. That design is
+pending; current application still rejects paid models. No real AI success is
+claimed while provider access remains blocked.
+
+## Public AWS deployment — 25 October 2026
+
+Live URL: **https://buildgate.velox0.com** (Cloudflare proxy, Full strict TLS).
+
+- Dedicated Mumbai ARM `t4g.small`, standard CPU credits, encrypted 30 GiB gp3,
+  stable IPv4; existing unrelated instance unchanged. Management uses SSM.
+  Origin ports 80/443 accept only Cloudflare's official IPv4 ranges; SSH, database
+  and app ports are not public. Private runtime IDs stay in ignored deployment state.
+- User approved a USD 20/month hosting budget. Queried base components estimate
+  **USD 14.56/month** at 730 hours, before small S3 storage, traffic and taxes.
+  This is a usage estimate, not an automatic AWS spend cap. No commitments bought.
+- Actual public HTTPS smoke passed **10 checks**: health/noncached API, login page,
+  registration/login/secure cookie, human-confirmed rule activation, exact DOCX
+  upload/download, saved draft, cross-org/anonymous denial, cross-origin write
+  denial, source ZIP, and session/draft/upload retention after app restart.
+  TLS validation stayed enabled. The Mac cached the hostname's earlier NXDOMAIN;
+  explicit public DNS/DoH checks confirmed the live Cloudflare endpoint.
+- Initial PostgreSQL bootstrap hit a root-owned 0700 volume error. Fixed ownership
+  to the image's actual database UID without widening permissions. A focused
+  container reproduction passed three assertions; corrected startup was rerun
+  successfully. Launch-template default version 3 includes the corrected startup.
+- Restricted live DB role verified `NOSUPERUSER NOBYPASSRLS NOCREATEDB NOCREATEROLE`.
+  Original files/accounts/data were not migrated. Public checks used synthetic data.
+- **Updated configuration:** the OpenRouter key is installed in the private server
+  environment (0600); explicit model `xingchen-agi/xing4.0-29b-a4b:free`.
+  Public health reports configured. Current real probe returns upstream 429; no
+  successful live inference, rewrite or complete live AI workflow is claimed.
+  Current source is offered at `/source/buildgate-source.zip?release=aws-20261025`.
+
+## Hosted deployment preparation — 25 October 2026
+
+Latest steering: user switched to AWS and specified `buildgate.velox0.com` through
+Cloudflare. Existing AWS CLI identity works in Mumbai; existing unrelated `main`
+instance is untouched. Selected `t4g.small` (2 ARM vCPU, 2 GiB), standard CPU
+credits, encrypted 30 GiB gp3 and stable IPv4. Official AWS Price List returned
+USD 0.0112/hour (USD 8.18 for 730 hours), excluding storage/IPv4/traffic/taxes.
+AWS account credit state could not be verified. User subsequently approved a
+USD 20/month hosting budget. A dedicated instance launched with stable IPv4,
+encrypted 30 GiB gp3 and no SSH ingress. SSM is online; runtime IDs are retained
+only in the ignored local deployment state.
+Private S3 release storage and a narrowly scoped artifact-read/SSM role were
+created. DNS A record `buildgate` points to the host, initially DNS-only while
+Caddy obtains its public certificate. Cloudflare zone mode is Full (strict).
+Bootstrap/import and public verification are in progress; no live URL claim yet.
+
+Official component prices yield USD 14.56/month at 730 hours for compute, 30 GiB
+gp3 and one IPv4, before small S3 storage, traffic and taxes. Standard CPU credits
+avoid surplus CPU billing. This is a usage estimate, not a hard AWS spending cap.
+
+EC2 dry run returned expected `DryRunOperation` (launch permission confirmed).
+Cloudflare access to `velox0.com` works and filtered DNS shows no `buildgate`
+record. Tested ARM app/Postgres/Caddy images are packaged locally. Caddy config
+validates; `deploy/ec2/start.sh` passes Bash syntax checking. Source-only archive
+passes the existing credential/path scan; no local accounts or private files are
+included. The public URL is not live yet.
+
+User requested a public deployment, limited hosting to trial/free credits and no
+paid upgrade, then selected GCP after reporting Railway trial was exhausted.
+Render sign-in succeeded but no resources were provisioned. GCP's initially
+selected account had no active billing account; user is switching to a credited
+account. No public deployment or URL exists yet.
+
+- Added Docker build and hosted supervisor for public Next.js plus loopback API,
+  exact HTTPS origin/secure cookies and separately credentialled restricted DB role.
+  No local accounts/files/database are copied. Cloud upload/Docker ignore rules
+  exclude private state, including nested environment files.
+- Full API suite: **140 passed in 22.59s** (11 new hosted-startup checks).
+  API/startup Ruff and diff checks passed. Docker production build passed.
+- Real container smoke: secure HttpOnly cookie, organisation/draft save,
+  authenticated exact DOCX upload/download, unauthenticated source denial and
+  exact upload retained after restart with a private mounted volume. Killing the
+  internal API ended the container with status 1, stopping the public server.
+  This local test is not a cloud deployment or a live AI result.
+- Independent packaging review found nested `.env` files could enter the image;
+  fixed recursive exclusions and reran a synthetic actual Docker context check.
+  Both root and nested environment files are excluded. No leak observed.
+- GCP CLI container is available locally; account/project/credit verification is
+  required before provisioning. The OpenRouter key is still absent locally.
+
+## macOS execution and test isolation — 25 October 2026
+
+Requested verification rerun: backend **129 passed in 21.08s**, simplified browser
+**17 passed**, build/typecheck/Ruff passed, offline evaluation **23 passed / 27
+not run**. Editor's initial attempt missed the table change; unchanged rerun
+passed **4 editor / 9 fidelity** checks. Cause remains unconfirmed; see test report.
+Live key is still absent from `.env`, so genuine inference remains blocked.
+Collaboration/concurrency browser rerun: **17 passed**; both browser suites
+reported four clean selected axe scans and zero runtime errors.
+
+- Installed locked npm/Python dependencies in this checkout using Python 3.12.13;
+  started project-local PostgreSQL, FastAPI and the production web server.
+  API health returned `ok` with `ai_mode: unavailable`; `/login` returned HTTP 200.
+- Fixed both browser launchers to select the platform's virtual-environment Python.
+  Original Mac command failed with Windows-path `ENOENT`.
+- Fresh backend run initially had 112 passes/17 failures because synthetic review
+  fixtures depended on an ignored developer key. Added synthetic environment
+  configuration and a default blocked provider transport; HTTP contract tests
+  still use explicit mock transports. Full rerun: **129 passed in 19.82s**.
+  Browser fixture server now also supplies synthetic environment settings because
+  the review API imports its settings function separately.
+- `npm run typecheck`, `npm run build`, API Ruff and `git diff --check` passed.
+  `npm run test:e2e:simple`: **17 passed**, including four clean selected axe scans.
+  `npm run test:editor`: **4 passed**; DOCX roundtrip subset: **9 passed**.
+  `npm run test:e2e:ai`: **17 passed**, four clean selected axe scans and zero
+  runtime errors; includes concurrent saves and reviewer refresh.
+- Offline benchmark: 23 passed, 0 failed, 27 not run out of 50. This does not
+  establish contextual model accuracy. No live provider key is configured here;
+  live P0 review/rewrite acceptance remains open and P1 expansion remains held.
+- npm audit still reports four high-severity entries, with no automatic fix:
+  AG-UI client/encoder/proto and Zod. No dependency upgrade was guessed.
+- Playwright's Node 26 archive extraction stalled locally. Downloaded the official
+  matching headless browser archive and extracted it with Python to the ignored
+  project cache; the resulting browser ran the tests. README now includes Mac setup.
+
 ## Latest simplified workflow checkpoint — 24 October 2026
 
 Source-publication preparation: expanded README with fresh-checkout instructions,

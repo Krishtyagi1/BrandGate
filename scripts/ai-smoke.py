@@ -2,9 +2,8 @@
 import json
 from pathlib import Path
 
+from providers.openrouter import ProviderUnavailable, complete, routing_policy, settings
 from pydantic import BaseModel, ConfigDict
-
-from providers.openrouter import POLICY, ProviderUnavailable, complete, settings
 
 
 class Smoke(BaseModel):
@@ -12,7 +11,7 @@ class Smoke(BaseModel):
     answer: str
 
 
-report = {'kind': 'synthetic live smoke', 'configured': bool(settings()['OPENROUTER_API_KEY']), 'routing_policy': POLICY}
+report = {'kind': 'synthetic live smoke', 'configured': bool(settings()['OPENROUTER_API_KEY']), 'routing_policy': routing_policy()}
 try:
     parsed, meta = complete('Return the requested word in the required schema.', {'requested_word': 'inkloom'}, Smoke, 'synthetic_smoke')
     report.update(status='passed' if parsed.answer.lower() == 'inkloom' else 'failed', **meta)

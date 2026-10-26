@@ -953,8 +953,9 @@ export default function ReviewWorkspace({
           </details>
           <p className="muted">
             If any business secrets remain, cancel and edit the source content.
-            This request uses free routes with ZDR and no data collection
-            requirements.
+            {preview.policy_version.includes("-retention-")
+              ? "This free North Mini Code request requires no training. Provider retention may apply; zero data retention is not guaranteed."
+              : "This request uses free routes with ZDR and no data collection requirements."}
           </p>
           <div className="form-actions">
             <button

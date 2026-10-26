@@ -16,7 +16,7 @@ from psycopg.types.json import Jsonb
 
 from agents.review_graph import build_graph
 from evaluators.facts import check_facts
-from providers.openrouter import POLICY_VERSION, ProviderUnavailable, settings
+from providers.openrouter import ProviderUnavailable, policy_version, settings
 
 from .ai_settings import prepare_payload, require_consent
 from .config import LOCAL
@@ -96,7 +96,7 @@ def preview(org_id: UUID, draft_id: UUID, user=User):
             "preview_hash": preview_hash,
             "redacted_values": len(mapping),
             "guideline_version": policy["version"],
-            "policy_version": POLICY_VERSION,
+            "policy_version": policy_version(),
             "check_coverage": coverage_rows(
                 rules, context, references=snapshot_references(conn, org_id, policy["snapshot_id"])
             ),

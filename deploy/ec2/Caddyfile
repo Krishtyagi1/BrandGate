@@ -1,0 +1,11 @@
+buildgate.velox0.com {
+    handle /source/buildgate-source.zip {
+        root * /srv
+        file_server
+    }
+    handle {
+        reverse_proxy buildgate-app:8080 {
+            flush_interval -1
+        }
+    }
+}

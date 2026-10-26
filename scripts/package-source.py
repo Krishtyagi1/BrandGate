@@ -10,8 +10,8 @@ from zipfile import ZIP_DEFLATED, ZipFile
 root = Path(__file__).resolve().parents[1]
 output = root / '.local' / 'releases'
 output.mkdir(parents=True, exist_ok=True)
-allowed_roots = {'apps', 'services', 'packages', 'scripts', 'docs', 'evals', '.agents', 'samples'}
-allowed_files = {'.gitignore', '.npmrc', '.env.example', 'AGENTS.md', 'INKLOOM_CODEX_IMPLEMENTATION_PLAN.md', 'EXTERNAL_COMPONENTS.md', 'LICENSE', 'README.md', 'package.json', 'package-lock.json', 'Sample Company Brand Rules.docx'}
+allowed_roots = {'apps', 'services', 'packages', 'scripts', 'docs', 'evals', '.agents', 'samples', 'deploy'}
+allowed_files = {'.gitignore', '.dockerignore', '.gcloudignore', 'Dockerfile', '.npmrc', '.env.example', 'AGENTS.md', 'INKLOOM_CODEX_IMPLEMENTATION_PLAN.md', 'EXTERNAL_COMPONENTS.md', 'LICENSE', 'README.md', 'package.json', 'package-lock.json', 'Sample Company Brand Rules.docx'}
 blocked_parts = {'.git', '.local', '.cache', '.venv', 'node_modules', '__pycache__', '.next', '.next-ui-tests', 'vendor', '.ruff_cache'}
 listing = subprocess.run(['git', '-C', str(root), 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], check=True, capture_output=True).stdout.decode('utf-8')
 files = []

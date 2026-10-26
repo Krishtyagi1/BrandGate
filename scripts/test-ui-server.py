@@ -8,6 +8,8 @@ runtime=json.loads((ROOT/'.local/runtime.json').read_text())
 os.environ['DATABASE_URL']=runtime['databaseUrl'].rsplit('/',1)[0]+'/inkloom_test_utf8'
 os.environ['DATABASE_ADMIN_URL']=runtime['adminUrl'].rsplit('/',1)[0]+'/inkloom_test_utf8'
 os.environ['WEB_ORIGIN']='http://127.0.0.1:3001'
+os.environ['OPENROUTER_API_KEY']='synthetic-test-key'
+os.environ['OPENROUTER_MODEL']='synthetic/model:free'
 from app.main import app
 from app.review_models import ReviewResponse,RewriteResponse
 from app.rewrites import RewriteJudge

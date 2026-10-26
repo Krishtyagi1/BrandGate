@@ -5,9 +5,23 @@ from fastapi.testclient import TestClient
 
 from app.main import app
 from app.security import attempts
+from providers.openrouter import ProviderUnavailable
 
 HEADERS = {"X-Inkloom-CSRF": "1"}
 PASSWORD = "Correct horse battery staple 42!"
+
+
+@pytest.fixture(autouse=True)
+def offline_provider(monkeypatch):
+    """Never depend on a developer credential or contact the live provider."""
+    monkeypatch.setenv("OPENROUTER_API_KEY", "synthetic-offline-test-key")
+    monkeypatch.setenv("OPENROUTER_MODEL", "synthetic/model:free")
+    monkeypatch.setenv("OPENROUTER_ALLOW_PROVIDER_RETENTION", "false")
+
+    def disabled():
+        raise ProviderUnavailable("Live network disabled in automated tests.")
+
+    monkeypatch.setattr("providers.openrouter.client", disabled)
 
 
 @pytest.fixture(scope="session", autouse=True)

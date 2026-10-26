@@ -2,9 +2,16 @@
 
 **Brand Content Review** is a pre-publication brand governance prototype: approved company sources → saved content → explainable findings → explicit corrections → fresh check → separate reviewer decision.
 
+**Live prototype:** [buildgate.velox0.com](https://buildgate.velox0.com), deployed
+25 October 2026 on a dedicated AWS host through Cloudflare. Public account/source/
+draft and isolation smoke checks passed. Live AI currently needs a server-side
+OpenRouter key; no real AI completion is claimed. See `docs/IMPLEMENTATION_STATUS.md`
+and `deploy/ec2/README.md` for the deployment, cost estimate and prototype limits.
+Current source: [download source ZIP](https://buildgate.velox0.com/source/buildgate-source.zip?release=aws-20261025).
+
 ## Quick start (Windows)
 
-Requires Node.js 22+, Python 3.12 (available through `py -3.12`), npm and Git. The launcher supplies a project-local PostgreSQL database. This prototype's setup and optional OCR target Windows; a clean installation on other platforms has not been verified.
+Requires Node.js 22+, Python 3.12 (available through `py -3.12`), npm and Git. The launcher supplies a project-local PostgreSQL database. The PowerShell setup and optional OCR target Windows; macOS setup and fresh test results are documented below and in `docs/TEST_REPORT.md`.
 
 From a fresh checkout:
 
@@ -24,6 +31,26 @@ npm.cmd run dev
 Open [Brand Content Review](http://127.0.0.1:3000/login). Web: `3000`; API: `8000`; local PostgreSQL: `54329`. Do not start duplicate launchers on occupied ports. Setup, caches, generated database credentials, company uploads and reports stay inside the project and are Git-ignored. The API reads the OpenRouter key server-side. Free routes must satisfy zero pricing, zero data retention (ZDR), denied data collection and structured output; incompatible/unavailable routes fail visibly. No paid fallback.
 
 The repository contains source code and fictional examples, not the developer's installed dependencies, accounts, database, company materials or API keys. See [progress.txt](progress.txt) for the handoff, known gaps and remaining submission work.
+
+## Local setup on macOS
+
+With Node.js 22+ and [uv](https://docs.astral.sh/uv/) installed:
+
+```sh
+npm ci
+uv venv --python 3.12 .venv
+uv pip install --python .venv/bin/python -r services/api/requirements.txt
+PLAYWRIGHT_BROWSERS_PATH="$PWD/.cache/playwright" npx playwright install chromium
+npm run dev
+```
+
+The launcher starts PostgreSQL, the API and web app at the same loopback ports
+listed above. Configure an ignored root `.env` for live AI; local accounts and
+source setup work without a provider key. Automated backend and browser tests
+use synthetic provider configuration and do not require your live key. Run
+`npm run test:api`, `npm run test:e2e:simple` and `npm run test:e2e:ai`
+sequentially because they share the isolated test database and browser-test ports.
+Windows OCR is unavailable on macOS; image text needs a verified transcript.
 
 ## Project structure
 
