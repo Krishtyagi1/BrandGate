@@ -1,0 +1,10 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {"Effect": "Allow", "Action": ["s3:PutObject", "s3:AbortMultipartUpload", "s3:ListMultipartUploadParts"], "Resource": "arn:aws:s3:::DEPLOY_BUCKET/production/releases/*"},
+    {"Effect": "Allow", "Action": "ec2:DescribeInstances", "Resource": "*"},
+    {"Effect": "Allow", "Action": "ssm:SendCommand", "Resource": "arn:aws:ssm:AWS_REGION::document/AWS-RunShellScript"},
+    {"Effect": "Allow", "Action": "ssm:SendCommand", "Resource": "arn:aws:ec2:AWS_REGION:ACCOUNT_ID:instance/INSTANCE_ID", "Condition": {"StringEquals": {"ssm:resourceTag/DeploymentEnvironment": "production"}}},
+    {"Effect": "Allow", "Action": "ssm:GetCommandInvocation", "Resource": "*"}
+  ]
+}

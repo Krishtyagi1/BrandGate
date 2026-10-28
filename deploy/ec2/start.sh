@@ -39,12 +39,13 @@ fi
 
 if ! docker inspect buildgate-db >/dev/null 2>&1; then
   docker run -d --name buildgate-db --restart unless-stopped \
-    --network buildgate-private --memory 512m \
+    --network buildgate-private --memory 256m --memory-swap 512m \
     --env-file /opt/buildgate/private/runtime.env \
     -v /var/lib/buildgate/postgres:/var/lib/postgresql \
     postgres:18-alpine \
     -c max_connections=30 -c shared_buffers=128MB >/dev/null
 else
+  docker update --memory 256m --memory-swap 512m buildgate-db >/dev/null
   docker start buildgate-db >/dev/null
 fi
 
@@ -66,7 +67,7 @@ if docker inspect buildgate-app >/dev/null 2>&1; then
   docker rm -f buildgate-app >/dev/null
 fi
 docker run -d --name buildgate-app --restart unless-stopped \
-  --network buildgate-private --memory 1100m --memory-swap 1600m \
+  --network buildgate-private --memory 512m --memory-swap 1024m \
   --env-file /opt/buildgate/private/runtime.env \
   -v /var/lib/buildgate/app:/app/.local \
   brandgate-hosted:latest >/dev/null
@@ -75,7 +76,7 @@ if docker inspect buildgate-proxy >/dev/null 2>&1; then
   docker rm -f buildgate-proxy >/dev/null
 fi
 docker run -d --name buildgate-proxy --restart unless-stopped \
-  --network buildgate-private --memory 128m \
+  --network buildgate-private --memory 64m --memory-swap 128m \
   -p 80:80 -p 443:443 \
   -v /opt/buildgate/deploy/ec2/Caddyfile:/etc/caddy/Caddyfile:ro \
   -v /var/lib/buildgate/caddy:/data \

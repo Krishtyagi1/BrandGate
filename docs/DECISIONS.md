@@ -1,3 +1,45 @@
+## 28 October 2026 — production branch correction
+
+Latest user steering supersedes prior nonprod/main instructions: deploy from
+`prod`, no GitHub environment, repository Actions secrets, consolidate/amend the
+two setup commits and restore main with force-with-lease if branch rules allow.
+Use native GitHub ARM runner, exact prod-branch OIDC trust and production target
+tag on the same low-traffic server. No extra instance or increased hosting spec.
+User will report Actions outcomes; stop all monitoring and do not claim hosted
+production deployment succeeded without their report.
+
+## 28 October 2026 — repository secrets instead of environments
+
+User explicitly requested no GitHub environment, repository Actions secrets and
+API setup when possible. Use main-only manual workflow and exact immutable
+repository/branch OIDC trust. Runtime target remains nonprod, checked in code and
+IAM. No admin requirement is worked around by broadening trust or adding static
+credentials. Earlier environment-specific plan entries below are superseded.
+
+## 28 October 2026 — manual nonprod CI deployment
+
+User requested GitHub Actions, local `.env.deploy`, user-managed environment
+setup and nonproduction deployment. After the low-traffic resize, their “do it”
+is implemented as preparation for the existing demo host, with no extra staging
+host/cost. Deployment is manual from main after CI, using environment `nonprod`
+and repository/environment-bound OIDC. Runtime secrets stay on the host. Local
+configuration is never sourced as shell or bundled. No production workflow or
+long-lived AWS access key is created. User applies the documented role/tag/
+environment setup; remote execution is pending. Container rollback preserves
+records but cannot reverse migrations, so only expand-compatible migrations are
+eligible. Public-only DNS/proxy failures fail the job without automatically
+rolling back a healthy app.
+
+## 28 October 2026 — smallest practical low-traffic host
+
+User requested reduced system specifications. Selected `t4g.micro` (1 GiB),
+retained 2 GiB swap, standard CPU credits, existing encrypted disk/IP and moved
+container memory caps to 512/256/64 MiB. Nano's 512 MiB leaves insufficient
+headroom for the measured stack. Builds belong off-host in future CI. Keep one
+host, no autoscaling/paid commitments, and require another sizing check before
+meaningful concurrent use. Database backup/retained-record and public write/file
+smokes passed after resize. Earlier 2 GiB deployment entries below are historical.
+
 ## 25 October 2026 — user-selected North Mini Code
 
 The user selected `cohere/north-mini-code:free` and explicitly approved running

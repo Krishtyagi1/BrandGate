@@ -1,3 +1,115 @@
+## Final deployment contract: prod branch — 28 October 2026
+
+User clarified production on branch `prod`, requested consolidating/amending the
+setup commits and restoring main, and explicitly asked not to monitor Actions.
+Final workflow deploys on pushes to `prod` after reusable CI, with optional manual
+dispatch where available. There is no GitHub environment. Repository Actions
+secrets match ignored mode-0600 `.env.deploy`; runtime credentials stay on-host.
+AWS OIDC trust is the exact immutable repository subject with
+`:ref:refs/heads/prod`, and the target is tagged `DeploymentEnvironment=production`.
+Temporary nonprod IAM permissions/role were removed. Existing host/IP/data remain.
+
+Use the native standard `ubuntu-24.04-arm` runner for this public repository,
+avoiding the slow emulated first build. The prior nonprod run was cancelled on
+user correction; hosted CI had passed, but no completed hosted rollout is claimed.
+Production Actions will be observed by the user; no further polling/monitoring.
+Current local deployment boundary tests: 7 passed. Prior hosted CI verified the
+148 backend tests and checks before the production branch/name correction.
+
+GitHub reported main unprotected and no applicable main/prod rules before the
+history change. Only the two setup commits created during this task are being
+consolidated on prod; the pre-setup commit b971351 is main's restoration target.
+A local refs/codex/backups/before-prod-migration ref preserves the old tip.
+Force-with-lease is used only for that explicit main restoration, so concurrent
+remote changes prevent the rewrite. No unrelated commits are dropped.
+
+## Repository Actions secrets configuration — 28 October 2026
+
+The user explicitly changed setup to repository Actions secrets with no GitHub
+environment. Removed the environment block, retained main-only manual deployment
+and updated AWS trust to the exact immutable repository subject ending
+`:ref:refs/heads/main`. The role remains scoped to the tagged nonprod demo target.
+Five deployment settings were installed as repository Actions secrets through the
+API. No static AWS/model/database credentials were sent. The local `.env.deploy`
+contains matching settings with mode 0600. The earlier environment-admin 403 is
+historical; no new environment was created or required. Workflow execution and
+first hosted deployment verification follow below.
+
+## Actions AWS activation — 28 October 2026
+
+At the user's explicit request, configured AWS role `BuildGateActionsNonprod`
+with the repository's actual immutable OIDC subject and `environment:nonprod`,
+restricted upload/SSM target permissions, host `ReadNonprodReleases` policy and
+`DeploymentEnvironment=nonprod` tag. Existing GitHub OIDC provider audience was
+verified. Filled the role ARN in ignored mode-0600 `.env.deploy`; configuration
+validation passes. No long-lived AWS keys were generated or uploaded.
+
+GitHub now grants `velox0` push access, but environment creation/protection PUT
+returned HTTP 403 “Must have admin rights to Repository”. Environment secrets
+and the first deployment remain pending environment admin access. The protected
+nonprod setup has not been bypassed by using repository-wide credentials.
+Workflow publication/CI verification proceed independently of that restriction.
+
+## Nonprod GitHub Actions preparation — 28 October 2026
+
+Added reusable CI (PR/main/manual deploy dependency) and a manual main-only
+`nonprod` deployment workflow. Deployment builds ARM images off-host, uses OIDC
+rather than static AWS keys, uploads a private release and verifies SHA-256 on
+the existing 1 GiB demo host through SSM. Host rollout backs up the database,
+locks app replacement, preserves runtime credentials/uploads/database/proxy,
+and restores the prior app container on new-app startup/internal-health failure.
+It reports failure if rollback or public HTTPS verification fails. Database
+migrations are not undone by container rollback; expand-compatible changes only.
+
+Created local ignored `.env.deploy` with mode 0600, demo identifiers and blank
+OIDC role ARN. Committed template contains no secrets. Added exact-scope IAM
+examples and `docs/GITHUB_ACTIONS_NONPROD.md` for the user's manual setup. No AWS
+trust/permission/tag changes or GitHub environment/secrets changes were applied.
+No hosted Actions run or new deployment was attempted in this preparation task.
+The existing manually deployed demo remains unchanged.
+
+Fresh checks: backend **148 passed in 18.96s**, deployment boundary **7 passed**,
+typecheck/production build/Ruff/Bash syntax/diff checks passed; actionlint 1.7.12
+reported no workflow errors. Focused independent read-only review found no
+important issues and reran the seven deployment tests successfully. The initial
+backend attempt needed the local PostgreSQL launcher restarted; subsequent full
+run passed. Initial deployment-test failures reflected missing implementation;
+a Mac test runner also needed a substitute for Linux `flock`. Final tests execute
+actual shell control flow with isolated external-command substitutes, not AWS.
+
+Pending user setup: repository write access, OIDC trust/role, `nonprod` host tag,
+host release-read policy and GitHub environment secrets. Configuration validation
+correctly refuses the intentionally blank `AWS_DEPLOY_ROLE_ARN`. See the setup
+guide before activating manual deployment. Local secrets are excluded from the
+curated source ZIP and Docker context; a placeholder template is safe to commit.
+
+## Low-traffic downsizing — 28 October 2026
+
+Reduced the running dedicated BuildGate host from `t4g.small` (2 GiB) to
+`t4g.micro` (1 GiB, 2 burstable ARM vCPUs). Standard CPU credits retained.
+App/PostgreSQL/proxy memory caps are now 512/256/64 MiB, with bounded swap and
+existing 2 GiB host swap. Updated on-host startup and launch-template default
+version 6, so subsequent deployment/replacement retains the low-traffic profile.
+
+Made a private `pg_dump -Fc` archive and verified its table of contents before
+the stop/resize/start. Preserved original encrypted 30 GiB EBS, IP, database,
+uploads and provider key. Verified old synthetic draft and source records remain.
+The previous smoke cookie was expired (401); fresh login succeeded. Public
+verification passed four grouped checks: HTTPS/login, new registration/session,
+organisation/draft write/read, exact private DOCX upload/download and anonymous
+denial. Ten sequential health checks returned 200 in 0.258–0.304 seconds. All
+containers stayed running without OOM; available RAM after smoke 422 MiB, swap
+2 MiB. This is a low-traffic smoke, not a concurrent-load benchmark or AI eval.
+
+Fresh AWS Price List: micro USD 0.0056/hour, USD 4.09/month at 730 hours. With
+previous disk/IPv4 rates, base estimate **USD 10.47/month** before artifact
+storage/traffic/tax, versus the previous USD 14.56. No commitments or new
+infrastructure. Retained disk avoids migration; no EBS shrink was attempted.
+
+Evidence: `.local/test-results/micro-public-smoke.json`,
+`micro-server-verification.json`, `micro-retained-data.json`. `bash -n
+deploy/ec2/start.sh` and `git diff --check` passed. No application code changed.
+
 ## Verified North Mini deployment — 25 October 2026
 
 Live at **https://buildgate.velox0.com** with explicit model

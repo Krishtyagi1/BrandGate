@@ -49,3 +49,6 @@ Thumbs.db
 Desktop.ini
 *.tmp
 *.bak
+
+# Reviewed template only; real deployment settings remain ignored.
+!.env.deploy.example

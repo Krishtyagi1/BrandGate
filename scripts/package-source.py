@@ -10,8 +10,8 @@ from zipfile import ZIP_DEFLATED, ZipFile
 root = Path(__file__).resolve().parents[1]
 output = root / '.local' / 'releases'
 output.mkdir(parents=True, exist_ok=True)
-allowed_roots = {'apps', 'services', 'packages', 'scripts', 'docs', 'evals', '.agents', 'samples', 'deploy'}
-allowed_files = {'.gitignore', '.dockerignore', '.gcloudignore', 'Dockerfile', '.npmrc', '.env.example', 'AGENTS.md', 'INKLOOM_CODEX_IMPLEMENTATION_PLAN.md', 'EXTERNAL_COMPONENTS.md', 'LICENSE', 'README.md', 'package.json', 'package-lock.json', 'Sample Company Brand Rules.docx'}
+allowed_roots = {'apps', 'services', 'packages', 'scripts', 'docs', 'evals', '.agents', 'samples', 'deploy', '.github', 'tests'}
+allowed_files = {'.gitignore', '.dockerignore', '.gcloudignore', 'Dockerfile', '.npmrc', '.env.example', '.env.deploy.example', 'AGENTS.md', 'INKLOOM_CODEX_IMPLEMENTATION_PLAN.md', 'EXTERNAL_COMPONENTS.md', 'LICENSE', 'README.md', 'package.json', 'package-lock.json', 'Sample Company Brand Rules.docx'}
 blocked_parts = {'.git', '.local', '.cache', '.venv', 'node_modules', '__pycache__', '.next', '.next-ui-tests', 'vendor', '.ruff_cache'}
 listing = subprocess.run(['git', '-C', str(root), 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], check=True, capture_output=True).stdout.decode('utf-8')
 files = []
@@ -19,7 +19,7 @@ for name in sorted(set(listing.split('\0')) - {''}):
     relative = Path(name)
     if relative.parts[0] not in allowed_roots and name not in allowed_files:
         continue
-    if any(part in blocked_parts for part in relative.parts) or (relative.name.startswith('.env') and name != '.env.example'):
+    if any(part in blocked_parts for part in relative.parts) or (relative.name.startswith('.env') and name not in {'.env.example', '.env.deploy.example'}):
         raise RuntimeError('Private path unexpectedly entered source selection: ' + name)
     path = (root / relative).resolve()
     if not path.is_relative_to(root) or not path.is_file() or path.is_symlink():

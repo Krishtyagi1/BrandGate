@@ -120,3 +120,10 @@ Source intake supports ten uploaded sources per collection, 5 MB/file, 100 PDF p
 Application-authored source is offered under AGPLv3; third-party components retain their own terms. SuperDoc 2.26.0 is AGPLv3; its separate DOCX Engine 0.25.0 is proprietary. Notices and the engine licence are retained under `docs/licenses`; the dependency must not be described as wholly open source. See [external components](EXTERNAL_COMPONENTS.md), [architecture](docs/ARCHITECTURE.md), [demo runbook](docs/DEMO_RUNBOOK.md) and [implementation status](docs/IMPLEMENTATION_STATUS.md).
 
 Source repository: [Krishtyagi1/BrandGate](https://github.com/Krishtyagi1/BrandGate). `.env*` (except `.env.example`), `.local`, `.cache`, dependencies, private data and generated test/build files are ignored. Source publication does not include a hosted app or the local database. Run `.venv/Scripts/python.exe scripts/package-source.py` for a curated source ZIP under `.local/releases`. A localhost preview is not a remote judge-accessible deployment. Required contribution details and actual feedback must be supplied truthfully before submission; no history or research evidence is fabricated.
+
+## Production GitHub Actions
+
+Production deployment runs from the `prod` branch after CI, using repository
+Actions secrets and exact-branch AWS OIDC. No GitHub environment is required.
+See [production setup](docs/GITHUB_ACTIONS_PRODUCTION.md). The ignored local
+`.env.deploy` holds matching settings; runtime credentials stay on the host.
