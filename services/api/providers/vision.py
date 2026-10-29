@@ -56,19 +56,16 @@ def selected_vision_model():
         raise openrouter.ProviderUnavailable(
             "OpenRouter key is not configured; vision was not checked."
         )
-    models = []
-    for model in openrouter.get_models():
-        try:
-            openrouter.validate_vision_model(model)
-            if model["id"].endswith(":free"):
-                models.append(model)
-        except openrouter.ProviderUnavailable:
-            continue
-    if not models:
-        raise openrouter.ProviderUnavailable(
-            "No zero-priced free model currently advertises image input and JSON schema support."
-        )
-    return sorted(models, key=lambda model: model["id"])[0]
+    from .vision_routes import inspect_routes
+
+    report = inspect_routes()
+    selected = next((r["model"] for r in report["candidates"] if r["eligible"]), None)
+    if selected is None:
+        raise openrouter.ProviderUnavailable(report["reason"])
+    model = next((m for m in openrouter.get_models() if m["id"] == selected), None)
+    if model is None:
+        raise openrouter.ProviderUnavailable("The preflight model is no longer available.")
+    return model
 
 
 def evaluate(payload, images, usage_callback=None):

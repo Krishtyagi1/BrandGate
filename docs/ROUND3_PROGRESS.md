@@ -30,3 +30,17 @@ Final mobile visual QA: widened tables to preserve readable labels within keyboa
 ## 30 October 2026 — user-requested push and continuation
 
 User explicitly requested “push and continue working”. Current branch is `prod`; its existing push workflow runs CI and production deployment. Push is authorised; prior instruction leaving Actions monitoring to the user remains in force. Fresh pre-push checks: backend163 passed in22.20s; production build/TypeScript and Ruff passed; diff whitespace check passed. No live deployment success is asserted. Continuing with vision-route eligibility and reproducible evaluation under the existing free/privacy constraints.
+
+Continuation plan — 30 October: (1) add fail-closed published-endpoint preflight before vision inference, verify zero price/schema and exact ZDR endpoint identity, expose an on-demand metadata-only status check; (2) add synthetic pixel-based palette/contrast benchmark with independently specified labels and separate metrics from the blocked vision benchmark. Reuse existing stack, privacy and owner-consent gates. Add failing tests before implementation. Read-only endpoint investigation found both free image/schema candidates absent from the published ZDR list. No new inference request or company pixels sent during investigation.
+
+
+30 October continuation: signed commit3d797a6 push to origin/prod succeeded. Added exact published ZDR endpoint/zero-price/schema preflight, metadata-only Settings check and separate local pixel benchmark. New regression tests were run failing first, then passed after implementation. Updated synthetic vision HTTP fixtures to include real metadata-shaped GET responses; UI test server now explicitly blocks live metadata requests.
+
+Measured local benchmark: `PYTHONPATH=services/api .venv/bin/python -m evals.local_visual_run` →12/12 expected outcomes (8 contrast pairs,4 palette cases including1 expected transparency rejection). No model calls/accuracy claim. Published endpoint check report: both candidates blocked,0 omitted; no new inference/company pixels sent. Reports committed separately from the original0/12 model benchmark.
+
+Independent read-only continuation review found no Critical issues. Two “minor” findings were treated as required reliability fixes because they could cause an error page or excessive buffering: malformed null endpoint parameters and response buffering before size enforcement. Regression tests reproduced TypeError and20 streamed chunks being consumed, then passed after field checks and streamed byte caps. Added a trickle-response deadline regression; it also passed after the shared endpoint-metadata deadline. Targeted vision/local-eval suite36 passed. No deferred minor findings.
+
+Browser continuation verification: `npm run test:e2e:simple` →28 checks passed,9 selected axe scans with0 reported violations, including mobile Settings metadata-unavailable state. Existing correction/recheck/separate-human approval coverage passed. Final full-suite and production-build reruns follow below.
+
+
+Final continuation: `npm run test:api` →174 passed in20.17s; production build/TypeScript passed; Ruff and diff checks passed. Browser28/28 with9 clean selected axe scans. Twelve local pixel-check expectations passed; model agreement remains unmeasured and both free candidates remain blocked by current published policy metadata. Signing/pushing the verified follow-up is authorised by the user's push/continue instruction. No Actions monitoring or verified hosted rollout claim.

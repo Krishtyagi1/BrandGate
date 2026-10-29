@@ -137,6 +137,11 @@ def vision_http(monkeypatch):
 
         def handler(request):
             requests.append(request)
+            endpoint = {"model_id": model["id"], "provider_name": "SyntheticTransport", "tag": "synthetic", "pricing": model["pricing"], "supported_parameters": model["supported_parameters"]}
+            if request.url.path.endswith("/endpoints/zdr"):
+                return httpx.Response(200, json={"data": [endpoint]})
+            if request.url.path.endswith("/endpoints"):
+                return httpx.Response(200, json={"data": {"endpoints": [endpoint]}})
             if request.url.path.endswith("/key"):
                 return httpx.Response(
                     200, json={"data": {"free_model_daily_requests": {"remaining": remaining}}}

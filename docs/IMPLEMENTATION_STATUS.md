@@ -1,3 +1,13 @@
+## Vision preflight and measured local pixel checks — 30 October 2026
+
+User requested pushing the completed Round 3 work and continuing. Signed commit `3d797a6` was pushed to `origin/prod`; its existing CI/deployment workflow is triggered by pushes. No Actions monitoring or hosted rollout success is claimed.
+
+Continued with a metadata-only fail-closed vision preflight: model-level capabilities are insufficient; exact model/provider/tag identity must also appear in the published ZDR list and endpoint pricing/schema support must qualify. No image inference POST is issued when this cannot be verified. Runtime routing remains unchanged. Added an on-demand organisation-scoped status check in Settings. The 30 October read-only probe found no published qualifying ZDR endpoint for either free image/schema candidate. This is time-bound metadata evidence, not a guarantee about future availability.
+
+Added a separately labelled deterministic pixel benchmark: 8 known contrast pairs +4 palette cases, including1 expected transparency rejection; actual **12/12 expected outcomes**. This does not measure model accuracy or independent human agreement. Model benchmark remains **0/12 evaluated**, with manual reference comparison as fallback.
+
+Final continuation verification: **174 backend tests passed in20.17s**, **28 browser checks passed** including **9 selected axe scans with0 reported violations**; production build/TypeScript, Ruff and whitespace checks passed. Independent review identified two edge cases, reproduced and fixed with regressions, plus a passing metadata deadline regression. No deferred findings. Actual commands/outcomes are recorded in docs/ROUND3_PROGRESS.md. No credentials, company materials or actual-person photos included.
+
 ## Round 3 improvements — 29 October 2026
 
 Implemented locally at the user's direction. The prior build authorisation remains recorded below; no official Round 3 calendar dates are inferred. No commit, push, deployment, hosting change or Actions monitoring was performed.

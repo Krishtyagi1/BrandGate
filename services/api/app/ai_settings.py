@@ -16,6 +16,15 @@ from .security import User, org_transaction
 router = APIRouter(prefix="/api/organisations/{org_id}/ai")
 
 
+@router.get("/vision-status")
+def vision_status(org_id: UUID, user=User):
+    from providers.vision_routes import inspect_routes
+
+    with org_transaction(user, org_id):
+        pass
+    return inspect_routes()
+
+
 def prepare_payload(version, rules, channel, context=None):
     selected = retrieve(rules, version["text"])
     sources = [evidence(r) for r in selected]

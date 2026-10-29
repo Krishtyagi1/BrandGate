@@ -1,6 +1,6 @@
 # Round 3: visual review, finding explanations and insights
 
-These changes run locally. They have not been deployed in this task.
+Source is pushed to `prod`. The existing workflow handles deployment; hosted rollout has not been verified in this chat.
 
 ## Visual review
 
@@ -27,6 +27,22 @@ Owners/reviewers open Tracking → “Recurring issues & guideline gaps”. Crea
 Each finding type/status is counted once per draft across reviews started in the reporting period, including earlier revisions and issues later corrected. Rechecking the same issue does not increase its count. Channel comes from recorded scope; campaign is optional current metadata. Incomplete checks and dismissed observations stay disclosed. The incomplete count uses each draft’s latest check within the period. Counts are observations, not creator performance scores. Multiple categories can overlap, so their totals need not equal the number of reviewed drafts.
 
 Unverified quotes and unanswered assistant questions appear with links to underlying drafts. Questions use their own period-based denominator, include older revisions, and deduplicate repeated wording per draft. The latest 5,000 unanswered questions and the top 50 gap groups are shown; unsupported phrasing may cause abstention without proving a rule is missing. Owners decide what to add or clarify through the existing rule-confirmation workflow.
+
+## Vision preflight and local pixel benchmark (30 October follow-up)
+
+In Settings → AI processing & privacy → Vision route availability, “Check vision availability” fetches public model/endpoint metadata only. No draft, source or image is included. Before real inference, the selected vision model must have an exact model/provider/tag match in OpenRouter’s published ZDR endpoint list, with endpoint-level zero prices and schema parameters. The existing runtime routing policy, owner consent and outbound preview still apply; passing metadata does not prove an inference route works.
+
+The check inspects at most sixteen catalogue-compatible candidates, with streamed 5 MB response caps, ten-second endpoint inactivity timeouts and a shared 30-second endpoint-metadata deadline after the existing model-catalogue lookup. Unknown/malformed metadata fails closed. A metadata refresh may still be needed when endpoint policies change. This is an additional conservative gate and can abstain if the published list is incomplete. Official interfaces: [model endpoints](https://openrouter.ai/docs/api/api-reference/endpoints/list-all-endpoints-for-a-model) and [ZDR policy/list](https://openrouter.ai/docs/guides/features/zdr).
+
+The 30 October read-only probe found both free catalogue-compatible image/schema models absent from the published ZDR list; `evals/reports/vision-endpoint-preflight.json` records that evidence. No inference was retried and no privacy setting changed.
+
+Run the independent **code-check** regression benchmark:
+
+```sh
+PYTHONPATH=services/api .venv/bin/python -m evals.local_visual_run
+```
+
+It checks eight known opaque contrast pairs (including near-threshold controls) and four dominant-palette cases, including one expected transparent-image rejection. Current measured result: **12/12 expected outcomes**. This is a tiny synthetic deterministic benchmark, not AI accuracy, automatic text detection, real-image coverage or independent human agreement. See `evals/fixtures/visual_local_cases.jsonl` and `evals/reports/visual-localchecks.json`. The original model benchmark remains 0/12 evaluated.
 
 ## Evaluation and current limits
 

@@ -5,12 +5,22 @@ import type { AiStatus } from "../../../packages/contracts/reviews";
 import { api, message, send } from "@/lib/api";
 import { Badge, Notice } from "./ui";
 
+interface VisionStatus {
+  checked_at: string;
+  status: string;
+  reason: string;
+  notice: string;
+  candidates: { model: string; eligible: boolean; reason: string }[];
+}
+
 export default function AiSettings({ org }: { org: Organisation }) {
   const [data, setData] = useState<AiStatus | null>(null),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
     [confirmed, setConfirmed] = useState(false);
   const retention = data?.policy_version.includes("-retention-");
+  const [vision, setVision] = useState<VisionStatus | null>(null);
+  const [checkingVision, setCheckingVision] = useState(false);
   const consentCurrent =
     data?.consent?.enabled &&
     data.consent.policy_version === data.policy_version;
@@ -58,6 +68,48 @@ export default function AiSettings({ org }: { org: Organisation }) {
         Image pixels cannot be redacted: inspect candidate and reference images
         before sending them.
       </p>
+      <details>
+        <summary>Vision route availability</summary>
+        <p>
+          Check public model and endpoint metadata before sending an image. This
+          sends no company content and does not run inference.
+        </p>
+        <button
+          className="button secondary"
+          disabled={checkingVision}
+          onClick={async () => {
+            setCheckingVision(true);
+            setError("");
+            try {
+              setVision(await api<VisionStatus>(`${base}/vision-status`));
+            } catch (e) {
+              setError(message(e));
+            } finally {
+              setCheckingVision(false);
+            }
+          }}
+        >
+          {checkingVision
+            ? "Checking route metadata…"
+            : "Check vision availability"}
+        </button>
+        {vision && (
+          <div aria-live="polite">
+            <p>
+              <strong>{vision.reason}</strong>
+            </p>
+            <p className="muted">{vision.notice}</p>
+            <ul>
+              {vision.candidates.map((candidate) => (
+                <li key={candidate.model}>
+                  <strong>{candidate.model}</strong>
+                  <p>{candidate.reason}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </details>
       {data && (
         <>
           <p>

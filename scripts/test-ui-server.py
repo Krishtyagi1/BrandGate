@@ -21,6 +21,9 @@ def synthetic_complete(system,payload,schema,purpose='review',usage_callback=Non
     if schema is RewriteResponse:return RewriteResponse(minimal='daily',natural='gentle'),metadata
     if schema is RewriteJudge:return RewriteJudge(minimal_safe=True,natural_safe=True,reason='Synthetic UI fixture'),metadata
     raise AssertionError('Unexpected test schema')
+def offline_metadata_client():
+    raise openrouter.ProviderUnavailable('Live route metadata is disabled in this synthetic UI test server.')
+openrouter.client=offline_metadata_client
 openrouter.complete=synthetic_complete
 openrouter.settings=lambda:{'OPENROUTER_API_KEY':'synthetic-test-key','OPENROUTER_MODEL':'synthetic/model:free'}
 import uvicorn

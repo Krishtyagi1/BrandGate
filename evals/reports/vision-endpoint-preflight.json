@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-10-29T19:09:23.330107+00:00",
+  "status": "blocked",
+  "candidates": [
+    {
+      "model": "dots-studio/dots-3-note-preview:free",
+      "eligible": false,
+      "endpoints": [],
+      "reason": "No published zero-retention endpoint also satisfies free pricing and JSON schema requirements."
+    },
+    {
+      "model": "nvidia/nemotron-3.5-super-vl:free",
+      "eligible": false,
+      "endpoints": [],
+      "reason": "No published zero-retention endpoint also satisfies free pricing and JSON schema requirements."
+    }
+  ],
+  "omitted_candidates": 0,
+  "notice": "Published metadata only, not a successful inference test. Zero-price/privacy/schema routing, owner consent and outbound preview remain required. No image or company source is sent by this check.",
+  "reason": "No verified free zero-retention vision endpoint is currently available. Use manual comparison with approved references."
+}

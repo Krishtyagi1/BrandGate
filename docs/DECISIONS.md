@@ -1,3 +1,9 @@
+## 30 October 2026 — endpoint preflight and separate local evaluation
+
+Keep existing free-only, no-training and ZDR vision policy. Do not weaken it to make inference work. Add public metadata preflight before sending images: intersect exact model/provider/tag identities with the published ZDR list and validate endpoint prices/schema parameters. Unknown metadata fails closed. This can reject a technically working route when published metadata is incomplete; that conservative availability trade-off is intentional. Runtime request policy still enforces the same requirements and does not trust the preflight alone.
+
+Expose a manual metadata-only Settings check, not recurring monitoring. Limit candidate count and response sizes; metadata contains no company records. Keep local contrast/palette benchmark results separate from unavailable vision-model agreement. Eight known contrast-pair labels and four palette cases are developer-authored synthetic expectations; never call 12/12 outcomes an overall visual-AI accuracy result.
+
 ## 29 October 2026 — Round 3 scope and conservative local assistant
 
 The user asked to start implementing the improved three-feature scope. Extend the existing checkout/stack and keep the white Rules / New review / Tracking navigation. Insights is a secondary Tracking destination. No deploy, push or recurring monitoring is authorised by this request.

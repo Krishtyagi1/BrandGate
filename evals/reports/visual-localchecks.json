@@ -1,0 +1,201 @@
+{
+  "kind": "Deterministic pixel-check regression benchmark; not model accuracy or human agreement",
+  "generated_at": "2026-10-29T19:17:55.428268+00:00",
+  "total": 12,
+  "passed": 12,
+  "failed": 0,
+  "expected_rejections": 1,
+  "cases": [
+    {
+      "case_id": "contrast-black-white",
+      "check": "sampled_contrast",
+      "sha256": "b51d574d7f3f1b53c49deb627db5875558e3551f4764ceea922b0b89b5b9560f",
+      "expected": {
+        "approximate_ratio": 21,
+        "normal_text_threshold_met": true,
+        "large_text_threshold_met": true
+      },
+      "observed": {
+        "ratio": 21.0,
+        "normal_text_threshold_met": true,
+        "large_text_threshold_met": true
+      },
+      "passed": true
+    },
+    {
+      "case_id": "contrast-white-white",
+      "check": "sampled_contrast",
+      "sha256": "0d8e32d2bc2c0cd41c62bc86bdbb87ac4bab517e89d7506ba4b792c0cb096eb4",
+      "expected": {
+        "approximate_ratio": 1,
+        "normal_text_threshold_met": false,
+        "large_text_threshold_met": false
+      },
+      "observed": {
+        "ratio": 1.0,
+        "normal_text_threshold_met": false,
+        "large_text_threshold_met": false
+      },
+      "passed": true
+    },
+    {
+      "case_id": "contrast-white-black",
+      "check": "sampled_contrast",
+      "sha256": "ff60dac656ee5c01fbd8801f385bb840107db83b717e76c6ff077517d3bde18d",
+      "expected": {
+        "approximate_ratio": 21,
+        "normal_text_threshold_met": true,
+        "large_text_threshold_met": true
+      },
+      "observed": {
+        "ratio": 21.0,
+        "normal_text_threshold_met": true,
+        "large_text_threshold_met": true
+      },
+      "passed": true
+    },
+    {
+      "case_id": "contrast-near-aa-below",
+      "check": "sampled_contrast",
+      "sha256": "5ccbc60343b185caad06c3f1bfc62edf25008947651ae7265be15e59452f7701",
+      "expected": {
+        "approximate_ratio": 4.48,
+        "normal_text_threshold_met": false,
+        "large_text_threshold_met": true
+      },
+      "observed": {
+        "ratio": 4.478089453577214,
+        "normal_text_threshold_met": false,
+        "large_text_threshold_met": true
+      },
+      "passed": true
+    },
+    {
+      "case_id": "contrast-near-aa-above",
+      "check": "sampled_contrast",
+      "sha256": "2e1d615c56a45bbf1e49a8db47396a728cea13361d7ea889ef358df2b33cae0a",
+      "expected": {
+        "approximate_ratio": 4.54,
+        "normal_text_threshold_met": true,
+        "large_text_threshold_met": true
+      },
+      "observed": {
+        "ratio": 4.542224959605253,
+        "normal_text_threshold_met": true,
+        "large_text_threshold_met": true
+      },
+      "passed": true
+    },
+    {
+      "case_id": "contrast-low-grey",
+      "check": "sampled_contrast",
+      "sha256": "8a6be39bcf6a54cc0ffa162752e429e19290fe46d82c03b805a730b055ce5a45",
+      "expected": {
+        "approximate_ratio": 2.85,
+        "normal_text_threshold_met": false,
+        "large_text_threshold_met": false
+      },
+      "observed": {
+        "ratio": 2.849027755287037,
+        "normal_text_threshold_met": false,
+        "large_text_threshold_met": false
+      },
+      "passed": true
+    },
+    {
+      "case_id": "contrast-near-large-above",
+      "check": "sampled_contrast",
+      "sha256": "14b047ecee6a88829d77ef842d209162bc9ab0307053485e84d4f64a02d1454e",
+      "expected": {
+        "approximate_ratio": 3.03,
+        "normal_text_threshold_met": false,
+        "large_text_threshold_met": true
+      },
+      "observed": {
+        "ratio": 3.0334698257384747,
+        "normal_text_threshold_met": false,
+        "large_text_threshold_met": true
+      },
+      "passed": true
+    },
+    {
+      "case_id": "contrast-near-large-below",
+      "check": "sampled_contrast",
+      "sha256": "d170983624e9eee66dfc5528cb67d630197b4c08cdae193b6fef29244549c9a8",
+      "expected": {
+        "approximate_ratio": 3.0,
+        "normal_text_threshold_met": false,
+        "large_text_threshold_met": false
+      },
+      "observed": {
+        "ratio": 2.9953461357088114,
+        "normal_text_threshold_met": false,
+        "large_text_threshold_met": false
+      },
+      "passed": true
+    },
+    {
+      "case_id": "palette-match",
+      "check": "dominant_palette",
+      "sha256": "14ed6d78b90c0ae7a168d24a39d624929814a3282cb716b35fa0130a25fa8c99",
+      "expected": {
+        "status": "checked"
+      },
+      "observed": {
+        "status": "checked",
+        "findings": 0,
+        "mode": "local"
+      },
+      "passed": true
+    },
+    {
+      "case_id": "palette-mismatch",
+      "check": "dominant_palette",
+      "sha256": "73ef9be3b9090450cc9d23bf36af9f9e930d4d64a8386e12f4411004073026ac",
+      "expected": {
+        "status": "issues_found"
+      },
+      "observed": {
+        "status": "issues_found",
+        "findings": 1,
+        "mode": "local"
+      },
+      "passed": true
+    },
+    {
+      "case_id": "palette-neutral",
+      "check": "dominant_palette",
+      "sha256": "5574e7609b22d60440954e1f65d6866cfae745ebe548a8f39bd062286c43a1f9",
+      "expected": {
+        "status": "checked"
+      },
+      "observed": {
+        "status": "checked",
+        "findings": 0,
+        "mode": "local"
+      },
+      "passed": true
+    },
+    {
+      "case_id": "palette-transparent",
+      "check": "dominant_palette",
+      "sha256": "5b766b48886107e1c931a4a737f098190eb5a573cab36a90854980636e559cde",
+      "expected": {
+        "status": "unavailable"
+      },
+      "observed": {
+        "status": "unavailable",
+        "findings": 0,
+        "mode": "local"
+      },
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Twelve simple synthetic pixel fixtures, manually specified expected labels.",
+    "Contrast points are supplied; automatic text/background segmentation is not tested.",
+    "Palette neutrality is an algorithm scope limitation, not proof of brand compliance.",
+    "Transparent-palette rejection is one expected safety result, not a visual detection success.",
+    "No model calls, real-person photos, customer assets or independent human labels."
+  ]
+}
