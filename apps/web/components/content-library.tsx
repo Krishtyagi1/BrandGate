@@ -53,6 +53,13 @@ export default function ContentLibrary({
         you.
       </PageHeading>
       {error && <Notice kind="error">{error}</Notice>}
+      {org.role !== "creator" && (
+        <p>
+          <Link className="button secondary" href={`/org/${org.id}/insights`}>
+            Recurring issues & guideline gaps
+          </Link>
+        </p>
+      )}
       <div className="library-filters">
         <label>
           <span className="sr-only">Content queue</span>

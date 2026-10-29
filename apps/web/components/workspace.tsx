@@ -12,6 +12,7 @@ import { SettingsPage } from "./settings";
 import ReviewWorkspace from "./review-workspace";
 import ContentLibrary from "./content-library";
 import Tutorial from "./tutorial";
+import InsightsPage from "./insights";
 import { Badge, Brand, Empty, Loading, Notice } from "./ui";
 const nav = [
   ["brand", "Rules"],
@@ -60,9 +61,7 @@ export default function Workspace() {
     else if (
       user &&
       orgId &&
-      ["dashboard", "overview", "activity", "insights", "approvals"].includes(
-        section,
-      )
+      ["dashboard", "overview", "activity", "approvals"].includes(section)
     )
       router.replace(
         `/org/${orgId}/content${section === "approvals" ? "?queue=assigned" : ""}`,
@@ -168,7 +167,10 @@ export default function Workspace() {
       <nav className="primary-tabs" aria-label="Main navigation">
         {nav.map(([route, title]) => {
           const active =
-            route === "reviews/new" ? section === "reviews" : section === route;
+            route === "reviews/new"
+              ? section === "reviews"
+              : section === route ||
+                (route === "content" && section === "insights");
           return (
             <Link
               href={`${base}/${route}`}
@@ -185,6 +187,8 @@ export default function Workspace() {
           <SourceSetup org={org} />
         ) : section === "settings" ? (
           <SettingsPage org={org} onUpdated={refresh} />
+        ) : section === "insights" ? (
+          <InsightsPage orgId={org.id} />
         ) : section === "reviews" ? (
           <ReviewWorkspace
             key={parts[3] || "new"}

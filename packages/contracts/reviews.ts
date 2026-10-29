@@ -59,6 +59,8 @@ export interface Finding {
   origin: string;
   dismissed: boolean;
   evidence_validation?: string;
+  issue_type?: string;
+  region?: { x: number; y: number; width: number; height: number };
 }
 export interface RewriteOption {
   id: string;
@@ -110,6 +112,7 @@ export interface Draft {
   platform?: string | null;
   requested_checks?: string[];
   task_instructions?: string;
+  campaign?: string;
   format: string;
   creator_id: string;
   creator_name?: string;

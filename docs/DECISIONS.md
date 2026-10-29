@@ -1,3 +1,17 @@
+## 29 October 2026 — Round 3 scope and conservative local assistant
+
+The user asked to start implementing the improved three-feature scope. Extend the existing checkout/stack and keep the white Rules / New review / Tracking navigation. Insights is a secondary Tracking destination. No deploy, push or recurring monitoring is authorised by this request.
+
+Use a **local extractive assistant** first: verified pinned excerpts with finite why/fix intents, no LLM/tools and no workflow authority. This makes the two named questions work independently of provider availability, at the cost of abstaining on other phrasings/questions. Persist bounded questions privately for owner/reviewer gap analysis and disclose that in the UI. Do not imply generic conversational reasoning or generated safe rewrites.
+
+Contrast uses **human-selected opaque pixel samples**, server-side code and unrounded thresholds. No guessed text/background segmentation or image-level accessibility pass. Apply EXIF orientation to decoded images so measurements and region dimensions match browser coordinates; preserve original bytes and hashes.
+
+Human visual judgements are append-only observations by a separate authorised person. They never replace advisory findings or create an approval. Manual comparison against owner-confirmed references is the fallback while strict free vision is unavailable. Both catalogue-compatible free vision candidates returned HTTP 404 under the unchanged policy in explicit synthetic probes. This time-bound result does not establish that future routes will be unavailable. Do not spend money, weaken privacy or infer model accuracy.
+
+Analytics count distinct drafts by finding type/status across reviews started in the period, including corrected errors in earlier revisions. A latest-only summary was rejected during validation because it erased the recurrence history after a fix. Rechecks cannot inflate a type/status count. The incomplete denominator uses each draft’s latest check in the period; older successful checks cannot replace a newer failed check. Campaign labels use current metadata and do not invalidate factual checks; channel is taken from recorded review scope. Assistant questions have a separate period denominator; unsupported questions are explicitly not proof of missing guidelines.
+
+User-supplied lead areas: Karan Verma (AI agents design) and Krish Tyagi (interface). These are planned ownership assignments, not claims that those people personally authored the AI-assisted changes in this session.
+
 ## 28 October 2026 — production branch correction
 
 Latest user steering supersedes prior nonprod/main instructions: deploy from

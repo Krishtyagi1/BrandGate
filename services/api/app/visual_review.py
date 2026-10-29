@@ -13,7 +13,7 @@ from io import BytesIO
 from pathlib import Path
 from uuid import uuid4
 
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, ImageOps, UnidentifiedImageError
 
 from app.config import LOCAL
 from providers import vision
@@ -51,7 +51,10 @@ def _image(value, expected_hash=None):
                 if original.width * original.height > 16_000_000:
                     raise ValueError("Image exceeds the supported pixel limit.")
                 original.load()
-                image = original.convert("RGBA")
+                # Browsers honour JPEG EXIF rotation/mirroring. Sampling and
+                # region dimensions must use that same displayed coordinate grid.
+                # Original bytes and their consent/reference hashes stay unchanged.
+                image = ImageOps.exif_transpose(original).convert("RGBA")
                 mime = "image/png" if original.format == "PNG" else "image/jpeg"
     except (
         OSError,
@@ -347,6 +350,7 @@ def evaluate_visual(
                     reason, [source_map[ref] for ref in item["evidence_ids"]], "ai", item["region"]
                 )
                 issue["severity"] = item["severity"]
+                issue["issue_type"] = item["issue_type"]
                 if item["check"] == "accessibility":
                     issue["category"] = "accessibility"
                 result["findings"].append(issue)

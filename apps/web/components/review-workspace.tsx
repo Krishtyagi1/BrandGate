@@ -40,6 +40,10 @@ import { Badge, Empty, Loading, Notice, PageHeading } from "./ui";
 import { CheckOptions, CoverageList, InfoHelp } from "./check-options";
 import type { KnowledgeView } from "../../../packages/contracts/knowledge";
 import { checkLabel } from "../../../packages/contracts/knowledge";
+import FindingAssistant from "./finding-assistant";
+import VisualInspection from "./visual-inspection";
+import VisualConfirmation from "./visual-confirmation";
+import CampaignField from "./campaign-field";
 const DocumentEditor = dynamic(() => import("./document-editor"), {
   ssr: false,
   loading: () => <Loading text="Opening the Word editor…" />,
@@ -120,6 +124,7 @@ export default function ReviewWorkspace({
   const [requestedChecks, setRequestedChecks] = useState<string[]>([]),
     [taskInstructions, setTaskInstructions] = useState("");
   const [knowledge, setKnowledge] = useState<KnowledgeView | null>(null);
+  const [campaign, setCampaign] = useState("");
   const [format, setFormat] = useState("text"),
     [file, setFile] = useState<File | null>(null),
     [dirty, updateDirty] = useState(false),
@@ -288,6 +293,7 @@ export default function ReviewWorkspace({
             platform: category === "social_media" ? platform || null : null,
             requested_checks: requestedChecks,
             task_instructions: taskInstructions,
+            campaign,
           }),
         );
       else {
@@ -301,6 +307,7 @@ export default function ReviewWorkspace({
           body.set("platform", platform);
         body.set("requested_checks", JSON.stringify(requestedChecks));
         body.set("task_instructions", taskInstructions);
+        body.set("campaign", campaign);
         result = await api<Draft>(`${base}/drafts/upload`, {
           method: "POST",
           body,
@@ -684,6 +691,15 @@ export default function ReviewWorkspace({
             </div>
           )}
           <fieldset className="task-checks">
+            <label>
+              Campaign <span className="muted">(optional)</span>
+              <input
+                value={campaign}
+                onChange={(e) => setCampaign(e.target.value)}
+                maxLength={120}
+                placeholder="e.g. Autumn launch"
+              />
+            </label>
             <legend>What should we check?</legend>
             <p className="muted">
               Company defaults are selected. Choose the checks for this task.
@@ -851,6 +867,14 @@ export default function ReviewWorkspace({
       </div>
       {error && <Notice kind="error">{error}</Notice>}
       {notice && <Notice>{notice}</Notice>}
+      <CampaignField
+        key={`${draft.id}/${version.id}`}
+        base={base}
+        draftId={draft.id}
+        versionId={version.id}
+        initial={draft.campaign || ""}
+        editable={editable}
+      />
       <details className="panel review-task-settings">
         <summary>
           Review task ·{" "}
@@ -1037,17 +1061,13 @@ export default function ReviewWorkspace({
           ) : (
             <>
               {draft.format === "image" && (
-                <figure className="image-content-preview">
-                  <img
-                    src={`/api${base}/drafts/${draft.id}/versions/${version.id}/download`}
-                    alt="Original uploaded content for visual inspection"
-                  />
-                  <figcaption>
-                    Original image. Supported visual checks and their limits
-                    appear in the findings. Image corrections require a new
-                    upload.
-                  </figcaption>
-                </figure>
+                <VisualInspection
+                  key={version.id}
+                  base={base}
+                  draftId={draft.id}
+                  versionId={version.id}
+                  findings={stale ? [] : findings}
+                />
               )}
               <div className="document-caption">
                 <FileText size={16} />
@@ -1268,6 +1288,26 @@ export default function ReviewWorkspace({
                   )}
                   {f.evidence_validation && (
                     <small>{f.evidence_validation}</small>
+                  )}
+                  {run && (
+                    <FindingAssistant
+                      key={`${run.id}/${f.id}`}
+                      base={base}
+                      runId={run.id}
+                      findingId={f.id}
+                      disabled={!!stale || dirty || scopeDirty || !!running}
+                    />
+                  )}
+                  {run && f.region && (
+                    <VisualConfirmation
+                      base={base}
+                      runId={run.id}
+                      findingId={f.id}
+                      canConfirm={
+                        org.role !== "creator" && draft.creator_id !== user.id
+                      }
+                      disabled={!!stale || dirty || scopeDirty || !!running}
+                    />
                   )}
                   {editable && ["text", "docx"].includes(draft.format) && (
                     <div className="finding-actions">

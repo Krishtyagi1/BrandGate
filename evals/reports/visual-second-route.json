@@ -1,0 +1,7 @@
+{
+  "generated_at": "2026-10-29T17:12:39.051371+00:00",
+  "model": "nvidia/nemotron-3.5-super-vl:free",
+  "kind": "Explicit second free catalogue candidate probe; fictional geometry only; strict existing policy",
+  "status": "unavailable",
+  "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+}

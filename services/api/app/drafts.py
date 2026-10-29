@@ -13,7 +13,14 @@ from ingestion.image_projection import project_image
 
 from .config import LOCAL
 from .db import audit
-from .review_models import DraftCreate, DraftSave, RestoreVersion, ScopeSave, TranscriptSave
+from .review_models import (
+    CampaignSave,
+    DraftCreate,
+    DraftSave,
+    RestoreVersion,
+    ScopeSave,
+    TranscriptSave,
+)
 from .review_scope import PLATFORMS
 from .security import User, org_transaction
 
@@ -184,6 +191,7 @@ def upload(
     platform: str | None = Form(None),
     requested_checks: str | None = Form(None),
     task_instructions: str = Form(""),
+    campaign: str = Form(""),
     user=User,
 ):
     if (
@@ -200,6 +208,7 @@ def upload(
     try:
         checks = json.loads(requested_checks) if requested_checks else None
         validated = DraftCreate(
+            campaign=campaign,
             title=title,
             channel=channel,
             text="scope",
@@ -238,7 +247,7 @@ def set_scope(conn, org_id, draft, body, preserve_channel=False):
         )
     )
     return conn.execute(
-        "UPDATE drafts SET category=%s,platform=%s,requested_checks=%s,task_instructions=%s,channel=%s WHERE org_id=%s AND id=%s RETURNING *",
+        "UPDATE drafts SET category=%s,platform=%s,requested_checks=%s,task_instructions=%s,channel=%s,campaign=%s WHERE org_id=%s AND id=%s RETURNING *",
         (
             body.get("category")
             or {"email": "email", "website": "website", "advertisement": "visuals"}.get(
@@ -248,10 +257,22 @@ def set_scope(conn, org_id, draft, body, preserve_channel=False):
             Jsonb(sorted(set(body.get("requested_checks") or []))),
             body.get("task_instructions") or "",
             channel,
+            body.get("campaign", draft.get("campaign", "")).strip(),
             org_id,
             draft["id"],
         ),
     ).fetchone()
+
+
+@router.post("/{draft_id}/campaign")
+def update_campaign(org_id: UUID, draft_id: UUID, body: CampaignSave, user=User):
+    with org_transaction(user, org_id) as (conn, member):
+        draft = get_draft(conn, org_id, draft_id, user, member, edit=True)
+        if draft["current_version_id"] != body.expected_current_version_id:
+            raise HTTPException(409, "The draft changed. Reload before updating its campaign.")
+        conn.execute("UPDATE drafts SET campaign=%s WHERE org_id=%s AND id=%s", (body.campaign.strip(), org_id, draft_id))
+        audit(conn, user["id"], org_id, "draft.campaign_changed", "draft", draft_id)
+        return {"campaign": body.campaign.strip()}
 
 
 @router.post("/{draft_id}/scope")

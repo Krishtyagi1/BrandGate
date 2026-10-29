@@ -8,12 +8,16 @@ from . import (
     ai_settings,
     approvals,
     drafts,
+    followup,
     guidelines,
+    insights,
     knowledge,
     reviews,
     rewrites,
     streaming,
     tutorial,
+    visual_confirmations,
+    visual_tools,
 )
 from .config import WEB_ORIGIN
 from .db import migrate
@@ -110,3 +114,7 @@ app.include_router(approvals.router)
 app.include_router(rewrites.router)
 app.include_router(knowledge.router)
 app.include_router(tutorial.router)
+app.include_router(visual_tools.router)
+app.include_router(followup.router)
+app.include_router(insights.router)
+app.include_router(visual_confirmations.router)

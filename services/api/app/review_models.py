@@ -45,6 +45,12 @@ class DraftCreate(Strict):
     platform: Platform | None = None
     requested_checks: list[CheckName] | None = Field(default=None, min_length=1, max_length=8)
     task_instructions: str = Field(default="", max_length=2000)
+    campaign: str = Field(default="", max_length=120)
+
+
+class CampaignSave(Strict):
+    expected_current_version_id: UUID
+    campaign: str = Field(max_length=120)
 
 
 class ScopeSave(Strict):

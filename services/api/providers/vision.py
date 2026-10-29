@@ -30,6 +30,9 @@ class VisualFinding(Strict):
     reason: str = Field(min_length=1, max_length=1500)
     evidence_ids: list[str] = Field(min_length=1, max_length=8)
     region: Region
+    issue_type: Literal[
+        "reference_difference", "suspected_old_logo", "placement", "distortion", "style"
+    ] = "reference_difference"
 
 
 class VisualResponse(Strict):
@@ -44,6 +47,8 @@ candidate-image rectangle: x,y,width,height in [0,1], wholly inside the candidat
 layout, theme and font similarities as advisory human-review observations. Never claim exact
 font identity from pixels, compliance, approval, a score, or exhaustive accessibility coverage.
 Never rewrite or generate images. Return the required JSON only."""
+
+SYSTEM += " Distinguish suspected_old_logo, placement, distortion and reference_difference. A different symbol alone does not prove it is old. Claim age or placement requirements only when explicit approved guidance supports them. Colour and contrast measurements are handled by code; never estimate ratios."
 
 
 def selected_vision_model():

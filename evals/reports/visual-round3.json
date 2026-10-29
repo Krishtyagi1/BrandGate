@@ -1,0 +1,163 @@
+{
+  "generated_at": "2026-10-29T17:05:04.948106+00:00",
+  "kind": "Synthetic developer-labelled vision benchmark; not an independent human agreement study",
+  "live_requested": true,
+  "model": "dots-studio/dots-3-note-preview:free",
+  "metrics": {
+    "total": 12,
+    "evaluated": 0,
+    "unrun": 12,
+    "case_agreement": null,
+    "precision": null,
+    "recall": null,
+    "true_positive_types": 0,
+    "false_positive_types": 0,
+    "missed_types": 0
+  },
+  "cases": [
+    {
+      "case_id": "banner-correct",
+      "format": "banner",
+      "expected": [],
+      "sha256": "2e95616a2c132431f6f633975778158009886b9ee2c58993a09631d8f9dae445",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    },
+    {
+      "case_id": "banner-old",
+      "format": "banner",
+      "expected": [
+        "suspected_old_logo"
+      ],
+      "sha256": "8ab3954028e6e020312c6a908574c8293920e7e44b4940c86b7032321396afba",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    },
+    {
+      "case_id": "banner-placement",
+      "format": "banner",
+      "expected": [
+        "placement"
+      ],
+      "sha256": "cccb6b53153b647815f1787751fef4cb6cd3a1ed5e196ce0281b8eb058d236f9",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    },
+    {
+      "case_id": "banner-distortion",
+      "format": "banner",
+      "expected": [
+        "distortion"
+      ],
+      "sha256": "d655547e5995b5d14fa14a5cd62209854545cb4b7d7c98dc3559c46f8dd550da",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    },
+    {
+      "case_id": "poster-correct",
+      "format": "poster",
+      "expected": [],
+      "sha256": "c126857e6db67ba4e3cad1e1d859dd9a85f44b44e80d5ed1bd40a2cfc4debbc9",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    },
+    {
+      "case_id": "poster-old",
+      "format": "poster",
+      "expected": [
+        "suspected_old_logo"
+      ],
+      "sha256": "50a4a6d65df95733ceab9e14d2ce41d8a3716e646c52be56547998cadf6711c3",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    },
+    {
+      "case_id": "poster-placement",
+      "format": "poster",
+      "expected": [
+        "placement"
+      ],
+      "sha256": "b545ba7964a8fd8565f24283e121a30c9867d33d8ab23d450a854af61e5e9953",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    },
+    {
+      "case_id": "poster-distortion",
+      "format": "poster",
+      "expected": [
+        "distortion"
+      ],
+      "sha256": "ecdbb369320eaa3236c0bfeb1a62c45eeb9a2fa04d950439ca8c07e2f3441404",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    },
+    {
+      "case_id": "website-correct",
+      "format": "website",
+      "expected": [],
+      "sha256": "2d71ebc7a9a18eae80ca4170ef1d8463a34ac407a121040a91a9f14b5318d47f",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    },
+    {
+      "case_id": "website-old",
+      "format": "website",
+      "expected": [
+        "suspected_old_logo"
+      ],
+      "sha256": "29d815b20c90ba7eb658837367254af6ba3f82c1793239f76e5aec9ed4ec728c",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    },
+    {
+      "case_id": "website-placement",
+      "format": "website",
+      "expected": [
+        "placement"
+      ],
+      "sha256": "9cb6b63626568975d785e590f2c43f9e3dbe335a6bf36ff98d81280cc5efaff2",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    },
+    {
+      "case_id": "website-distortion",
+      "format": "website",
+      "expected": [
+        "distortion"
+      ],
+      "sha256": "adc286c78e9d706cd0de69de44545d333d06b002f85a5a8d66de0ec1456b6da6",
+      "label_basis": "Developer-labelled explicit geometry; no independent human study.",
+      "status": "unavailable",
+      "observed": [],
+      "reason": "No endpoint satisfies free pricing, ZDR and schema requirements."
+    }
+  ],
+  "limits": [
+    "Twelve simple geometry fixtures; no natural backgrounds or real brand assets.",
+    "Labels authored by the fixture developer, not independent raters.",
+    "No accuracy estimate for unavailable or unrun cases.",
+    "Fallback: inspect approved references side by side; separate reviewer records the final judgement."
+  ]
+}
