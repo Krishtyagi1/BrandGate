@@ -2,6 +2,15 @@
 
 Requested hostname: `https://buildgate.velox0.com`, with Cloudflare DNS/proxy.
 
+Additional hostname: `https://brandgate.velox0.com`. Both names serve the same
+application and database. Configure both names in the Caddyfile and set
+`WEB_ADDITIONAL_ORIGINS=https://brandgate.velox0.com` in the host's private
+runtime environment, keeping `WEB_ORIGIN=https://buildgate.velox0.com`. An app
+rollout is required after changing its environment. Validate/reload Caddy after
+the app supports the additional origin; TLS certificates are managed by Caddy.
+Keep the origin TLS checks strict in Cloudflare. Cookies are host-specific, so
+users sign in separately on each hostname; the underlying accounts/data are shared.
+
 Deployed and publicly smoke-tested on 25 October 2026. Runtime identifiers are in
 the ignored `.local/deployment-aws/state.json`. Launch-template default version 6
 includes the corrected PostgreSQL ownership setup, tested North Mini image and low-traffic resource profile. Initial cloud-init logged

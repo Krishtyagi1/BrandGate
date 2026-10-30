@@ -1,3 +1,11 @@
+## Additional BrandGate hostname — 30 October 2026
+
+Added `brandgate.velox0.com` beside `buildgate.velox0.com` in Caddy and fresh-host runtime defaults. The API now validates an explicit HTTPS-only additional-origin list and allows writes from those exact origins while preserving CSRF checks. The user requested activating the new hostname through their existing Cloudflare setup; use the same host, data and accounts. Sessions remain host-specific. No wildcard/credential/path/http origins or Cloudflare TLS downgrade.
+
+Initial public check: new hostname returned HTTP 525 while existing hostname returned healthy JSON. Host inspection confirmed only the existing name was configured. Prepared/validated the live proxy file and additional runtime environment with private backups and the existing deployment lock; proxy reload waits until the app supports the added origin. The preceding chatbot/dashboard release `043e265` completed hosted CI and deployment successfully.
+
+Verification: new origin regressions first **10 failed** against the previous behavior; after implementation **22 targeted tests passed**, then `npm run test:api` **197 passed in 26.01s**. Added cases cover valid writes from both names, unrelated/lookalike/insecure/null origins, missing CSRF, exact-list parsing and malformed hosted aliases. Proxy `caddy validate` and local `bash -n deploy/ec2/start.sh` passed. Final public activation/flow verification is recorded in the follow-up release evidence after rollout.
+
 ## Production public-health checker fix — 30 October 2026
 
 User supplied the failed Actions log for release `8cda012054cd026b855354bd52b5b419f1b24b29-40939796849-1`. Internal SSM deployment had passed; the public-check failure did not establish an unhealthy app. Read-only current probes returned health/login HTTP 200. Reproduced an edge rejection: `Python-urllib/3.12` returned HTTP 403 on `/api/health`, while `BuildGate-DeployHealth/1.0` returned 200. This explains a reproducible failure of the old checker; original Actions logs did not retain the specific HTTP exception.

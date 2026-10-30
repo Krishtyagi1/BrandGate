@@ -1,3 +1,7 @@
+## 30 October 2026 — additional BrandGate hostname
+
+The user configured Cloudflare for `brandgate.velox0.com` and requested it alongside the existing hostname. Serve both hostnames directly from the same proxy/app/database. Keep the existing primary origin and deployment health target; add an exact HTTPS-only `WEB_ADDITIONAL_ORIGINS` allowlist for browser writes. Do not use wildcard origins, rewrite the browser's Origin header or weaken TLS. Host-only secure sessions stay separate across names. Add the hostname to fresh-host configuration and the existing host's private runtime, then deploy the backend support and gracefully reload the validated proxy. The user’s release authorisation covers the necessary signed main/prod update for this hostname change.
+
 ## 30 October 2026 — explicit production health-check identity
 
 Diagnosing the user-supplied public-HTTPS failure reproduced HTTP 403 for Python's default user agent and 200 for a named deployment checker. Use a descriptive `BuildGate-DeployHealth/1.0` user agent, preserve exact health validation and bounded retries, and report the last status/error type. Do not weaken Cloudflare settings, assume every HTTPS failure is transient or automatically roll back an internally healthy app. No release/push was performed while diagnosing this failure.

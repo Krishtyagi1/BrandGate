@@ -28,6 +28,7 @@ if not path.exists():
         stream.write('DATABASE_ADMIN_URL=postgresql://postgres:' + admin + '@buildgate-db:5432/buildgate\n')
         stream.write('DATABASE_APP_PASSWORD=' + app + '\n')
         stream.write('WEB_ORIGIN=https://buildgate.velox0.com\n')
+        stream.write('WEB_ADDITIONAL_ORIGINS=https://brandgate.velox0.com\n')
         stream.write('PORT=8080\n')
         stream.write('OPENROUTER_MODEL=cohere/north-mini-code:free\n')
         stream.write('OPENROUTER_ALLOW_PROVIDER_RETENTION=true\n')

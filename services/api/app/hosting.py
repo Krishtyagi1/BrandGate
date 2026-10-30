@@ -6,6 +6,8 @@ import psycopg
 from psycopg import sql
 from psycopg.conninfo import conninfo_to_dict, make_conninfo
 
+from .web_origins import allowed_web_origins
+
 
 def prepare_environment(environ):
     env = dict(environ)
@@ -25,6 +27,7 @@ def prepare_environment(environ):
         or parsed.fragment
     ):
         raise ValueError("Set WEB_ORIGIN to the exact HTTPS public origin.")
+    allowed_web_origins(origin, env.get("WEB_ADDITIONAL_ORIGINS", ""))
     try:
         port = int(env.get("PORT", "8080"))
     except ValueError:

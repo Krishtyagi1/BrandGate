@@ -21,7 +21,7 @@ from . import (
     visual_confirmations,
     visual_tools,
 )
-from .config import WEB_ORIGIN
+from .config import WEB_ORIGINS
 from .db import migrate
 
 
@@ -80,7 +80,7 @@ async def request_guard(request: Request, call_next):
         if request.headers.get("x-inkloom-csrf") != "1":
             return JSONResponse({"detail": "Request verification failed."}, status_code=403)
         origin = request.headers.get("origin")
-        if origin and origin != WEB_ORIGIN:
+        if origin and origin not in WEB_ORIGINS:
             return JSONResponse({"detail": "Request origin is not allowed."}, status_code=403)
         length = request.headers.get("content-length")
         if length and (not length.isdigit() or int(length) > 6 * 1024 * 1024):

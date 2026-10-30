@@ -1,4 +1,4 @@
-buildgate.velox0.com {
+buildgate.velox0.com, brandgate.velox0.com {
     handle /source/buildgate-source.zip {
         root * /srv
         file_server
