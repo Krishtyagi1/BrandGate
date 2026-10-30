@@ -11,8 +11,9 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from urllib.error import HTTPError
 from urllib.parse import urlsplit
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 FIELDS = (
@@ -187,19 +188,42 @@ def deploy(config, image, release):
         raise RuntimeError(
             "SSM wait timed out; host command may still be running: " + command
         )
+    verify_public_health(config["DEPLOY_ORIGIN"], release)
+
+
+def verify_public_health(origin, release):
+    request = Request(
+        origin + "/api/health",
+        headers={
+            "User-Agent": "BuildGate-DeployHealth/1.0",
+            "Accept": "application/json",
+        },
+    )
+    last_failure = "No response"
     for attempt in range(12):
         try:
-            with urlopen(
-                config["DEPLOY_ORIGIN"] + "/api/health", timeout=10
-            ) as response:
-                if response.status == 200 and json.load(response).get("status") == "ok":
+            with urlopen(request, timeout=10) as response:
+                content = response.read(65537)
+                body = json.loads(content) if len(content) <= 65536 else None
+                if (
+                    response.status == 200
+                    and isinstance(body, dict)
+                    and body.get("status") == "ok"
+                ):
                     print("Production public HTTPS health passed. Release: " + release)
                     return
-        except (OSError, ValueError):
-            pass
-        time.sleep(5)
+                last_failure = f"HTTP {response.status}; invalid health payload"
+        except HTTPError as error:
+            last_failure = f"HTTP {error.code}"
+            error.close()
+        except (OSError, ValueError) as error:
+            last_failure = type(error).__name__
+        if attempt < 11:
+            time.sleep(5)
     raise RuntimeError(
         "Internal deploy passed but public HTTPS failed. Inspect Cloudflare/origin; no success claimed."
+        + " Last check: "
+        + last_failure
     )
 
 

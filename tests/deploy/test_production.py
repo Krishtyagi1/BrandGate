@@ -1,11 +1,15 @@
 """Deployment boundary checks run without AWS credentials or network access."""
 
 import importlib.util
+import io
 import os
 import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+from urllib.error import HTTPError
+from urllib.request import Request
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -58,6 +62,67 @@ class ConfigTests(unittest.TestCase):
             self.assertFalse((ROOT / "SHOULD_NOT_EXIST").exists())
             with self.assertRaises(ValueError):
                 module.validate_config({**self.config(), **data})
+
+
+class PublicHealthTests(unittest.TestCase):
+    module = ConfigTests.module
+
+    def test_public_check_uses_explicit_agent_and_requires_healthy_json(self):
+        module = self.module()
+
+        def open_health(request, timeout):
+            self.assertIsInstance(request, Request)
+            self.assertEqual(
+                request.full_url, "https://buildgate.example.com/api/health"
+            )
+            self.assertEqual(
+                request.get_header("User-agent"), "BuildGate-DeployHealth/1.0"
+            )
+            self.assertEqual(request.get_header("Accept"), "application/json")
+            self.assertEqual(timeout, 10)
+            response = io.BytesIO(b'{"status":"ok"}')
+            response.status = 200
+            return response
+
+        with patch.object(module, "urlopen", side_effect=open_health) as opener:
+            module.verify_public_health(
+                "https://buildgate.example.com", "synthetic-release"
+            )
+        self.assertEqual(opener.call_count, 1)
+
+    def test_public_check_reports_http_failure_without_false_success(self):
+        module = self.module()
+        error = HTTPError(
+            "https://buildgate.example.com/api/health", 403, "Forbidden", {}, None
+        )
+        with (
+            patch.object(module, "urlopen", side_effect=error) as opener,
+            patch.object(module.time, "sleep"),
+            self.assertRaisesRegex(RuntimeError, "Last check: HTTP 403"),
+        ):
+            module.verify_public_health(
+                "https://buildgate.example.com", "synthetic-release"
+            )
+        self.assertEqual(opener.call_count, 12)
+
+    def test_public_check_rejects_html_and_wrong_status_json(self):
+        module = self.module()
+        for content in (b"<html>challenge</html>", b'{"status":"error"}', b"[]"):
+            with self.subTest(content=content):
+
+                def response(*args, content=content, **kwargs):
+                    body = io.BytesIO(content)
+                    body.status = 200
+                    return body
+
+                with (
+                    patch.object(module, "urlopen", side_effect=response),
+                    patch.object(module.time, "sleep"),
+                    self.assertRaisesRegex(RuntimeError, "public HTTPS failed"),
+                ):
+                    module.verify_public_health(
+                        "https://buildgate.example.com", "synthetic-release"
+                    )
 
 
 class RolloutTests(unittest.TestCase):

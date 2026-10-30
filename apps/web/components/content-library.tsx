@@ -9,6 +9,7 @@ import type {
 } from "../../../packages/contracts/reviews";
 import { api, date, message } from "@/lib/api";
 import { Badge, Empty, Loading, Notice, PageHeading } from "./ui";
+import ReviewDashboard from "./review-dashboard";
 
 export default function ContentLibrary({
   org,
@@ -53,6 +54,7 @@ export default function ContentLibrary({
         you.
       </PageHeading>
       {error && <Notice kind="error">{error}</Notice>}
+      <ReviewDashboard key={org.id} orgId={org.id} />
       {org.role !== "creator" && (
         <p>
           <Link className="button secondary" href={`/org/${org.id}/insights`}>

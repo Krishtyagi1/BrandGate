@@ -82,5 +82,13 @@ Local deployment tests run the actual shell control flow against isolated extern
 command substitutes. They are not evidence of a hosted Actions deployment.
 CI never spends model quota. Real AI checks remain separate synthetic tests.
 
+The public health verifier identifies itself as `BuildGate-DeployHealth/1.0`
+and requests JSON. A read-only 30 October check reproduced HTTP 403 for Python's
+default user agent while the named checker and normal requests received HTTP
+200. Failures now include the last HTTP status/error type; HTML challenges and
+JSON without `status=ok` still fail. A previously failed run retains its original
+commit, so deploy a commit containing the fix rather than expecting its rerun to
+pick up local changes.
+
 Official OIDC reference:
 https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-aws

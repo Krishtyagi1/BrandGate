@@ -940,6 +940,228 @@ input[type="checkbox"] {
   flex: 1 1 200px;
   max-width: 420px;
 }
+.document-chat {
+  margin: 16px 0;
+  min-width: 0;
+}
+.document-chat > summary {
+  font-size: 1.1rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+.document-chat p,
+.chat-explanation,
+.dashboard-document {
+  overflow-wrap: anywhere;
+}
+.document-chat textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+.chat-turn {
+  padding: 16px 0;
+  border-top: 1px solid #e0e6ef;
+}
+.chat-turn h3 {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+.chat-explanation {
+  border-left: 3px solid #4546b8;
+  padding: 0 0 0 12px;
+  margin: 18px 0;
+}
+.chat-explanation blockquote {
+  margin: 12px 0;
+}
+.chat-preview {
+  padding: 12px;
+  border: 1px solid #e0e6ef;
+  margin: 16px 0;
+}
+.chat-preview pre {
+  max-height: 320px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.chat-shortcuts {
+  flex-wrap: wrap;
+}
+.review-dashboard {
+  margin: 24px 0 32px;
+  min-width: 0;
+}
+.dashboard-heading {
+  align-items: start;
+  gap: 12px;
+}
+.dashboard-heading h2 {
+  margin-bottom: 8px;
+}
+.dashboard-refreshed {
+  display: block;
+  margin: 8px 0 16px;
+}
+.dashboard-metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-top: 1px solid #e0e6ef;
+  border-left: 1px solid #e0e6ef;
+}
+.dashboard-metrics button {
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: start;
+  text-align: left;
+  background: #fff;
+  color: #162841;
+  border: 0;
+  border-right: 1px solid #e0e6ef;
+  border-bottom: 1px solid #e0e6ef;
+  cursor: pointer;
+}
+.dashboard-metrics strong {
+  font-size: 1.75rem;
+  line-height: 1.1;
+}
+.dashboard-metrics button[aria-pressed="true"] {
+  background: #ededfa;
+  box-shadow: inset 0 -3px #4546b8;
+}
+.dashboard-metrics span {
+  font-size: 0.85rem;
+}
+.dashboard-denominator {
+  font-size: 0.85rem;
+  max-width: 90ch;
+  margin: 16px 0 24px;
+}
+.dashboard-breakdowns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.dashboard-breakdowns .panel {
+  min-width: 0;
+  padding: 18px;
+}
+.dashboard-breakdowns h3 {
+  margin-top: 0;
+}
+.dashboard-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 0;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  color: #162841;
+}
+.dashboard-bar-track {
+  grid-column: 1 / -1;
+  height: 6px;
+  background: #e8ebf2;
+}
+.dashboard-bar-track > span {
+  display: block;
+  height: 100%;
+  background: #4546b8;
+  min-width: 2px;
+}
+.dashboard-activity,
+.dashboard-attention {
+  margin: 16px 0;
+  padding: 20px;
+  min-width: 0;
+}
+.dashboard-table {
+  overflow-x: auto;
+}
+.dashboard-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+.dashboard-table th,
+.dashboard-table td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #e0e6ef;
+}
+.dashboard-filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0;
+}
+.dashboard-filters label {
+  min-width: 0;
+}
+.dashboard-filters input,
+.dashboard-filters select {
+  width: 100%;
+  box-sizing: border-box;
+}
+.dashboard-document {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 0;
+  border-top: 1px solid #e0e6ef;
+}
+.dashboard-document p {
+  margin: 8px 0;
+  font-size: 0.9rem;
+}
+.dashboard-document-state {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+  max-width: 40%;
+  font-size: 0.85rem;
+}
+@media (max-width: 900px) {
+  .dashboard-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .dashboard-breakdowns {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 540px) {
+  .dashboard-heading,
+  .dashboard-activity > .section-heading,
+  .dashboard-attention > .section-heading,
+  .dashboard-document {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .dashboard-filters {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-document-state {
+    max-width: 100%;
+  }
+  .dashboard-activity,
+  .dashboard-attention {
+    padding: 14px;
+  }
+  .chat-shortcuts .button {
+    white-space: normal;
+    text-align: left;
+  }
+}
 .insights-period {
   max-width: 220px;
   margin-bottom: 18px;

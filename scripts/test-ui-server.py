@@ -13,10 +13,12 @@ os.environ['OPENROUTER_MODEL']='synthetic/model:free'
 from app.main import app
 from app.review_models import ReviewResponse,RewriteResponse
 from app.rewrites import RewriteJudge
+from app.document_chat import ChatReply
 from providers import openrouter
 
 def synthetic_complete(system,payload,schema,purpose='review',usage_callback=None):
     metadata={'model':'SYNTHETIC_TEST_DOUBLE','provider':'Offline UI fixture; no external AI request'}
+    if schema is ChatReply:return ChatReply(message='Synthetic explanation of this saved review.',items=[{'finding_id':f['id'],'explanation':f['reason'],'citation_ids':[e['id'] for e in f['evidence']]} for f in payload['findings']]),metadata
     if schema is ReviewResponse:return ReviewResponse(findings=[]),metadata
     if schema is RewriteResponse:return RewriteResponse(minimal='daily',natural='gentle'),metadata
     if schema is RewriteJudge:return RewriteJudge(minimal_safe=True,natural_safe=True,reason='Synthetic UI fixture'),metadata

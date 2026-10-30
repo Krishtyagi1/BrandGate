@@ -1,3 +1,15 @@
+## 30 October 2026 — explicit production health-check identity
+
+Diagnosing the user-supplied public-HTTPS failure reproduced HTTP 403 for Python's default user agent and 200 for a named deployment checker. Use a descriptive `BuildGate-DeployHealth/1.0` user agent, preserve exact health validation and bounded retries, and report the last status/error type. Do not weaken Cloudflare settings, assume every HTTPS failure is transient or automatically roll back an internally healthy app. No release/push was performed while diagnosing this failure.
+
+## 30 October 2026 — document explanation chat and review overview
+
+The user selected whole-document chat with cited follow-ups, added an overall findings dashboard, then approved both designs with “do both”. Implement in this checkout using the existing backend/provider/AG-UI controls. No new service or dependency. Preserve the three primary tabs: the dashboard appears above Tracking's existing saved-work list, with its own explicit filters and current counts; historical recurrence keeps its separate denominator. Creator visibility remains personal and owner/reviewer visibility remains organisation-scoped.
+
+Add explicit outbound chat previews rather than silently sending questions/excerpts. Persist private per-user, exact-review request/answer history with immutable retry claims. Resolve citation IDs against approved snapshot evidence; keep unsupported evidence uncertain. The model is advisory and cannot authorise changes. Preserve the selected provider's existing free/pricing/privacy constraints, including the previously authorised North retention policy. No automatic commit, push or deployment is included in this feature request.
+
+Execution stayed in this project according to the existing build ledger; no outside worktree. A fresh read-only reviewer checked the implementation. All six material findings received regression fixes. Synthetic browser doubles are distinguished from the successful real synthetic provider/end-to-end checks. Semantic answer quality beyond those narrow probes remains unmeasured; do not claim a general chatbot accuracy result.
+
 ## 30 October 2026 — endpoint preflight and separate local evaluation
 
 Keep existing free-only, no-training and ZDR vision policy. Do not weaken it to make inference work. Add public metadata preflight before sending images: intersect exact model/provider/tag identities with the published ZDR list and validate endpoint prices/schema parameters. Unknown metadata fails closed. This can reject a technically working route when published metadata is incomplete; that conservative availability trade-off is intentional. Runtime request policy still enforces the same requirements and does not trust the preflight alone.

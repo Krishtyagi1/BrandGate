@@ -7,6 +7,8 @@ from . import (
     accounts,
     ai_settings,
     approvals,
+    dashboard,
+    document_chat,
     drafts,
     followup,
     guidelines,
@@ -108,6 +110,8 @@ app.include_router(accounts.router)
 app.include_router(guidelines.router)
 app.include_router(streaming.router)
 app.include_router(drafts.router)
+app.include_router(document_chat.router)
+app.include_router(dashboard.router)
 app.include_router(ai_settings.router)
 app.include_router(reviews.router)
 app.include_router(approvals.router)

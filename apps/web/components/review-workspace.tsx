@@ -41,6 +41,7 @@ import { CheckOptions, CoverageList, InfoHelp } from "./check-options";
 import type { KnowledgeView } from "../../../packages/contracts/knowledge";
 import { checkLabel } from "../../../packages/contracts/knowledge";
 import FindingAssistant from "./finding-assistant";
+import DocumentChat from "./document-chat";
 import VisualInspection from "./visual-inspection";
 import VisualConfirmation from "./visual-confirmation";
 import CampaignField from "./campaign-field";
@@ -1211,6 +1212,14 @@ export default function ReviewWorkspace({
                   pixels.
                 </p>
               )}
+              {run && ["completed", "incomplete"].includes(run.status) && (
+                <DocumentChat
+                  key={run.id}
+                  base={base}
+                  runId={run.id}
+                  disabled={!!stale || dirty || scopeDirty || !!running}
+                />
+              )}
               {findings.map((f) => (
                 <article className="finding" key={f.id}>
                   <div className="finding-meta">
@@ -1288,6 +1297,28 @@ export default function ReviewWorkspace({
                   )}
                   {f.evidence_validation && (
                     <small>{f.evidence_validation}</small>
+                  )}
+                  {run && (
+                    <button
+                      className="button ghost compact"
+                      disabled={!!stale || dirty || scopeDirty || !!running}
+                      onClick={() =>
+                        window.dispatchEvent(
+                          new CustomEvent("inkloom-document-chat", {
+                            detail: {
+                              runId: run.id,
+                              question:
+                                `Explain finding ${f.id}: ${f.quote}`.slice(
+                                  0,
+                                  500,
+                                ),
+                            },
+                          }),
+                        )
+                      }
+                    >
+                      Discuss in document chat
+                    </button>
                   )}
                   {run && (
                     <FindingAssistant

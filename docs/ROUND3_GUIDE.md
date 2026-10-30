@@ -14,6 +14,14 @@ Open “Measure sampled colour contrast”, select foreground/background points 
 
 ## Finding-scoped assistant
 
+### Document AI chatbot (30 October addition)
+
+In a current review, open **Ask about this document**. Choose **Why was this document flagged?**, ask what to fix first, or type a follow-up. **Discuss in document chat** on a finding prefills a question about that issue. Inspect the redacted payload, then choose **Send question to AI**. Your configured provider generates an explanation; numbered source details show exact server-validated approved excerpts. Missing evidence stays unverified. Answers do not change the document or its approval state.
+
+Questions/answers are private to you and that review and survive reload. Only the last six successful turns go to the model; the latest 30 requests are shown. A new revision or source/scope change requires a fresh review and conversation. Oversized context is rejected rather than silently omitting findings. Provider failures show errors, and saved answers can recover from interrupted streams. Existing owner AI consent, model availability, pricing/privacy settings and request caps apply. Citation checks do not guarantee every generated explanation is correct; assess the source support yourself.
+
+### Local helper retained
+
 Open “Ask about this finding” and use “Why was this flagged?” or “How can I fix it?”. Answers quote exact approved excerpts from the finding's pinned source snapshot. Citations must match stored IDs, excerpts, locations and source identities. The current revision, guideline snapshot, task scope and latest review must still match.
 
 The assistant is **local and extractive**, not a generative model. It supports the two named questions and a few equivalent phrases; it abstains on unsupported questions rather than inferring an answer. Missing evidence returns “not covered by the guidelines”. Citations are validated for identity/exactness; that does not prove a source substantively supports every original contextual observation. A person still evaluates that support.
@@ -21,6 +29,12 @@ The assistant is **local and extractive**, not a generative model. It supports t
 Questions and answers are stored privately for organisation insights, with bounded length, rate limits and retry keys. No external AI call is made. Official AG-UI message events deliver the saved answer; interrupted streams fall back to the saved text. There are no assistant tools to edit, approve or activate anything. Corrections continue through the existing explicit rewrite/save/recheck workflow.
 
 ## Recurrence and guideline gaps
+
+### Tracking review overview (30 October addition)
+
+Tracking opens with current results and flags, pending approvals and incomplete/outdated checks. Click a count or category/severity/status bar to filter its document list. Use **Reset dashboard filters** or **Refresh dashboard** as needed. High-severity filters match the same finding as the chosen category/status. Dismissed observations have their own count. The existing saved-work list below retains its independent search/approval queue.
+
+Current totals use the latest review per document and exclude stale flags and rewrite runs. Completed checks do not guarantee compliance. Activity uses review runs started in the chosen 7/30/90-day period, including rechecks, with UTC day labels. Current totals cover all authorised documents regardless of the activity period. Creators see their own documents; owners/reviewers see the organisation overview. Historical **Recurring issues & guideline gaps** remains a separate report.
 
 Owners/reviewers open Tracking → “Recurring issues & guideline gaps”. Creators retain their existing draft visibility; they cannot access organisation-wide insights. Choose the last 7, 30 or 90 days.
 
