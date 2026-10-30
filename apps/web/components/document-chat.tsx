@@ -202,7 +202,14 @@ export default function DocumentChat({
           </button>
         ))}
       </div>
-      <div className="chat-history" aria-live="polite" aria-busy={busy}>
+      <div
+        className="chat-history"
+        aria-live="polite"
+        aria-busy={busy}
+        role="region"
+        aria-label="Document conversation"
+        tabIndex={0}
+      >
         {loading && <p>Loading your private conversation…</p>}
         {earlier && <p className="muted">Showing the latest 30 questions.</p>}
         {!loading && !turns.length && (

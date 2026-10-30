@@ -1,5 +1,6 @@
 import { LoaderCircle, Layers3, Check, AlertCircle } from "lucide-react";
 import type { ReactNode } from "react";
+import Image from "next/image";
 
 export function Mark({ small = false }: { small?: boolean }) {
   return (
@@ -92,6 +93,14 @@ export function PageHeading({
 }) {
   return (
     <div className="page-heading">
+      <div className="heading-art" aria-hidden="true">
+        <Image
+          src="/art/red-blue-glitter-banner-soft.png"
+          alt=""
+          fill
+          sizes="(max-width: 650px) 100vw, 720px"
+        />
+      </div>
       <div>
         <h1>{title}</h1>
         <p>{children}</p>

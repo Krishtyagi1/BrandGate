@@ -12,6 +12,9 @@ const context = await browser.newContext({
   viewport: { width: 1536, height: 1100 },
   acceptDownloads: true,
 });
+if (process.env.INKLOOM_TEST_THEME === "dark") {
+  await context.addInitScript(() => localStorage.setItem("brandgate-theme", "dark"));
+}
 const page = await context.newPage();
 page.setDefaultTimeout(60000);
 const report = {

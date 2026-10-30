@@ -1,3 +1,73 @@
+## UI refresh release authorised — 31 October 2026
+
+The user explicitly requested deployment after reviewing the local refresh.
+This supersedes the local-only delivery boundary recorded below. Fresh release
+checks: `npm run test:api` **197 passed in 27.01s**; deployment boundary suite
+**10 passed**; Ruff, production build (including TypeScript) and diff whitespace
+checks **passed**. The previously verified 38 workflow checks, seven appearance
+checks, 20 selected axe scans and light/dark DOCX probes cover the unchanged UI
+tree. Include the generated original/transparent artwork and its provenance in
+the signed main/prod release. The preceding hostname Actions deployment completed
+successfully after GitHub recovered; use the normal Actions release path.
+
+## Compact UI, both themes and transparent artwork — 31 October 2026
+
+Implemented **locally only** after the user approved the refresh with blurry,
+transparent red/blue artwork for both themes. No commit, push, production
+configuration change or deployment was performed for this refresh. Local web
+preview remains at `http://127.0.0.1:3000`, API at port 8000.
+
+- Reduced header/page/section spacing, softened corners and grouped dashboard
+  summaries/breakdowns instead of individual heavy boxes. Preserved the three
+  primary tabs, source evidence, editor, finding and approval workflows.
+- Added light/dark appearance controls on sign-in, onboarding and workspace.
+  Initial appearance follows the saved choice or system; explicit choices persist
+  locally and synchronise across tabs. If storage is blocked, an in-memory choice
+  survives client-side sign-in/navigation; a full reload may fall back to system.
+- Generated portrait and panoramic **RGBA transparent overlays** with the built-in
+  image tool, referencing the original generated variants. Verified alpha-zero
+  negative space and partial-alpha glows. Active files:
+  `apps/web/public/art/red-blue-glitter-hero-soft.png` and
+  `apps/web/public/art/red-blue-glitter-banner-soft.png`. Next Image serves local
+  responsive variants; CSS applies static blur and theme-specific opacity. Artwork
+  stays behind login/intro copy, outside form/editor/evidence text. No real-person
+  images, company content, remote fonts, animations or new library were used.
+  Original variants and complete prompt provenance remain in `docs/UI_ASSETS.md`.
+- Bounded document conversation history in a labelled, keyboard-focusable scroll
+  region. Dark surfaces use semantic foreground/border tokens; native DOCX paper
+  retains its light appearance and original document colours.
+
+Actual verification:
+
+- `node scripts/test-theme-ui.mjs`: **7 checks passed**, **4 selected axe scans,
+  zero violations**, covering light/dark desktop/mobile login, actual loaded
+  artwork, saved preference, cross-tab changes, registration, system changes and
+  sign-in with blocked browser storage. The last case first reproduced a reset
+  to system appearance, then passed after the in-memory fallback fix.
+- `npm run test:e2e:simple`: **38 checks passed**, **16 selected axe scans, zero
+  violations**. Includes dark Rules, expanded finding/chat source excerpts,
+  desktop/mobile Tracking, existing tutorial/setup, editor save/recheck, human
+  approval, insights and visual/manual controls. Provider is the explicit
+  synthetic double, not live model-accuracy evidence.
+- `npm run test:editor` and `INKLOOM_TEST_THEME=dark npm run test:editor`: **4/4
+  DOCX probes passed in each appearance** (open, paragraph/table edit, immutable
+  save and reopen). No external requests or page errors. Existing aborted
+  download requests remain recorded in the editor probe diagnostics; no claim of
+  a completely empty request log. Screenshot inspection confirmed readable light
+  document paper within the dark workspace.
+- `npm run typecheck`, final `npm run build` and `git diff --check`: **passed**.
+  No backend code changed, so the backend suite was not unnecessarily repeated.
+
+Independent read-only review caught dark evidence/legacy source-proof colours
+and the blocked-storage navigation reset. Expanded dark evidence scans reproduced
+the contrast failure; semantic foregrounds fixed it. Legacy `.form-source`
+styling was normalised as well. No material review findings remain deferred.
+Screenshots/reports: `.local/test-results/refresh-login-*.png`,
+`refresh-rules-dark.png`, `refresh-review-dark.png`, `refresh-tracking-dark.png`,
+`ui-refresh-theme.json` and `simple-workflow-browser.json`. Selected axe scans
+are not a full accessibility certification. No general mobile/third-party editor
+accessibility or model-quality claim is added.
+
 ## Additional BrandGate hostname — 30 October 2026
 
 Added `brandgate.velox0.com` beside `buildgate.velox0.com` in Caddy and fresh-host runtime defaults. The API now validates an explicit HTTPS-only additional-origin list and allows writes from those exact origins while preserving CSRF checks. The user requested activating the new hostname through their existing Cloudflare setup; use the same host, data and accounts. Sessions remain host-specific. No wildcard/credential/path/http origins or Cloudflare TLS downgrade.

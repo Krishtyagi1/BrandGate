@@ -1,6 +1,8 @@
 "use client";
 import { useState, type FormEvent } from "react";
 import { ArrowRight, ShieldCheck, BookOpen, Users } from "lucide-react";
+import Image from "next/image";
+import ThemeToggle from "./theme-toggle";
 import { Brand, Notice } from "./ui";
 import { api, message, send } from "@/lib/api";
 
@@ -43,30 +45,43 @@ export function Auth({ onLogin }: { onLogin: () => Promise<void> }) {
   }
   return (
     <div className="auth-page">
+      <div className="auth-appearance">
+        <ThemeToggle />
+      </div>
       <section className="auth-story">
+        <div className="auth-art" aria-hidden="true">
+          <Image
+            src="/art/red-blue-glitter-hero-soft.png"
+            alt=""
+            fill
+            sizes="(max-width: 800px) 100vw, 46vw"
+            loading="eager"
+          />
+        </div>
         <Brand />
         <div className="auth-story-content">
           <span className="story-symbol">
             <BookOpen size={30} />
           </span>
           <h1>
-            A shared standard.
-            <br />A clearer voice.
+            Your brand,
+            <br />
+            in good hands.
           </h1>
           <p>
-            Bring your brand knowledge together, so every piece of content
-            starts from the same source of truth.
+            Check content against your approved sources. Work through the
+            findings together. Keep every decision traceable.
           </p>
           <div className="story-points">
             <span>
-              <ShieldCheck size={18} /> Knowledge your team has approved
+              <ShieldCheck size={18} /> Your approved knowledge, in one place
             </span>
             <span>
-              <Users size={18} /> People in control of every decision
+              <Users size={18} /> Final decisions stay with your team
             </span>
           </div>
         </div>
-        <p className="auth-footnote">Your brand, thoughtfully kept.</p>
+        <p className="auth-footnote">From first draft to human approval.</p>
       </section>
       <main className="auth-form-area">
         <div className="auth-card">

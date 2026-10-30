@@ -1,3 +1,27 @@
+## 31 October 2026 — release the verified UI refresh
+
+The user's explicit “deploy” authorises committing/pushing the local UI refresh
+to main/prod and deploying it to the existing host and both configured domains.
+Use a signed commit and the existing checked Actions/SSM backup/rollback path.
+This supersedes the prior local-only restriction for this refresh. No hosting
+upgrade, provider/privacy change or new infrastructure is required.
+
+## 31 October 2026 — compact local UI and transparent theme-aware art
+
+The user asked for a less blocky/spaced UI, local-first execution and twisting
+glowing red/blue glitter backgrounds. Their follow-up approved blurry transparent
+backgrounds for both themes. Apply a compact shared layout with light/dark themes
+and reusable alpha overlays rather than opaque dark artwork on every section.
+Keep the three-tab workflow and all review/approval controls. Theme state is a
+local browser preference, never organisation policy or workflow authority.
+
+Generate/edit artwork only through the built-in image tool; keep original
+variants and prompt provenance. Use static display blur and theme-specific
+opacity, responsive local images and quiet reading surfaces. No people/photos,
+remote font or new UI dependency. Keep DOCX paper light so the document's own
+colours remain meaningful. The user has authorised local implementation/testing,
+not committing, pushing or deploying this visual refresh.
+
 ## 30 October 2026 — additional BrandGate hostname
 
 The user configured Cloudflare for `brandgate.velox0.com` and requested it alongside the existing hostname. Serve both hostnames directly from the same proxy/app/database. Keep the existing primary origin and deployment health target; add an exact HTTPS-only `WEB_ADDITIONAL_ORIGINS` allowlist for browser writes. Do not use wildcard origins, rewrite the browser's Origin header or weaken TLS. Host-only secure sessions stay separate across names. Add the hostname to fresh-host configuration and the existing host's private runtime, then deploy the backend support and gracefully reload the validated proxy. The user’s release authorisation covers the necessary signed main/prod update for this hostname change.

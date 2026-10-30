@@ -13,6 +13,7 @@ import ReviewWorkspace from "./review-workspace";
 import ContentLibrary from "./content-library";
 import Tutorial from "./tutorial";
 import InsightsPage from "./insights";
+import ThemeToggle from "./theme-toggle";
 import { Badge, Brand, Empty, Loading, Notice } from "./ui";
 const nav = [
   ["brand", "Rules"],
@@ -144,6 +145,7 @@ export default function Workspace() {
             </select>
           </label>
           <Badge variant="role">{org.role}</Badge>
+          <ThemeToggle />
           <Tutorial onExample={refresh} />
           <details className="settings-menu">
             <summary>

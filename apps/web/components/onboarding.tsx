@@ -4,6 +4,7 @@ import { Building2, Plus, Ticket, LogOut } from "lucide-react";
 import type { Organisation } from "../../../packages/contracts";
 import { api, message, send } from "@/lib/api";
 import { Brand, Notice } from "./ui";
+import ThemeToggle from "./theme-toggle";
 
 export default function Onboarding({
   organisations,
@@ -45,6 +46,7 @@ export default function Onboarding({
     <div className="onboarding">
       <header>
         <Brand />
+        <ThemeToggle />
         <button className="button ghost" onClick={onLogout}>
           <LogOut size={16} />
           Sign out
