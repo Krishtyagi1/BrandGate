@@ -6,6 +6,13 @@ Use a signed commit and the existing checked Actions/SSM backup/rollback path.
 This supersedes the prior local-only restriction for this refresh. No hosting
 upgrade, provider/privacy change or new infrastructure is required.
 
+Actions remained queued during release. Use the already established manual path
+with a native ARM64 image of the exact clean signed commit, the same private
+artifact checks and existing backup/rollback controls. The release passed public
+browser verification on both domains. Keep the pending Actions run intact; it
+contains the same application changes. The final docs-only verification commit
+skips CI to avoid a redundant new application rollout.
+
 ## 31 October 2026 — compact local UI and transparent theme-aware art
 
 The user asked for a less blocky/spaced UI, local-first execution and twisting

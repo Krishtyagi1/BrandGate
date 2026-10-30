@@ -1,5 +1,28 @@
 ## UI refresh release authorised — 31 October 2026
 
+**Deployed and publicly verified.** Signed application commit
+`c0a66eb4fc6589647712e15dd0209d04a0eebee9` was pushed to main/prod. Actions run
+`41111360508` remained queued, so the same clean, checked signed tree was built
+locally for ARM64. Both soft PNGs were verified present in the image. The existing
+deployment script uploaded the private artifact, verified target/account/hash,
+backed up the database and rolled out release
+`c0a66eb4fc6589647712e15dd0209d04a0eebee9-1793386823` with the unchanged rollback
+controls. SSM command `bb0a5a08-bf03-407c-a48c-276b6de7089d` returned Success;
+internal health and public HTTPS health passed. No host capacity, proxy origin,
+private runtime secrets or AI processing policy changed.
+
+`node .local/deployment-aws/ui-refresh-smoke.mjs` passed three grouped production
+browser checks with zero page errors: both hostnames' refreshed login/artwork,
+persisted light/dark switching and 390px mobile layout; plus real browser sign-in,
+synthetic organisation creation and compact dark Tracking on BrandGate. Both
+`https://brandgate.velox0.com/api/health` and
+`https://buildgate.velox0.com/api/health` returned HTTP 200. Only fictional account
+data was used; no model calls or real-person photos. Evidence:
+`.local/deployment-aws/ui-refresh-production-smoke.json`, `ui-refresh-release.json`,
+`.local/test-results/ui-refresh-docker-build.log` and `production-*.png`. The
+pending Actions run may later deploy the same application commit; the final
+verification-only documentation commit skips another redundant app rollout.
+
 The user explicitly requested deployment after reviewing the local refresh.
 This supersedes the local-only delivery boundary recorded below. Fresh release
 checks: `npm run test:api` **197 passed in 27.01s**; deployment boundary suite
