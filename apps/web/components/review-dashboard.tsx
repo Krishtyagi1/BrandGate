@@ -359,42 +359,104 @@ export default function ReviewDashboard({ orgId }: { orgId: string }) {
               ))}
             </div>
             {!filtered.length && <p>No documents match these filters.</p>}
-            {filtered.slice(0, visible).map((d) => (
-              <article className="dashboard-document" key={d.id}>
-                <div>
-                  <Link href={`/org/${orgId}/reviews/${d.id}`}>
-                    <strong>{d.title}</strong>
-                  </Link>
-                  <p className="muted">
-                    {d.creator_name} · {label(d.channel)}
-                  </p>
-                  {d.findings
-                    .filter((f) => !f.dismissed)
-                    .slice(0, 2)
-                    .map((f) => (
-                      <p key={f.id}>
-                        {label(f.severity)} · {f.reason}
-                      </p>
-                    ))}
-                </div>
-                <div className="dashboard-document-state">
-                  <Badge>{label(d.review_state)}</Badge>
-                  <Badge>{label(d.workflow_status)}</Badge>
-                  <span>
-                    {d.open_flags} open flags
-                    {d.high_flags ? ` · ${d.high_flags} high severity` : ""}
-                  </span>
-                  {d.coverage_incomplete && (
-                    <span>Some checks lack complete coverage</span>
-                  )}
-                  {["completed", "incomplete"].includes(d.review_state) && (
-                    <Link href={`/org/${orgId}/reviews/${d.id}#document-chat`}>
-                      Ask why it was flagged
-                    </Link>
-                  )}
-                </div>
-              </article>
-            ))}
+            {filtered.length > 0 && (
+              <div
+                className="dashboard-table dashboard-attention-table"
+                role="region"
+                aria-label="Dashboard documents"
+                tabIndex={0}
+              >
+                <table>
+                  <caption className="sr-only">
+                    Documents matching the dashboard filters
+                  </caption>
+                  <colgroup>
+                    <col className="attention-document-col" />
+                    <col className="attention-status-col" />
+                    <col className="attention-flags-col" />
+                    <col className="attention-findings-col" />
+                    <col className="attention-actions-col" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th scope="col">Document</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Flags</th>
+                      <th scope="col">Findings</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filtered.slice(0, visible).map((d) => {
+                      const findings = d.findings
+                        .filter((f) => !f.dismissed)
+                        .slice(0, 2);
+                      return (
+                        <tr key={d.id}>
+                          <th scope="row" className="attention-document-cell">
+                            <Link href={`/org/${orgId}/reviews/${d.id}`}>
+                              {d.title}
+                            </Link>
+                            <p className="muted">
+                              {d.creator_name} · {label(d.channel)}
+                            </p>
+                          </th>
+                          <td>
+                            <div className="attention-statuses">
+                              <Badge>{label(d.review_state)}</Badge>
+                              <Badge>{label(d.workflow_status)}</Badge>
+                            </div>
+                          </td>
+                          <td className="attention-flags-cell">
+                            <strong>{d.open_flags}</strong> open
+                            {d.high_flags > 0 && (
+                              <small>{d.high_flags} high severity</small>
+                            )}
+                          </td>
+                          <td>
+                            {findings.map((f) => (
+                              <p className="attention-finding" key={f.id}>
+                                <span className="attention-severity">
+                                  {label(f.severity)}
+                                </span>{" "}
+                                {f.reason}
+                              </p>
+                            ))}
+                            {!findings.length && (
+                              <span className="muted">
+                                {d.review_state === "unchecked"
+                                  ? "Not checked yet"
+                                  : "No open flags"}
+                              </span>
+                            )}
+                            {d.coverage_incomplete && (
+                              <p className="muted attention-coverage">
+                                Some checks lack complete coverage
+                              </p>
+                            )}
+                          </td>
+                          <td className="attention-actions-cell">
+                            {["completed", "incomplete"].includes(
+                              d.review_state,
+                            ) ? (
+                              <Link
+                                href={`/org/${orgId}/reviews/${d.id}#document-chat`}
+                              >
+                                Ask why it was flagged
+                              </Link>
+                            ) : (
+                              <Link href={`/org/${orgId}/reviews/${d.id}`}>
+                                Open document
+                              </Link>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
             {filtered.length > visible && (
               <button
                 className="button secondary compact"

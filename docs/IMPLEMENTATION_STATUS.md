@@ -1,3 +1,20 @@
+## Dashboard attention table — 31 October 2026
+
+Replaced the Needs attention document cards with a semantic five-column table:
+Document, Status, Flags, Findings and Actions. Cells and outer edge have 1px
+theme-aware borders, the header has a subtle fill, and the rows use compact
+spacing. Titles and summaries wrap. The named, keyboard-focusable table wrapper
+provides horizontal scrolling on narrow screens. Search, filters, pagination and
+saved review data are unchanged. Unchecked rows offer Open document; reviewed
+rows retain the document-chat link.
+
+`npm run typecheck` and `npm run build` passed. Native Chrome local inspection
+confirmed table headers/row semantics, 1px grid and readable light/dark themes;
+search narrowed the table to one matching row and a nonmatching search showed
+the existing empty-results message. No API or AI behaviour changed and no new
+implementation-mirroring test was added for this presentation-only change.
+Production release verification is pending at this checkpoint.
+
 ## Shared editable demo login — 31 October 2026
 
 Added the login-page demo button and a server-only SSM credential path. Demo

@@ -511,12 +511,93 @@ html[data-theme="dark"] .heading-art {
   margin: 16px 0;
   gap: 10px;
 }
-.dashboard-document {
-  padding: 14px 0;
-  gap: 16px;
+.dashboard-attention-table {
+  margin-bottom: 12px;
+  border-radius: 6px;
 }
-.dashboard-document p {
-  margin: 6px 0;
+.dashboard-attention-table table {
+  margin: 0;
+  min-width: 900px;
+  table-layout: fixed;
+  border: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.dashboard-attention-table th,
+.dashboard-attention-table td {
+  border: 1px solid var(--line);
+  padding: 12px 14px;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.dashboard-attention-table thead th {
+  background: var(--paper);
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--muted);
+}
+.dashboard-attention-table tbody tr:hover {
+  background: var(--paper);
+}
+.attention-document-col {
+  width: 28%;
+}
+.attention-status-col {
+  width: 15%;
+}
+.attention-flags-col {
+  width: 11%;
+}
+.attention-findings-col {
+  width: 32%;
+}
+.attention-actions-col {
+  width: 14%;
+}
+.dashboard-attention-table p {
+  margin: 0;
+}
+.dashboard-attention-table p + p {
+  margin-top: 7px;
+}
+.attention-document-cell {
+  font-weight: 600;
+}
+.attention-document-cell .muted {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 400;
+}
+.attention-statuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.attention-flags-cell strong {
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+.attention-flags-cell small {
+  display: block;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.attention-severity {
+  font-weight: 600;
+  color: var(--ink);
+}
+.attention-coverage {
+  font-size: 12px;
+}
+.attention-finding + .attention-coverage {
+  margin-top: 8px;
+}
+.attention-actions-cell a {
+  font-size: 12px;
+}
+.dashboard-attention-table:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 .dashboard-refreshed {
   font-size: 11px;

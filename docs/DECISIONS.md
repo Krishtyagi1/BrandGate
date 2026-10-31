@@ -1,3 +1,10 @@
+## 31 October 2026 — bordered dashboard results table
+
+The user requested a table with 1px borders for the Needs attention list shown
+in their screenshot. Use the existing light/dark palette, explicit column and
+row headers, compact cells and horizontal scrolling within the table region on
+small screens. Preserve filter logic and saved finding/status semantics.
+
 ## 31 October 2026 — public editable demo entry
 
 The user requested a login-page button using credentials loaded from AWS and chose
