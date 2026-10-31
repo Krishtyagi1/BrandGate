@@ -13,7 +13,15 @@ confirmed table headers/row semantics, 1px grid and readable light/dark themes;
 search narrowed the table to one matching row and a nonmatching search showed
 the existing empty-results message. No API or AI behaviour changed and no new
 implementation-mirroring test was added for this presentation-only change.
-Production release verification is pending at this checkpoint.
+**Deployed and publicly verified.** Signed app commit `5d298ba` is on main/prod.
+GitHub production workflow `41157404271` completed successfully, including the
+backend/deployment checks, lint, typecheck, build and rollout. Release
+`5d298ba75c1159cfeb4698bb96b33e045aaf8b9e-41157404271-1` passed public HTTPS health;
+SSM command `d0d93514-82a9-4251-afeb-cfd7a82e1b77` completed the rollout. Native Chrome
+confirmed the live five-column table on brandgate.velox0.com with the four saved
+demo documents, including the long finding summaries and preserved chat links.
+The local 390px preview keeps the table within its panel. No live AI requests or
+document edits were needed for this presentation verification.
 
 ## Shared editable demo login — 31 October 2026
 
