@@ -7,7 +7,7 @@ No photos, people, brand documents or credentials were supplied. Each original
 2172 × 724 RGBA PNG is retained in the generated-image output directory. The app
 uses resized 1086 × 362 transparent WebP copies (quality 85) for fast loading. CSS composites
 the artwork beneath theme-aware surface tints; button labels remain live text.
-Following user feedback, the final buttons use translucent surfaces with 4px
+Following user feedback, the final buttons use translucent surfaces with 10px
 blurred artwork beneath live labels: 65% art opacity on primary, 40% secondary
 and 28% quiet actions. A restrained inset sheen, 1px border and 10px backdrop
 blur support the requested almost-glass treatment. The whole artwork fits each

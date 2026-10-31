@@ -24,6 +24,8 @@ tests were added. The user found the first treatment too faint, then specified
 translucent buttons with blurry artwork and restrained glass-like styling.
 Replaced the solid primary fill with translucent theme-aware surfaces, a softly
 blurred decorative layer, 1px borders, subtle inset sheen and backdrop blur.
+The user then requested more blur inside buttons; increased the artwork blur
+from 4px to 10px while retaining the translucent surface and readable live text.
 Art opacity is 65% on primary, 40% on secondary and 28% on quiet actions, with
 the complete asset fitted inside each button. Cancelled initial workflow
 `41164804572` during image building; its SSM rollout step was skipped. Production

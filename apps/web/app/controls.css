@@ -111,7 +111,7 @@ input[type="file"]::file-selector-button {
   inset: -2px;
   pointer-events: none;
   background: var(--button-art) center / 100% 100% no-repeat;
-  filter: blur(4px);
+  filter: blur(10px);
   opacity: var(--button-art-opacity);
 }
 .button.primary:not(.word-editor *) {
