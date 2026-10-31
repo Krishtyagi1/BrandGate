@@ -95,7 +95,11 @@ export function PageHeading({
     <div className="page-heading">
       <div className="heading-art" aria-hidden="true">
         <Image
-          src="/art/red-blue-glitter-banner-soft.png"
+          src={
+            title === "Tracking"
+              ? "/art/section-ribbon.webp"
+              : "/art/section-halo.webp"
+          }
           alt=""
           fill
           sizes="(max-width: 650px) 100vw, 720px"

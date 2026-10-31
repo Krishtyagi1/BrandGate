@@ -3,11 +3,11 @@
 Use a 42px shared height for text fields and native single-select controls,
 including an explicit appearance reset so Safari dropdowns do not retain a
 shorter platform bezel. Keep the existing palette and typography. Use generated
-transparent red/blue artwork with live text, consistent borders and focus
-states. After seeing the initial faint version, the user specified translucent
-buttons with blurry artwork, almost glass-like but restrained. Use a separate
-blurred art layer and backdrop blur, with a light inset sheen rather than an
-opaque blue primary fill. Exclude the embedded document
+transparent red/blue artwork in section headers, with live text, consistent
+borders and focus states. The user's final direction restores mostly solid
+buttons with slight translucency and moves artwork elsewhere, superseding the
+intermediate glass-like button experiments. Use 94% primary/secondary fills
+and 90% quiet fills. Exclude the embedded document
 editor from shared control overrides. Keep compact actions at 34px and preserve
 the 1px dashboard table. This is a presentation-only refinement within the user's
 existing main/prod release authorization.
@@ -304,6 +304,7 @@ Disable Next.js response compression for the local server: measured proxy buffer
 Use a separate `inkloom_test` database for backend tests, in the same project-local PostgreSQL cluster. Browser fixtures use uniquely named synthetic accounts in the running local app. Account email verification remains explicitly local development delivery; real production identity verification is unresolved.
 
 Portable database initialization initially wrote a transient OS temp setup file, then deleted it; corrected launchers explicitly set TEMP/TMP/TMPDIR to `.cache/tmp`. This was disclosed to the user and is recorded as an exception to the requested folder boundary.
+
 # 2026-10-24 approved AI build decisions
 
 - Continue in the current project folder; no parent repository staging, global install or outside worktree. User restriction takes precedence over worktree helper guidance.
@@ -315,5 +316,3 @@ Portable database initialization initially wrote a transient OS temp setup file,
 - Account IDs enforce separate reviewer controls. Two automated accounts validate mechanics and are not independent human feedback or proof of two different people.
 - Supersede pending requests after content edits, guideline activation or reviewer-role revocation. Historical decisions remain unchanged.
 - Pin PDF.js 5.4.296 within the supported major version to avoid the reported vulnerable newer range. Four transitive AG-UI/Zod advisory entries remain; bounded server-generated stream data reduces exposure but does not remove the dependency advisory. Record the final audit rather than claim a clean audit.
-
-

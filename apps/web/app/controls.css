@@ -78,70 +78,53 @@ input[type="file"]::file-selector-button {
   font-weight: 600;
   cursor: pointer;
 }
-/* A translucent surface with diffuse artwork, rather than an opaque fill. */
+/* Mostly solid action surfaces with a small amount of translucency. */
 .button:not(.word-editor *) {
-  --button-art: url("/art/button-halo.webp");
-  --button-art-opacity: 0.32;
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
   min-height: var(--control-height);
   padding: 9px 15px;
   border-radius: var(--control-radius);
-  border: 1px solid color-mix(in srgb, var(--muted) 24%, transparent);
+  border: 1px solid var(--line);
   color: var(--ink);
   font-weight: 600;
   line-height: 1.45;
-  background: color-mix(in srgb, var(--surface) 68%, transparent);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
   background-clip: padding-box;
-  -webkit-backdrop-filter: blur(10px) saturate(1.1);
-  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   box-shadow:
-    inset 0 1px 0 #ffffff24,
-    0 1px 3px #14213a0a;
+    inset 0 1px 0 #ffffff18,
+    0 1px 2px #14213a08;
   transition:
     background-color 150ms ease,
     border-color 150ms ease,
     box-shadow 150ms ease;
 }
-.button:not(.word-editor *)::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -2px;
-  pointer-events: none;
-  background: var(--button-art) center / 100% 100% no-repeat;
-  filter: blur(10px);
-  opacity: var(--button-art-opacity);
-}
 .button.primary:not(.word-editor *) {
-  --button-art: url("/art/button-ribbon.webp");
-  --button-art-opacity: 0.65;
-  color: var(--ink);
-  border-color: color-mix(in srgb, var(--accent) 48%, var(--line));
-  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  color: #fff;
+  border-color: var(--action);
+  background: color-mix(in srgb, var(--action) 94%, transparent);
 }
 .button.primary:not(.word-editor *):hover:not(:disabled) {
   filter: none;
-  background-color: color-mix(in srgb, var(--accent-soft) 76%, transparent);
-  border-color: var(--accent);
+  background-color: var(--action);
   box-shadow:
-    inset 0 1px 0 #ffffff30,
-    0 2px 6px #203c8314;
-}
-.button.secondary:not(.word-editor *) {
-  --button-art-opacity: 0.4;
+    inset 0 1px 0 #ffffff20,
+    0 2px 5px #203c831a;
 }
 .button.ghost:not(.word-editor *) {
-  --button-art-opacity: 0.28;
-  background-color: color-mix(in srgb, var(--surface) 40%, transparent);
+  background-color: color-mix(in srgb, var(--paper) 90%, transparent);
 }
 .button:is(.secondary, .ghost):not(.word-editor *):hover:not(:disabled) {
-  background-color: color-mix(in srgb, var(--accent-soft) 72%, transparent);
+  background-color: color-mix(in srgb, var(--accent-soft) 94%, transparent);
   border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
-  box-shadow:
-    inset 0 1px 0 #ffffff24,
-    0 2px 5px #14213a0b;
+}
+/* Generated artwork belongs on section headers, clear of interactive labels. */
+.heading-art {
+  opacity: 0.24;
+  filter: blur(10px);
+}
+html[data-theme="dark"] .heading-art {
+  opacity: 0.32;
 }
 .button.compact:not(.word-editor *) {
   min-height: 34px;
@@ -169,6 +152,42 @@ input[type="file"]::file-selector-button {
 .dashboard-attention-table .button {
   white-space: normal;
   text-align: center;
+}
+/* Header controls share the same outside height, including the role indicator. */
+.workspace-tools {
+  align-items: center;
+}
+.workspace-tools .theme-toggle,
+.workspace-tools > .button:not(.word-editor *),
+.workspace-tools .settings-menu > summary {
+  height: var(--control-height);
+  min-height: var(--control-height);
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--control-radius);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.workspace-tools .settings-menu > summary:hover {
+  background: var(--accent-soft);
+}
+.workspace-tools .settings-menu > div {
+  top: calc(100% + 8px);
+}
+.workspace-tools > .badge {
+  min-height: var(--control-height);
+  padding: 0 12px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: var(--control-radius);
+  line-height: 1.4;
+}
+@media (min-width: 1001px) {
+  .workspace-tools > .badge {
+    display: inline-flex;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   :is(input, select, textarea, .button):not(.word-editor *) {

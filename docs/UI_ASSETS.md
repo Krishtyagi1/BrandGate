@@ -1,29 +1,27 @@
 # UI artwork provenance
 
-## 31 October: button accent assets and consistent controls
+## 31 October: section accent assets and consistent controls
 
 Generated with the built-in `image_gen` tool with `transparent_background=true`.
 No photos, people, brand documents or credentials were supplied. Each original
 2172 × 724 RGBA PNG is retained in the generated-image output directory. The app
-uses resized 1086 × 362 transparent WebP copies (quality 85) for fast loading. CSS composites
-the artwork beneath theme-aware surface tints; button labels remain live text.
-Following user feedback, the final buttons use translucent surfaces with 10px
-blurred artwork beneath live labels: 65% art opacity on primary, 40% secondary
-and 28% quiet actions. A restrained inset sheen, 1px border and 10px backdrop
-blur support the requested almost-glass treatment. The whole artwork fits each
-button so its colored edges remain visible.
+uses resized 1086 × 362 transparent WebP copies (quality 85) for fast loading.
+Originally generated as button accents, these are now used in PageHeading
+sections per the user's final direction. Tracking uses the ribbon and other
+section headings use the halo. CSS adds 10px blur and theme-aware opacity.
+Buttons have no artwork: their mostly solid surfaces have slight translucency.
 
-### button-ribbon
+### Section ribbon (original button-ribbon prompt)
 
-File: `apps/web/public/art/button-ribbon.webp`
+File: `apps/web/public/art/section-ribbon.webp`
 
 Final prompt:
 
 Use case: stylized-concept. Asset type: transparent decorative texture behind an interactive web button, wide horizontal composition about 4:1. Generate a refined very soft glowing cobalt-blue and ruby-red ribbon of microscopic glitter, gently twisting together, luminous blue toward one end and crimson toward the other, lots of empty transparent space across the middle for a readable button label. Diffused edges fade completely into genuine transparency. Restrained premium atmosphere matching a clean brand governance app with blurry red and blue streak hero artwork. The two wisps lie mainly along the bottom-left and top-right edges. No solid background, no rectangle, no border, no actual button, no text, no logo, no icons, no people, no watermark. Smooth soft bloom and subtle particles, not sharp fireworks. Actual transparent background required.
 
-### button-halo
+### Section halo (original button-halo prompt)
 
-File: `apps/web/public/art/button-halo.webp`
+File: `apps/web/public/art/section-halo.webp`
 
 Final prompt:
 

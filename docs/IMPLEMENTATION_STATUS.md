@@ -6,10 +6,15 @@ visible focus rings. Textareas, checkbox/radio/file controls and the document
 editor retain their distinct sizing. Primary, secondary and quiet actions now
 have consistent borders, compact variants and disabled/hover treatments. The
 dashboard's document/chat links use those button variants; the 1px table stays.
+The header organisation selector, role indicator, theme toggle, Help and Settings
+now share the same 42px outside height. Settings has a matching 1px border and
+its popup sits below the full-height control. Existing small-screen role hiding
+remains in place.
 
 Generated two transparent red/blue glitter accents with the built-in image tool;
 optimized WebP copies total 185,014 bytes. Full prompts and provenance are in
-`docs/UI_ASSETS.md`. Labels remain live text over strong surface tints.
+`docs/UI_ASSETS.md`. The assets decorate section headers; buttons use mostly
+solid fills with slight translucency and no artwork.
 
 Local `npm run typecheck`, `npm run build`, `git diff --check` and targeted
 Prettier formatting passed. Native Chrome confirmed the login artwork/buttons,
@@ -20,16 +25,13 @@ heights, focus ring, dropdown opening, bordered table actions and settled light
 and dark themes. The new-review form also retained properly sized text fields,
 selects, checkboxes and textareas. No mobile visual pass is claimed for this
 change. No backend or AI behaviour changed, and no implementation-only cosmetic
-tests were added. The user found the first treatment too faint, then specified
-translucent buttons with blurry artwork and restrained glass-like styling.
-Replaced the solid primary fill with translucent theme-aware surfaces, a softly
-blurred decorative layer, 1px borders, subtle inset sheen and backdrop blur.
-The user then requested more blur inside buttons; increased the artwork blur
-from 4px to 10px while retaining the translucent surface and readable live text.
-Art opacity is 65% on primary, 40% on secondary and 28% on quiet actions, with
-the complete asset fitted inside each button. Cancelled initial workflow
-`41164804572` during image building; its SSM rollout step was skipped. Production
-rollout of the revised treatment is pending at this checkpoint.
+tests were added. The final user direction supersedes the button-art experiments:
+restore solid buttons with just a little translucency and use assets elsewhere.
+Primary/secondary fills are 94% opaque, quiet fills 90%, with restrained borders
+and sheen. New ribbon/halo assets now decorate PageHeading sections with soft
+blur. Cancelled superseded release workflows before rollout; the initial
+`41164804572` SSM step was skipped. Production rollout of the final treatment is
+pending at this checkpoint.
 
 ## Dashboard attention table — 31 October 2026
 
@@ -256,7 +258,6 @@ Implemented locally at the user's direction. The prior build authorisation remai
 - **Insights:** owner/reviewer view under Tracking, with 7/30/90-day UI periods (API 1–365 days), finding types by channel/creator/campaign and Unverified/assistant-abstention gaps. Counts retain historical findings across revisions in the period, one distinct draft per type/status, with corrected/dismissed observations retained and latest-check incompleteness disclosed. Campaign is optional current metadata; it does not change approved facts or review authority. Questions are a separate period-based denominator and can signal unsupported phrasing rather than a missing rule.
 
 **Final verification:** `npm run test:api` → **163 passed in 25.74s**. `npm run test:e2e:simple` → **26 checks passed**, including **eight selected axe scans with zero reported violations**, desktop and 390px insights/visual-inspection/new-review coverage. `npm run build` passed production compilation and TypeScript; standalone typecheck and Ruff also passed. `git diff --check` passed. These are synthetic/offline workflow checks, not model accuracy or full accessibility certification. Independent read-only code review found one Important EXIF coordinate issue; the regression failed first (1:1 instead of21:1) and passed after orientation correction, followed by the full suite. No other Critical/Important findings or deferred minors were reported. See docs/ROUND3_PROGRESS.md for the evidence ledger.
-
 
 **Live vision outcome:** `PYTHONPATH=services/api .venv/bin/python -m evals.visual_run --live --limit 4` selected `dots-studio/dots-3-note-preview:free`; the first inference returned HTTP 404/no endpoint meeting free/ZDR/schema requirements. No privacy downgrade or paid fallback. Twelve developer-labelled geometry-only image fixtures were generated; **0 evaluated / 12 unrun**, with agreement, precision and recall **null**, not zero accuracy or a pass. A second explicit synthetic probe of `nvidia/nemotron-3.5-super-vl:free` also returned HTTP 404. These were the two catalogue-compatible free image/schema candidates at probe time; the result is time-bound, not a claim that future/free routes can never work. See `evals/reports/visual-round3.json`. Manual reference comparison plus local palette/contrast is the documented fallback. Independent human labels and real-image agreement remain outstanding.
 
@@ -701,9 +702,6 @@ Foundation complete; awaiting user approval before Phase 2. Next is the full UI 
 At the user's request, removed the email verification code screen, API endpoint, outbox writer and helper script. Registration returns to sign-in, and both new accounts and previously unverified accounts can sign in with email/password. Duplicate registration reports that an account already exists. Team invitation codes remain separate from sign-in. Email ownership is not verified in this prototype; see `docs/DECISIONS.md` for the explicit departure from the original plan.
 
 Fresh checks after this change: `npm.cmd run test:api` **34 passed in 48.99 seconds**; `npm.cmd run typecheck` passed; `.venv/Scripts/ruff.exe check services/api` passed; `npm.cmd run test:e2e` **17 checks passed**, including direct registration/sign-in with no verification field, five accessibility scans with no reported violations, team permissions, logout, streaming and mobile layouts. The first browser attempt encountered connection refused during the service restart; the full combined launcher was restarted and the subsequent complete browser run passed. The current app is running at `http://127.0.0.1:3000`. The historical checkpoint results above describe the earlier verification-code implementation.
-
-
-
 
 ## 24 October 2026 — user-requested fictional sample guidelines
 
