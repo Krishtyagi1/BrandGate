@@ -440,12 +440,16 @@ export default function ReviewDashboard({ orgId }: { orgId: string }) {
                               d.review_state,
                             ) ? (
                               <Link
+                                className="button secondary compact"
                                 href={`/org/${orgId}/reviews/${d.id}#document-chat`}
                               >
                                 Ask why it was flagged
                               </Link>
                             ) : (
-                              <Link href={`/org/${orgId}/reviews/${d.id}`}>
+                              <Link
+                                className="button ghost compact"
+                                href={`/org/${orgId}/reviews/${d.id}`}
+                              >
                                 Open document
                               </Link>
                             )}

@@ -1,5 +1,29 @@
 # UI artwork provenance
 
+## 31 October: button accent assets and consistent controls
+
+Generated with the built-in `image_gen` tool with `transparent_background=true`.
+No photos, people, brand documents or credentials were supplied. Each original
+2172 × 724 RGBA PNG is retained in the generated-image output directory. The app
+uses resized 1086 × 362 transparent WebP copies (quality 85) for fast loading. CSS composites
+the artwork beneath a strong surface tint; button labels remain live text.
+
+### button-ribbon
+
+File: `apps/web/public/art/button-ribbon.webp`
+
+Final prompt:
+
+Use case: stylized-concept. Asset type: transparent decorative texture behind an interactive web button, wide horizontal composition about 4:1. Generate a refined very soft glowing cobalt-blue and ruby-red ribbon of microscopic glitter, gently twisting together, luminous blue toward one end and crimson toward the other, lots of empty transparent space across the middle for a readable button label. Diffused edges fade completely into genuine transparency. Restrained premium atmosphere matching a clean brand governance app with blurry red and blue streak hero artwork. The two wisps lie mainly along the bottom-left and top-right edges. No solid background, no rectangle, no border, no actual button, no text, no logo, no icons, no people, no watermark. Smooth soft bloom and subtle particles, not sharp fireworks. Actual transparent background required.
+
+### button-halo
+
+File: `apps/web/public/art/button-halo.webp`
+
+Final prompt:
+
+Use case: stylized-concept. Asset type: transparent abstract halo texture for quiet secondary UI buttons and panel accents, horizontal composition about 4:1. A sparse fine mist of blue and red glitter with two very blurry curved light wisps, an airy cobalt-blue glow and a smaller ruby-red glow, low density and soft edge transparency. Keep the central 65 percent almost empty transparent so text overlays remain readable. Elegant understated companion to glowing red-blue ribbon artwork. Fully transparent surrounding background. No solid background, no rectangle, no border, no actual button, no text, no logo, no icons, no people, no watermark. No crisp starbursts; diffuse silk-like glowing particles only.
+
 ## 31 October refinement: transparent soft overlays (active variants)
 
 The user requested blurry artwork and transparent backgrounds for both themes.

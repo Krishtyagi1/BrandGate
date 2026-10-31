@@ -1,3 +1,14 @@
+## 31 October 2026 — shared controls and generated button accents
+
+Use a 42px shared height for text fields and native single-select controls,
+including an explicit appearance reset so Safari dropdowns do not retain a
+shorter platform bezel. Keep the existing palette and typography. Use generated
+transparent red/blue artwork beneath strongly tinted button backgrounds, with
+live text, consistent borders and focus states. Exclude the embedded document
+editor from shared control overrides. Keep compact actions at 34px and preserve
+the 1px dashboard table. This is a presentation-only refinement within the user's
+existing main/prod release authorization.
+
 ## 31 October 2026 — bordered dashboard results table
 
 The user requested a table with 1px borders for the Needs attention list shown

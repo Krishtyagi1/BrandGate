@@ -1,3 +1,24 @@
+## Shared control styling and button artwork — 31 October 2026
+
+Added a shared control stylesheet with 42px text fields and single-selects,
+matching padding, native-select appearance reset, theme-aware chevrons and
+visible focus rings. Textareas, checkbox/radio/file controls and the document
+editor retain their distinct sizing. Primary, secondary and quiet actions now
+have consistent borders, compact variants and disabled/hover treatments. The
+dashboard's document/chat links use those button variants; the 1px table stays.
+
+Generated two transparent red/blue glitter accents with the built-in image tool;
+optimized WebP copies total 185,014 bytes. Full prompts and provenance are in
+`docs/UI_ASSETS.md`. Labels remain live text over strong surface tints.
+
+Local `npm run typecheck`, `npm run build`, `git diff --check` and targeted
+Prettier formatting passed. Native Chrome confirmed the login artwork/buttons,
+demo sign-in, dashboard controls/table semantics and theme-toggle state. Further
+visual inspection was limited by native automation returning stale screenshots
+and `noWindowsAvailable` on scrolling; no Safari or mobile visual pass is claimed
+for this change. No backend or AI behaviour changed, and no implementation-only
+cosmetic tests were added. Production rollout is pending at this checkpoint.
+
 ## Dashboard attention table — 31 October 2026
 
 Replaced the Needs attention document cards with a semantic five-column table:

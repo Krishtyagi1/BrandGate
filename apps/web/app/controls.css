@@ -1,0 +1,168 @@
+/* Shared app controls. The document editor keeps its own toolbar sizing. */
+:root {
+  --control-height: 42px;
+  --control-radius: 9px;
+  --control-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23626c80' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+html[data-theme="dark"] {
+  --control-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23acb8cc' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+input:not(
+    [type="checkbox"],
+    [type="radio"],
+    [type="file"],
+    [type="range"],
+    [type="color"],
+    [type="hidden"]
+  ):not(.word-editor *),
+select:not([multiple]):not([size]):not(.word-editor *) {
+  appearance: none;
+  -webkit-appearance: none;
+  height: var(--control-height);
+  min-height: var(--control-height);
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--control-radius);
+  background-color: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  box-shadow: 0 1px 2px #14213a04;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+select:not([multiple]):not([size]):not(.word-editor *) {
+  padding-right: 36px;
+  background-image: var(--control-arrow);
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+textarea:not(.word-editor *) {
+  border-radius: var(--control-radius);
+  padding: 11px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+:is(input, select, textarea):not(.word-editor *):hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--muted) 50%, var(--line));
+}
+:is(input, select, textarea):not(.word-editor *):focus-visible {
+  border-color: var(--accent);
+  outline: 2px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  outline-offset: 2px;
+}
+:is(input, select, textarea):not(.word-editor *):disabled {
+  cursor: not-allowed;
+  background-color: var(--paper);
+  color: var(--muted);
+}
+input[type="file"]:not(.word-editor *) {
+  padding: 6px;
+  font-size: 13px;
+  font-weight: 400;
+}
+input[type="file"]::file-selector-button {
+  margin-right: 10px;
+  padding: 7px 11px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.button:not(.word-editor *) {
+  min-height: var(--control-height);
+  padding: 9px 15px;
+  border-radius: var(--control-radius);
+  border: 1px solid var(--line);
+  font-weight: 600;
+  line-height: 1.45;
+  background-clip: padding-box;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+.button.primary:not(.word-editor *) {
+  color: #fff;
+  border-color: #3557c3;
+  background-color: #3557c3;
+  background-image:
+    linear-gradient(#3557c3cc, #3557c3cc), url("/art/button-ribbon.webp");
+  background-position: center;
+  background-size: cover;
+  box-shadow:
+    inset 0 1px 0 #ffffff26,
+    0 2px 4px #203c831a;
+}
+.button.primary:not(.word-editor *):hover:not(:disabled) {
+  border-color: #2949ad;
+  background-color: #2949ad;
+  filter: brightness(1.06);
+  box-shadow:
+    inset 0 1px 0 #ffffff26,
+    0 3px 8px #203c8326;
+}
+.button.secondary:not(.word-editor *) {
+  background-color: var(--surface);
+  background-image:
+    linear-gradient(
+      var(--surface),
+      color-mix(in srgb, var(--surface) 94%, transparent)
+    ),
+    url("/art/button-halo.webp");
+  background-size: cover;
+  background-position: center;
+  color: var(--ink);
+  box-shadow: 0 1px 2px #14213a08;
+}
+.button.ghost:not(.word-editor *) {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line);
+}
+.button:is(.secondary, .ghost):not(.word-editor *):hover:not(:disabled) {
+  background-color: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: 0 2px 5px #14213a0b;
+}
+.button.compact:not(.word-editor *) {
+  min-height: 34px;
+  padding: 6px 11px;
+  font-size: 12px;
+}
+.button:not(.word-editor *):disabled {
+  box-shadow: none;
+  filter: none;
+}
+.dashboard-filters,
+.library-filters {
+  align-items: end;
+  gap: 12px;
+}
+.dashboard-filters label,
+.library-filters label {
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.dashboard-attention-table tbody tr:hover {
+  background: color-mix(in srgb, var(--accent-soft) 35%, var(--surface));
+}
+.dashboard-attention-table .button {
+  white-space: normal;
+  text-align: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(input, select, textarea, .button):not(.word-editor *) {
+    transition: none;
+  }
+}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./simple.css";
 import "./refinement.css";
+import "./controls.css";
 export const metadata: Metadata = {
   title: "Brand Content Review",
   description:
