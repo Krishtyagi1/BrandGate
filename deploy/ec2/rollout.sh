@@ -5,12 +5,17 @@ umask 077
 release="${1:?release required}"
 image="${2:?image required}"
 root="${3:-/opt/buildgate}"
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 [[ "$release" =~ ^[a-f0-9]{40}-[0-9]+(-[0-9]+)?$ ]] || { echo 'Invalid release ID' >&2; exit 2; }
 [[ "$image" =~ ^brandgate-hosted:[a-zA-Z0-9_.-]+$ ]] || { echo 'Invalid image tag' >&2; exit 2; }
 cd "$root"
 [[ -f private/runtime.env ]] || { echo 'Private runtime environment is missing' >&2; exit 2; }
 exec 9>private/deploy.lock
 flock -n 9 || { echo 'Another host deployment is active' >&2; exit 1; }
+if [[ -f private/demo-login-source.json ]]; then
+  python3 "$script_dir/load-demo-credentials.py" --source private/demo-login-source.json --output /var/lib/buildgate/app/demo-login.json \
+    || echo 'Demo sign-in unavailable; continuing the normal application deployment.' >&2
+fi
 docker inspect buildgate-app >/dev/null
 install -d -m 700 private/backups
 backup="private/backups/pre-${release}.dump"

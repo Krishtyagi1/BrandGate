@@ -3,6 +3,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  demo_org_id?: string | null;
 }
 export interface Organisation {
   id: string;

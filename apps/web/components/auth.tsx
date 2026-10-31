@@ -6,11 +6,34 @@ import ThemeToggle from "./theme-toggle";
 import { Brand, Notice } from "./ui";
 import { api, message, send } from "@/lib/api";
 
-export function Auth({ onLogin }: { onLogin: () => Promise<void> }) {
+export function Auth({
+  onLogin,
+}: {
+  onLogin: (demoOrgId?: string) => Promise<void>;
+}) {
   const [mode, setMode] = useState<"login" | "register">("login");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [demoBusy, setDemoBusy] = useState(false);
+  async function enterDemo() {
+    setBusy(true);
+    setDemoBusy(true);
+    setError("");
+    setSuccess("");
+    try {
+      const result = await api<{ demo_org_id: string }>(
+        "/auth/demo",
+        send("POST"),
+      );
+      await onLogin(result.demo_org_id);
+    } catch (err) {
+      setError(message(err));
+    } finally {
+      setBusy(false);
+      setDemoBusy(false);
+    }
+  }
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
@@ -142,6 +165,24 @@ export function Auth({ onLogin }: { onLogin: () => Promise<void> }) {
               <ArrowRight size={16} />
             </button>
           </form>
+          {mode === "login" && (
+            <div className="demo-entry">
+              <button
+                type="button"
+                className="button secondary full"
+                disabled={busy}
+                onClick={enterDemo}
+              >
+                {demoBusy ? "Opening demo…" : "Log in to demo account"}
+                <ArrowRight size={16} />
+              </button>
+              <p className="muted">
+                Explore findings, edit documents and try AI chat. This is a
+                shared fictional workspace; other visitors can see your changes.
+                Use sample files only.
+              </p>
+            </div>
+          )}
           <div className="auth-switch">
             {mode === "login" ? (
               <>

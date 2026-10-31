@@ -1,3 +1,33 @@
+## Shared editable demo login — 31 October 2026
+
+Added the login-page demo button and a server-only SSM credential path. Demo
+sessions open Tracking for the prepared Northstar organisation, permit document
+editing, comments, reviews and chat, and deny rule/team/consent/approval changes
+and all other organisations. The shared-data notice appears before and after
+login. Normal login remains available; demo sessions expire in one hour.
+
+Verification so far: API integration tests covered password/configuration
+failure, private file permissions, expiry/logout, CSRF/rate limits, normal owner
+permissions, cross-tenant denial and permitted edit/review/chat flows. Final
+`npm run test:api` passed **214 tests in 32.43s**. Deployment tests passed **13**,
+including a demonstrated RED→GREEN
+regression for optional AWS loader failure. Ruff, typecheck, production web build
+and ARM64 image build passed. Native Chrome local testing confirmed the button,
+dashboard entry, shared notice, restricted navigation and logout. Safari native
+control timed out twice; Chrome was used for this feature's browser check.
+
+Independent reviewer identified the AWS-loader availability issue; both startup
+and rollout hooks now continue normal operation when the demo credential is
+unavailable. Further checks added independent demo token storage for rollback
+safety, live review-stream session checks, and deterministic preservation of
+numeric protocol IDs during chat text redaction. Early failures and corrections
+are retained in ignored `.local/demo-*.log` test reports.
+
+AWS setup completed: SecureString created without logging its value; instance
+role granted only the exact parameter read; host source configuration command
+`70cf5381-d614-4e4a-b6b0-a8bf1fcf95be` returned Success. Production application
+rollout and public demo verification are pending at this checkpoint.
+
 ## UI refresh release authorised — 31 October 2026
 
 **Deployed and publicly verified.** Signed application commit

@@ -132,6 +132,7 @@ class RolloutTests(unittest.TestCase):
         backup_failure=False,
         lock_failure=False,
         restore_failure=False,
+        demo_failure=False,
     ):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -160,6 +161,8 @@ if args[:3]==['rename','buildgate-app-previous','buildgate-app']:
             (root / "private/runtime.env").write_text(
                 "WEB_ORIGIN=https://example.com\n"
             )
+            if demo_failure:
+                (root / "private/demo-login-source.json").write_text("{}")
             env = {
                 **os.environ,
                 "PATH": str(root) + os.pathsep + os.environ["PATH"],
@@ -189,6 +192,11 @@ if args[:3]==['rename','buildgate-app-previous','buildgate-app']:
                 for line in (root / "docker.log").read_text().splitlines()
             ]
             return result, calls
+
+    def test_demo_loader_outage_does_not_abort_normal_rollout(self):
+        result, calls = self.run_rollout(demo_failure=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(any(c[0] == "run" for c in calls))
 
     def test_healthy_release_uses_small_limits(self):
         result, calls = self.run_rollout()

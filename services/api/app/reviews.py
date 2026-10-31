@@ -567,8 +567,8 @@ async def stream(org_id: UUID, run_id: UUID, request: Request, user=User):
             try:
                 with org_transaction(user, org_id) as (conn, member):
                     if not conn.execute(
-                        "SELECT 1 FROM sessions WHERE token_hash=%s AND expires_at>now()",
-                        (token_hash,),
+                        "SELECT 1 FROM sessions WHERE token_hash=%s AND expires_at>now() UNION ALL SELECT 1 FROM demo_sessions WHERE token_hash=%s AND org_id=%s AND expires_at>now()",
+                        (token_hash, token_hash, org_id),
                     ).fetchone():
                         return
                     run, _ = run_access(conn, org_id, run_id, user, member)

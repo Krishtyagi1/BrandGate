@@ -58,7 +58,15 @@ export default function Workspace() {
     if (loading || error) return;
     if (!user && pathname !== "/login") router.replace("/login");
     else if (user && (pathname === "/" || pathname === "/login"))
-      router.replace(orgs.length ? `/org/${orgs[0].id}/brand` : "/onboarding");
+      router.replace(
+        user.demo_org_id
+          ? `/org/${user.demo_org_id}/content`
+          : orgs.length
+            ? `/org/${orgs[0].id}/brand`
+            : "/onboarding",
+      );
+    else if (user?.demo_org_id && (!orgId || section === "settings"))
+      router.replace(`/org/${user.demo_org_id}/content`);
     else if (
       user &&
       orgId &&
@@ -68,12 +76,14 @@ export default function Workspace() {
         `/org/${orgId}/content${section === "approvals" ? "?queue=assigned" : ""}`,
       );
   }, [loading, error, user, pathname, orgs, orgId, section, router]);
-  async function login() {
+  async function login(demoOrgId?: string) {
     const organisations = await refresh();
     router.push(
-      organisations.length
-        ? `/org/${organisations[0].id}/brand`
-        : "/onboarding",
+      demoOrgId
+        ? `/org/${demoOrgId}/content`
+        : organisations.length
+          ? `/org/${organisations[0].id}/brand`
+          : "/onboarding",
     );
   }
   async function joined(id: string) {
@@ -146,18 +156,22 @@ export default function Workspace() {
           </label>
           <Badge variant="role">{org.role}</Badge>
           <ThemeToggle />
-          <Tutorial onExample={refresh} />
+          {!user.demo_org_id && <Tutorial onExample={refresh} />}
           <details className="settings-menu">
             <summary>
               <Settings size={17} />
               <span>Settings</span>
             </summary>
             <div>
-              <Link href={`${base}/settings`}>Team, account & privacy</Link>
-              <Link href="/onboarding">
-                <Plus size={15} />
-                Add or join organisation
-              </Link>
+              {!user.demo_org_id && (
+                <>
+                  <Link href={`${base}/settings`}>Team, account & privacy</Link>
+                  <Link href="/onboarding">
+                    <Plus size={15} />
+                    Add or join organisation
+                  </Link>
+                </>
+              )}
               <button onClick={logout}>
                 <LogOut size={15} />
                 Sign out {user.name}
@@ -185,6 +199,13 @@ export default function Workspace() {
         })}
       </nav>
       <main id="main" className="main simple-main" key={`${org.id}/${section}`}>
+        {user.demo_org_id && (
+          <Notice>
+            Shared demo: use fictional sample files only. Other visitors can see
+            your edits and chat. Team settings, rule changes and human approvals
+            are unavailable.
+          </Notice>
+        )}
         {section === "brand" ? (
           <SourceSetup org={org} />
         ) : section === "settings" ? (
@@ -203,7 +224,11 @@ export default function Workspace() {
         )}
       </main>
       <footer className="simple-footer">
-        <span>Private organisation workspace</span>
+        <span>
+          {user.demo_org_id
+            ? "Shared fictional demo workspace"
+            : "Private organisation workspace"}
+        </span>
         <span>AI findings are advisory. Human approval required.</span>
       </footer>
     </div>

@@ -829,3 +829,11 @@ html[data-theme="dark"] .review-mobile-tabs button.active {
     scroll-behavior: auto !important;
   }
 }
+.demo-entry {
+  margin-top: 1rem;
+}
+.demo-entry .muted {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  margin: 0.65rem 0 0;
+}

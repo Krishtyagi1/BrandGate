@@ -159,12 +159,18 @@ def prepare_chat(conn, org_id, run, question, actor_id):
     # Redact all text leaves together so identical secrets have consistent tokens.
     fields = []
 
-    def collect(value):
+    # These are server-generated reference identifiers, not document text. Redacting
+    # numeric UUID suffixes would make valid model responses fail citation validation.
+    reference_keys = {"id", "review_id", "version_id", "finding_id", "source_document_id"}
+
+    def collect(value, key=None):
+        if key in reference_keys:
+            return
         if isinstance(value, str):
             fields.append(value)
         elif isinstance(value, dict):
-            for v in value.values():
-                collect(v)
+            for k, v in value.items():
+                collect(v, k)
         elif isinstance(value, list):
             for v in value:
                 collect(v)
@@ -179,11 +185,13 @@ def prepare_chat(conn, org_id, run, question, actor_id):
         raise HTTPException(422, str(error)) from None
     values = iter(cleaned.split(delimiter))
 
-    def replace(value):
+    def replace(value, key=None):
+        if key in reference_keys:
+            return value
         if isinstance(value, str):
             return next(values)
         if isinstance(value, dict):
-            return {k: replace(v) for k, v in value.items()}
+            return {k: replace(v, k) for k, v in value.items()}
         if isinstance(value, list):
             return [replace(v) for v in value]
         return value

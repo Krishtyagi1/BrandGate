@@ -1,3 +1,30 @@
+## 31 October 2026 — public editable demo entry
+
+The user requested a login-page button using credentials loaded from AWS and chose
+editable documents plus AI checks/chat. Team management and rule activation stay
+blocked. Reuse the prepared fictional Northstar account, but issue org-bound
+creator-capability demo sessions rather than unrestricted owner sessions. Also
+block consent changes, joining/creating organisations and human approvals. Shared
+edits and chat are disclosed; only fictional sample data is appropriate.
+
+Use SSM SecureString `/buildgate/production/demo-login` in ap-south-1, read by the
+host's existing instance role with one exact parameter ARN. The startup/rollout
+loader writes a private mode-0600 file atomically into the existing app volume;
+the browser receives only a session cookie. No SDK/cloud credentials are added to
+the app image. A retrieval failure removes the cached credential and disables
+demo sign in while normal startup/deployment continues. Secrets refresh at
+startup/deployment, not on every click.
+
+Demo tokens have their own database registry and one-hour expiry, so older app
+rollbacks cannot mistake them for normal owner sessions. Existing demo sessions
+are not revoked merely by removing the AWS parameter. Normal authentication and
+existing consent/approval/isolation checks remain in force.
+
+Testing also exposed a pre-existing chat reliability issue: numeric portions of
+server-generated UUID references could be redacted and then fail validation.
+Exclude protocol identity fields from text redaction while still redacting
+document text, questions and excerpts; a deterministic regression covers both.
+
 ## 31 October 2026 — release the verified UI refresh
 
 The user's explicit “deploy” authorises committing/pushing the local UI refresh

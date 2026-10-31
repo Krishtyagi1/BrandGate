@@ -45,16 +45,21 @@ def current_user(request: Request):
         raise HTTPException(401, "Sign in to continue.")
     with transaction() as conn:
         user = conn.execute(
-            "SELECT u.id,u.email,u.name FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=%s AND s.expires_at>now()",
+            "SELECT u.id,u.email,u.name,s.demo_org_id FROM (SELECT token_hash,user_id,expires_at,NULL::uuid AS demo_org_id FROM sessions UNION ALL SELECT token_hash,user_id,expires_at,org_id AS demo_org_id FROM demo_sessions) s JOIN users u ON u.id=s.user_id WHERE s.token_hash=%s AND s.expires_at>now()",
             (digest(token),),
         ).fetchone()
     if not user:
         raise HTTPException(401, "Your session expired. Sign in again.")
+    from .demo_login import guard_demo_request
+
+    guard_demo_request(request, user)
     return user
 
 
 @contextmanager
 def org_transaction(user, org_id: UUID, owner=False):
+    if user.get("demo_org_id") and str(user["demo_org_id"]) != str(org_id):
+        raise HTTPException(404, "Organisation not found or access unavailable.")
     with transaction(user) as conn:
         member = conn.execute(
             "SELECT * FROM memberships WHERE org_id=%s AND user_id=%s AND status='active'",
@@ -69,6 +74,8 @@ def org_transaction(user, org_id: UUID, owner=False):
         ).fetchone()
         if not member:
             raise HTTPException(404, "Organisation not found or access unavailable.")
+        if user.get("demo_org_id"):
+            member = {**member, "role": "creator"}
         if owner and member["role"] != "owner":
             raise HTTPException(403, "Only the organisation owner can do this.")
         yield conn, member

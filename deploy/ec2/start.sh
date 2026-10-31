@@ -4,6 +4,10 @@ umask 077
 cd /opt/buildgate
 install -d -m 700 private /var/lib/buildgate/app /var/lib/buildgate/postgres /var/lib/buildgate/caddy
 install -d -m 755 /opt/buildgate/public/source
+if [[ -f private/demo-login-source.json ]]; then
+  python3 scripts/load-demo-credentials.py --source private/demo-login-source.json --output /var/lib/buildgate/app/demo-login.json \
+    || echo 'Demo sign-in unavailable; continuing normal application startup.' >&2
+fi
 
 # PostgreSQL drops privileges before traversing the mounted volume root.
 # Keep it private, but owned by the image's actual database user.

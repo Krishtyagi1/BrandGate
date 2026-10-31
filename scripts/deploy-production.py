@@ -113,6 +113,7 @@ def deploy(config, image, release):
         "--only-show-errors",
     )
     script = base64.b64encode((ROOT / "deploy/ec2/rollout.sh").read_bytes()).decode()
+    demo_loader = base64.b64encode((ROOT / "scripts/load-demo-credentials.py").read_bytes()).decode()
     folder = "/opt/buildgate/releases/" + release
     commands = "\n".join(
         [
@@ -136,6 +137,7 @@ def deploy(config, image, release):
             + " | base64 -d > "
             + folder
             + "/rollout.sh",
+            "printf %s " + shlex.quote(demo_loader) + " | base64 -d > " + folder + "/load-demo-credentials.py",
             "bash "
             + folder
             + "/rollout.sh "

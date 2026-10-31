@@ -5,6 +5,7 @@ from psycopg.errors import UniqueViolation
 
 from .config import COOKIE_SECURE, SESSION_SECONDS
 from .db import audit, set_org, transaction
+from .demo_login import credentials
 from .models import InviteInput, Login, MemberInput, OrganisationInput, Register, Token
 from .security import (
     User,
@@ -46,10 +47,21 @@ def login(body: Login, request: Request, response: Response):
         valid = passwords.verify(body.password, user["password_hash"] if user else dummy_hash)
         if not user or not valid:
             raise HTTPException(401, "Email or password is incorrect.")
-        token = random_token()
+        return create_session(conn, user, response)
+
+
+def create_session(conn, user, response, demo_org_id=None):
+    seconds = 3600 if demo_org_id else SESSION_SECONDS
+    token = random_token()
+    if demo_org_id:
+        conn.execute(
+            "INSERT INTO demo_sessions(token_hash,user_id,expires_at,org_id) VALUES (%s,%s,%s,%s)",
+            (digest(token), user["id"], expiry(seconds), demo_org_id),
+        )
+    else:
         conn.execute(
             "INSERT INTO sessions VALUES (%s,%s,%s)",
-            (digest(token), user["id"], expiry(SESSION_SECONDS)),
+            (digest(token), user["id"], expiry(seconds)),
         )
     response.set_cookie(
         "inkloom_session",
@@ -57,15 +69,50 @@ def login(body: Login, request: Request, response: Response):
         httponly=True,
         secure=COOKIE_SECURE,
         samesite="lax",
-        max_age=SESSION_SECONDS,
+        max_age=seconds,
         path="/",
     )
-    return {"id": user["id"], "name": user["name"], "email": user["email"]}
+    return {
+        "id": user["id"],
+        "name": user["name"],
+        "email": user["email"],
+        "demo_org_id": demo_org_id,
+    }
+
+
+@router.post("/auth/demo")
+def demo_login(request: Request, response: Response):
+    rate_limit(request, "demo-login", 10)
+    config = credentials()
+    with transaction() as conn:
+        user = conn.execute(
+            "SELECT * FROM users WHERE email=%s", (str(config.email).casefold(),)
+        ).fetchone()
+        valid = passwords.verify(
+            config.password.get_secret_value(), user["password_hash"] if user else dummy_hash
+        )
+        if not user or not valid:
+            raise HTTPException(503, "Demo sign-in is temporarily unavailable. Try again later.")
+    with transaction(user, config.org_id) as conn:
+        member = conn.execute(
+            "SELECT 1 FROM memberships WHERE org_id=%s AND user_id=%s AND status='active'",
+            (config.org_id, user["id"]),
+        ).fetchone()
+        if not member:
+            raise HTTPException(503, "Demo sign-in is temporarily unavailable. Try again later.")
+        audit(
+            conn, user["id"], config.org_id, "demo.session_created", "organisation", config.org_id
+        )
+        return create_session(conn, user, response, config.org_id)
 
 
 @router.post("/auth/logout")
 def logout(request: Request, response: Response):
     with transaction() as conn:
+        conn.execute(
+            "DELETE FROM demo_sessions WHERE token_hash=%s",
+            (digest(request.cookies.get("inkloom_session", "")),),
+        )
         conn.execute(
             "DELETE FROM sessions WHERE token_hash=%s",
             (digest(request.cookies.get("inkloom_session", "")),),
@@ -82,10 +129,13 @@ def me(user=User):
 @router.get("/organisations")
 def organisations(user=User):
     with transaction(user) as conn:
-        return conn.execute(
+        rows = conn.execute(
             "SELECT o.*,m.role FROM organisations o JOIN memberships m ON m.org_id=o.id WHERE m.user_id=%s AND m.status='active' ORDER BY o.created_at",
             (user["id"],),
         ).fetchall()
+        if user.get("demo_org_id"):
+            return [{**row, "role": "creator"} for row in rows if row["id"] == user["demo_org_id"]]
+        return rows
 
 
 @router.post("/organisations", status_code=201)
