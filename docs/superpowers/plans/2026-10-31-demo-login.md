@@ -24,7 +24,12 @@
 - [x] Add app/demo_login.py, migrations 007/008 and accounts/security integration. Host loader scripts/load-demo-credentials.py and deployment hooks retrieve the exact configured SecureString without printing it. Test loader validation and private permissions.
 - [x] Add the login button, shared-demo banner, restricted navigation and dashboard landing to auth.tsx/workspace.tsx; extend User contracts.
 - [x] Run npm run test:api, deployment tests, lint, typecheck/build and local browser checks. Record outcomes in docs/IMPLEMENTATION_STATUS.md and docs/DECISIONS.md.
-- [ ] Independent review of final change, fix important findings and re-run affected checks. Signed commit, then apply the authorised production rollout and verify public demo sign in.
+- [x] Independent review of final change, fix important findings and re-run affected checks. Signed commit, then apply the authorised production rollout and verify public demo sign in.
+
+Completed: 214 API tests, 13 deployment tests, Ruff, typecheck, Next.js build,
+ARM64 image build, native Chrome local and production button tests. SSM release
+passed internal/public health; both domains passed the auth/permissions/content
+smoke. See docs/IMPLEMENTATION_STATUS.md for release identifiers and actual limits.
 
 Ruling: continue in the existing folder because the recorded project preference explicitly forbids outside worktrees. Git rejects branch names beginning with `-`; use `demo-login` for this feature.
 

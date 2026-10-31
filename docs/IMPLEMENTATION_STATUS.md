@@ -23,10 +23,28 @@ safety, live review-stream session checks, and deterministic preservation of
 numeric protocol IDs during chat text redaction. Early failures and corrections
 are retained in ignored `.local/demo-*.log` test reports.
 
+**Deployed and publicly verified.** Signed app commit `ef237b0` was pushed to
+main/prod and released as
+`ef237b0b4f1343b1c9b4eec9dff4cdac67ef9d6a-1793410382`. SSM rollout command
+`04fd4447-5c2d-4eaa-b77e-0342d3c42b66` returned Success with internal and public
+HTTPS health passed. GitHub production checks also passed; its same-commit
+deployment job was still running when this checkpoint was recorded.
+
 AWS setup completed: SecureString created without logging its value; instance
 role granted only the exact parameter read; host source configuration command
-`70cf5381-d614-4e4a-b6b0-a8bf1fcf95be` returned Success. Production application
-rollout and public demo verification are pending at this checkpoint.
+`70cf5381-d614-4e4a-b6b0-a8bf1fcf95be` returned Success.
+
+Native Chrome production testing confirmed the visible button, one-click entry
+to the existing Northstar dashboard, creator role and shared-data notice. The
+public API smoke script passed on **both domains**: secure HttpOnly one-hour
+cookies; exact-organisation inventory; cross-organisation denial; rejected team,
+consent and rule changes; access to the prepared custom documents and saved chat;
+review SSE lifecycle; AI preview without submission; logout; and unchanged normal
+owner password login. The first smoke assertion incorrectly expected RUN_FINISHED
+from an intentionally incomplete saved review; it was corrected to accept its
+explicit RUN_ERROR lifecycle. No live AI request or document edit was performed
+in this release verification. Report: ignored
+`.local/deployment-aws/demo-login-public-smoke.json`.
 
 ## UI refresh release authorised — 31 October 2026
 
