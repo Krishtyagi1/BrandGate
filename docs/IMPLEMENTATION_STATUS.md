@@ -13,11 +13,21 @@ optimized WebP copies total 185,014 bytes. Full prompts and provenance are in
 
 Local `npm run typecheck`, `npm run build`, `git diff --check` and targeted
 Prettier formatting passed. Native Chrome confirmed the login artwork/buttons,
-demo sign-in, dashboard controls/table semantics and theme-toggle state. Further
-visual inspection was limited by native automation returning stale screenshots
-and `noWindowsAvailable` on scrolling; no Safari or mobile visual pass is claimed
-for this change. No backend or AI behaviour changed, and no implementation-only
-cosmetic tests were added. Production rollout is pending at this checkpoint.
+demo sign-in, dashboard controls/table semantics and theme-toggle state. Chrome
+automation then returned stale screenshots and `noWindowsAvailable` on scrolling.
+Safari access succeeded on retry: verified demo entry, matching search/select
+heights, focus ring, dropdown opening, bordered table actions and settled light
+and dark themes. The new-review form also retained properly sized text fields,
+selects, checkboxes and textareas. No mobile visual pass is claimed for this
+change. No backend or AI behaviour changed, and no implementation-only cosmetic
+tests were added. The user found the first treatment too faint, then specified
+translucent buttons with blurry artwork and restrained glass-like styling.
+Replaced the solid primary fill with translucent theme-aware surfaces, a softly
+blurred decorative layer, 1px borders, subtle inset sheen and backdrop blur.
+Art opacity is 65% on primary, 40% on secondary and 28% on quiet actions, with
+the complete asset fitted inside each button. Cancelled initial workflow
+`41164804572` during image building; its SSM rollout step was skipped. Production
+rollout of the revised treatment is pending at this checkpoint.
 
 ## Dashboard attention table — 31 October 2026
 

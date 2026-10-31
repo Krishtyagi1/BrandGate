@@ -78,61 +78,70 @@ input[type="file"]::file-selector-button {
   font-weight: 600;
   cursor: pointer;
 }
+/* A translucent surface with diffuse artwork, rather than an opaque fill. */
 .button:not(.word-editor *) {
+  --button-art: url("/art/button-halo.webp");
+  --button-art-opacity: 0.32;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-height: var(--control-height);
   padding: 9px 15px;
   border-radius: var(--control-radius);
-  border: 1px solid var(--line);
+  border: 1px solid color-mix(in srgb, var(--muted) 24%, transparent);
+  color: var(--ink);
   font-weight: 600;
   line-height: 1.45;
+  background: color-mix(in srgb, var(--surface) 68%, transparent);
   background-clip: padding-box;
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  backdrop-filter: blur(10px) saturate(1.1);
+  box-shadow:
+    inset 0 1px 0 #ffffff24,
+    0 1px 3px #14213a0a;
   transition:
     background-color 150ms ease,
     border-color 150ms ease,
     box-shadow 150ms ease;
 }
+.button:not(.word-editor *)::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -2px;
+  pointer-events: none;
+  background: var(--button-art) center / 100% 100% no-repeat;
+  filter: blur(4px);
+  opacity: var(--button-art-opacity);
+}
 .button.primary:not(.word-editor *) {
-  color: #fff;
-  border-color: #3557c3;
-  background-color: #3557c3;
-  background-image:
-    linear-gradient(#3557c3cc, #3557c3cc), url("/art/button-ribbon.webp");
-  background-position: center;
-  background-size: cover;
-  box-shadow:
-    inset 0 1px 0 #ffffff26,
-    0 2px 4px #203c831a;
+  --button-art: url("/art/button-ribbon.webp");
+  --button-art-opacity: 0.65;
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--accent) 48%, var(--line));
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
 }
 .button.primary:not(.word-editor *):hover:not(:disabled) {
-  border-color: #2949ad;
-  background-color: #2949ad;
-  filter: brightness(1.06);
+  filter: none;
+  background-color: color-mix(in srgb, var(--accent-soft) 76%, transparent);
+  border-color: var(--accent);
   box-shadow:
-    inset 0 1px 0 #ffffff26,
-    0 3px 8px #203c8326;
+    inset 0 1px 0 #ffffff30,
+    0 2px 6px #203c8314;
 }
 .button.secondary:not(.word-editor *) {
-  background-color: var(--surface);
-  background-image:
-    linear-gradient(
-      var(--surface),
-      color-mix(in srgb, var(--surface) 94%, transparent)
-    ),
-    url("/art/button-halo.webp");
-  background-size: cover;
-  background-position: center;
-  color: var(--ink);
-  box-shadow: 0 1px 2px #14213a08;
+  --button-art-opacity: 0.4;
 }
 .button.ghost:not(.word-editor *) {
-  background: var(--paper);
-  color: var(--ink);
-  border-color: var(--line);
+  --button-art-opacity: 0.28;
+  background-color: color-mix(in srgb, var(--surface) 40%, transparent);
 }
 .button:is(.secondary, .ghost):not(.word-editor *):hover:not(:disabled) {
-  background-color: var(--accent-soft);
+  background-color: color-mix(in srgb, var(--accent-soft) 72%, transparent);
   border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
-  box-shadow: 0 2px 5px #14213a0b;
+  box-shadow:
+    inset 0 1px 0 #ffffff24,
+    0 2px 5px #14213a0b;
 }
 .button.compact:not(.word-editor *) {
   min-height: 34px;
